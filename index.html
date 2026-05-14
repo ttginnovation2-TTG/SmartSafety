@@ -1,1646 +1,432 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Smart & Safety Workplace 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --primary: #1a3a5c;
-  --primary-light: #2563a8;
-  --accent: #f59e0b;
-  --accent2: #10b981;
-  --danger: #ef4444;
-  --cat1-bg: #dbeafe;
-  --cat1-border: #3b82f6;
-  --cat2-bg: #fefce8;
-  --cat2-border: #eab308;
-  --cat3-bg: #dcfce7;
-  --cat3-border: #22c55e;
-  --white: #ffffff;
-  --gray-50: #f8fafc;
-  --gray-100: #f1f5f9;
-  --gray-200: #e2e8f0;
-  --gray-300: #cbd5e1;
-  --gray-500: #64748b;
-  --gray-700: #334155;
-  --gray-900: #0f172a;
-  --shadow: 0 4px 20px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
-  --radius: 14px;
-  --radius-sm: 8px;
-  --font: 'Sarabun', sans-serif;
-  --font-display: 'Prompt', sans-serif;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Safety Workplace Assessment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: var(--font);
-  background: var(--gray-50);
-  color: var(--gray-900);
-  font-size: 15px;
-  line-height: 1.6;
-  min-height: 100vh;
-}
-
-/* ===== LAYOUT ===== */
-.app-shell { max-width: 900px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
-
-.top-bar {
-  background: var(--primary);
-  color: white;
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-}
-
-.top-bar h1 { font-family: var(--font-display); font-size: 16px; font-weight: 600; letter-spacing: 0.3px; }
-.top-bar .subtitle { font-size: 11px; opacity: 0.7; margin-top: 1px; }
-.top-bar .logo { display: flex; align-items: center; gap: 10px; }
-.top-bar .logo svg { width: 30px; height: 30px; }
-
-.nav-tabs {
-  display: flex;
-  background: var(--primary);
-  border-top: 1px solid rgba(255,255,255,0.15);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.nav-tabs::-webkit-scrollbar { display: none; }
-.nav-tab {
-  flex: 1;
-  min-width: 80px;
-  padding: 10px 12px;
-  text-align: center;
-  font-size: 12px;
-  color: rgba(255,255,255,0.65);
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: all 0.2s;
-  white-space: nowrap;
-  font-family: var(--font);
-  background: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-}
-.nav-tab.active { color: white; border-bottom-color: var(--accent); }
-.nav-tab:hover { color: white; background: rgba(255,255,255,0.08); }
-
-.page { display: none; flex: 1; padding: 20px; }
-.page.active { display: block; }
-
-/* ===== AUTOSAVE BAR ===== */
-.autosave-bar {
-  background: #e0f2fe;
-  border-bottom: 1px solid #bae6fd;
-  padding: 6px 20px;
-  font-size: 12px;
-  color: #0369a1;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.autosave-bar .dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-/* ===== CARDS ===== */
-.card {
-  background: white;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 20px;
-  margin-bottom: 16px;
-}
-.card-title {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.card-title .badge {
-  background: var(--primary);
-  color: white;
-  border-radius: 20px;
-  padding: 2px 10px;
-  font-size: 11px;
-  font-weight: 500;
-}
-
-/* ===== FORM ELEMENTS ===== */
-.form-group { margin-bottom: 14px; }
-.form-label {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--gray-700);
-  margin-bottom: 6px;
-}
-.form-label .required { color: var(--danger); margin-left: 3px; }
-.form-control {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1.5px solid var(--gray-200);
-  border-radius: var(--radius-sm);
-  font-size: 14px;
-  font-family: var(--font);
-  color: var(--gray-900);
-  background: var(--gray-50);
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.form-control:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(37,99,168,0.12); background: white; }
-.form-control.error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
-select.form-control { cursor: pointer; }
-textarea.form-control { min-height: 100px; resize: vertical; }
-
-/* ===== TEAM SELECTION ===== */
-.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.team-card {
-  border: 2px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 16px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: center;
-}
-.team-card:hover { border-color: var(--primary-light); background: #f0f7ff; }
-.team-card.selected { border-color: var(--primary); background: #e8f0fe; }
-.team-card .team-num { font-size: 28px; font-weight: 800; font-family: var(--font-display); color: var(--primary); }
-.team-card .team-label { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
-.team-card .team-count { font-size: 11px; color: var(--gray-500); margin-top: 6px; }
-
-/* ===== CATEGORY SECTIONS ===== */
-.cat-section {
-  border-radius: var(--radius);
-  margin-bottom: 16px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-}
-.cat-header {
-  padding: 14px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: default;
-}
-.cat-header h3 { font-family: var(--font-display); font-size: 14px; font-weight: 600; }
-.cat-score-badge {
-  background: rgba(0,0,0,0.12);
-  border-radius: 20px;
-  padding: 3px 12px;
-  font-size: 13px;
-  font-weight: 700;
-}
-.cat-body { padding: 16px; }
-
-.cat1 .cat-header { background: #bfdbfe; color: #1e3a5f; }
-.cat1 .cat-body { background: var(--cat1-bg); }
-.cat2 .cat-header { background: #fde68a; color: #713f12; }
-.cat2 .cat-body { background: var(--cat2-bg); }
-.cat3 .cat-header { background: #bbf7d0; color: #14532d; }
-.cat3 .cat-body { background: var(--cat3-bg); }
-
-/* ===== CRITERIA ITEMS ===== */
-.criteria-item {
-  background: white;
-  border-radius: var(--radius-sm);
-  margin-bottom: 12px;
-  overflow: hidden;
-  border: 1.5px solid var(--gray-200);
-  transition: border-color 0.2s;
-}
-.criteria-item.scored { border-color: #86efac; }
-.criteria-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 14px;
-  cursor: pointer;
-  gap: 10px;
-}
-.criteria-header:hover { background: var(--gray-50); }
-.criteria-num {
-  background: var(--primary);
-  color: white;
-  border-radius: 50%;
-  width: 26px;
-  height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-.criteria-name { font-size: 13px; font-weight: 600; flex: 1; }
-.criteria-status { font-size: 12px; color: var(--gray-500); white-space: nowrap; }
-.criteria-status.done { color: #16a34a; font-weight: 600; }
-.criteria-chevron { font-size: 14px; color: var(--gray-500); transition: transform 0.2s; flex-shrink: 0; }
-.criteria-body { padding: 0 14px 14px; display: none; }
-.criteria-item.open .criteria-chevron { transform: rotate(180deg); }
-.criteria-item.open .criteria-body { display: block; }
-
-/* ===== SCORE CRITERIA TABLE ===== */
-.criteria-grid { display: grid; gap: 8px; margin: 10px 0; }
-.criteria-band {
-  border: 1.5px solid var(--gray-200);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-}
-.criteria-band-header {
-  padding: 8px 12px;
-  font-weight: 700;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.criteria-band.band-1 .criteria-band-header { background: #fee2e2; color: #991b1b; }
-.criteria-band.band-2 .criteria-band-header { background: #fef9c3; color: #854d0e; }
-.criteria-band.band-3 .criteria-band-header { background: #dbeafe; color: #1e40af; }
-.criteria-band.band-4 .criteria-band-header { background: #dcfce7; color: #14532d; }
-.criteria-band-desc { padding: 8px 12px; font-size: 12px; color: var(--gray-700); background: white; line-height: 1.5; }
-
-/* ===== SCORE SELECTOR ===== */
-.score-selector { margin-top: 12px; }
-.score-label { font-size: 12px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px; }
-
-.score-options-cat1 { display: grid; grid-template-columns: repeat(8,1fr); gap: 4px; }
-.score-options-cat2, .score-options-cat3 { display: grid; grid-template-columns: repeat(5,1fr); gap: 4px; }
-
-.score-btn {
-  aspect-ratio: 1;
-  border: 2px solid var(--gray-200);
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  background: white;
-  color: var(--gray-500);
-  transition: all 0.15s;
-  font-family: var(--font);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.score-btn:hover { border-color: var(--primary-light); color: var(--primary); background: #f0f7ff; }
-.score-btn.selected { background: var(--primary); border-color: var(--primary); color: white; }
-
-/* ===== SUMMARY ===== */
-.summary-card {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-  color: white;
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 16px;
-}
-.summary-card h3 { font-family: var(--font-display); margin-bottom: 14px; font-size: 15px; }
-.summary-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; text-align: center; }
-.summary-item { background: rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 6px; }
-.summary-item .val { font-size: 24px; font-weight: 800; font-family: var(--font-display); }
-.summary-item .lbl { font-size: 11px; opacity: 0.8; margin-top: 2px; }
-.summary-total { text-align: center; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.2); }
-.summary-total .big { font-size: 40px; font-weight: 800; font-family: var(--font-display); }
-.summary-total .lbl { font-size: 13px; opacity: 0.8; }
-
-/* ===== BUTTONS ===== */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 11px 20px;
-  border-radius: var(--radius-sm);
-  font-family: var(--font);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s;
-  text-decoration: none;
-}
-.btn-primary { background: var(--primary); color: white; }
-.btn-primary:hover { background: var(--primary-light); }
-.btn-success { background: #16a34a; color: white; }
-.btn-success:hover { background: #15803d; }
-.btn-warning { background: var(--accent); color: white; }
-.btn-warning:hover { background: #d97706; }
-.btn-danger { background: var(--danger); color: white; }
-.btn-danger:hover { background: #dc2626; }
-.btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
-.btn-outline:hover { background: #f0f7ff; }
-.btn-sm { padding: 7px 14px; font-size: 12px; }
-.btn-full { width: 100%; }
-.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
-
-/* ===== IMAGE UPLOAD ===== */
-.upload-zone {
-  border: 2px dashed var(--gray-300);
-  border-radius: var(--radius-sm);
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: var(--gray-50);
-}
-.upload-zone:hover { border-color: var(--primary-light); background: #f0f7ff; }
-.upload-zone .icon { font-size: 28px; margin-bottom: 8px; }
-.upload-zone p { font-size: 13px; color: var(--gray-500); }
-.upload-preview { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px,1fr)); gap: 8px; margin-top: 12px; }
-.preview-thumb { position: relative; border-radius: var(--radius-sm); overflow: hidden; aspect-ratio: 1; }
-.preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.preview-thumb .del { position: absolute; top: 3px; right: 3px; background: rgba(239,68,68,0.9); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-
-/* ===== LIST PAGE ===== */
-.search-bar { display: flex; gap: 8px; margin-bottom: 16px; }
-.search-bar .form-control { flex: 1; }
-.record-card {
-  background: white;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  border-left: 4px solid var(--primary);
-  cursor: pointer;
-  transition: box-shadow 0.2s;
-}
-.record-card:hover { box-shadow: var(--shadow-lg); }
-.record-card .rc-title { font-weight: 700; font-size: 14px; color: var(--primary); }
-.record-card .rc-meta { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
-.record-card .rc-scores { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
-.score-pill { padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-.pill-blue { background: #dbeafe; color: #1d4ed8; }
-.pill-yellow { background: #fef9c3; color: #a16207; }
-.pill-green { background: #dcfce7; color: #15803d; }
-.pill-gray { background: var(--gray-100); color: var(--gray-700); }
-.rc-actions { display: flex; gap: 6px; margin-top: 10px; }
-.empty-state { text-align: center; padding: 60px 20px; color: var(--gray-500); }
-.empty-state .icon { font-size: 48px; margin-bottom: 12px; }
-
-/* ===== VIEW/REPORT PAGE ===== */
-.view-header { background: var(--primary); color: white; border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
-.view-header h2 { font-family: var(--font-display); font-size: 18px; }
-.view-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-.view-meta-item { background: rgba(255,255,255,0.12); border-radius: var(--radius-sm); padding: 10px; }
-.view-meta-item .lbl { font-size: 11px; opacity: 0.7; }
-.view-meta-item .val { font-size: 13px; font-weight: 600; margin-top: 2px; }
-
-.criteria-result-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--gray-100);
-  gap: 12px;
-}
-.criteria-result-row:last-child { border-bottom: none; }
-.cr-name { font-size: 13px; font-weight: 500; flex: 1; }
-.cr-score { font-size: 16px; font-weight: 800; font-family: var(--font-display); color: var(--primary); white-space: nowrap; }
-
-/* ===== TOAST ===== */
-.toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; width: 90%; max-width: 400px; }
-.toast {
-  padding: 12px 18px;
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  font-weight: 500;
-  box-shadow: var(--shadow-lg);
-  animation: slideUp 0.3s ease;
-  pointer-events: all;
-}
-.toast-success { background: #16a34a; color: white; }
-.toast-error { background: var(--danger); color: white; }
-.toast-info { background: var(--primary); color: white; }
-@keyframes slideUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
-
-/* ===== ALERT ===== */
-.alert { padding: 12px 16px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 12px; }
-.alert-danger { background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; }
-.alert-info { background: #dbeafe; border: 1px solid #93c5fd; color: #1e40af; }
-
-/* ===== REPORT PRINT ===== */
-@media print {
-  .top-bar, .nav-tabs, .autosave-bar, .btn, .btn-group, .search-bar, .nav-tab, .rc-actions { display: none !important; }
-  .page { display: block !important; padding: 0; }
-  .app-shell { max-width: 100%; }
-  .report-page-break { page-break-before: always; }
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
-  .team-grid { grid-template-columns: 1fr 1fr; }
-  .summary-grid { grid-template-columns: 1fr 1fr 1fr; }
-  .score-options-cat1 { grid-template-columns: repeat(4,1fr); }
-  .view-meta { grid-template-columns: 1fr; }
-  .page { padding: 14px; }
-}
-
-.divider { height: 1px; background: var(--gray-200); margin: 16px 0; }
-.flex-between { display: flex; justify-content: space-between; align-items: center; }
-.text-sm { font-size: 12px; color: var(--gray-500); }
-.text-center { text-align: center; }
-.mt-8 { margin-top: 8px; }
-.mt-12 { margin-top: 12px; }
-.mt-16 { margin-top: 16px; }
-
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
-.modal-overlay.open { display: flex; }
-.modal { background: white; border-radius: var(--radius); max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto; }
-.modal-header { padding: 16px 20px; border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center; }
-.modal-body { padding: 20px; }
-.modal-footer { padding: 16px 20px; border-top: 1px solid var(--gray-200); display: flex; gap: 8px; justify-content: flex-end; }
-
-.info-chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; background: #e0f2fe; color: #0369a1; border-radius: 20px; font-size: 11px; font-weight: 600; }
-</style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');
+        body { font-family: 'Sarabun', sans-serif; background-color: #f0f9ff; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .bg-5s { background-color: #e0f2fe; } /* Blue */
+        .bg-safety { background-color: #fef9c3; } /* Yellow */
+        .bg-innovation { background-color: #dcfce7; } /* Green */
+        .card { border-radius: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); margin-bottom: 1rem; }
+        .hidden-section { display: none; }
+        input[type="number"] { width: 60px; text-align: center; border: 1px solid #cbd5e1; border-radius: 5px; }
+    </style>
 </head>
 <body>
 
-<div class="app-shell">
-  <!-- TOP BAR -->
-  <div class="top-bar">
-    <div class="logo">
-      <svg viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="18" fill="rgba(255,255,255,0.15)"/>
-        <path d="M20 8L28 14V22C28 27 24 31 20 33C16 31 12 27 12 22V14L20 8Z" fill="rgba(255,255,255,0.9)" opacity="0.8"/>
-        <path d="M16 20L19 23L25 17" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <div>
-        <div style="font-family:var(--font-display);font-size:15px;font-weight:700">Smart & Safety Workplace</div>
-        <div class="subtitle">ระบบประเมินกิจกรรม 2026</div>
-      </div>
-    </div>
-    <div class="info-chip" id="headerTeamBadge" style="display:none"></div>
-  </div>
+<div class="max-w-4xl mx-auto p-4">
+    <header class="text-center mb-6">
+        <h1 class="text-2xl font-bold text-blue-600">Smart Safety Workplace Assessment</h1>
+        <p id="autoSaveLabel" class="text-xs text-gray-500 italic mt-1"></p>
+    </header>
 
-  <!-- AUTOSAVE BAR -->
-  <div class="autosave-bar" id="autosaveBar">
-    <div class="dot"></div>
-    <span id="autosaveText">พร้อมใช้งาน</span>
-  </div>
+    <section id="page1" class="page active">
+        <div class="bg-white p-6 card">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700"><i class="fas fa-user-shield mr-2"></i>ข้อมูลผู้ประเมิน</h2>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1">เลือกทีมประเมิน</label>
+                <select id="teamSelect" class="w-full p-2 border rounded" onchange="updateEvaluatorDropdown()">
+                    <option value="">-- เลือกทีม --</option>
+                    <option value="1">ทีมประเมินที่ 1</option>
+                    <option value="2">ทีมประเมินที่ 2</option>
+                </select>
+            </div>
 
-  <!-- NAV TABS -->
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showPage('setup')">⚙️ ตั้งค่า</button>
-    <button class="nav-tab" onclick="showPage('assess')">📋 ประเมิน</button>
-    <button class="nav-tab" onclick="showPage('list')">📂 รายการ</button>
-    <button class="nav-tab" onclick="showPage('report')">📊 รายงาน</button>
-  </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1">ผู้ประเมิน</label>
+                <select id="evaluatorSelect" class="w-full p-2 border rounded">
+                    <option value="">-- กรุณาเลือกทีมก่อน --</option>
+                </select>
+            </div>
 
-  <!-- ======================== PAGE: SETUP ======================== -->
-  <div class="page active" id="page-setup">
-    <div class="card">
-      <div class="card-title">
-        <span>🏷️</span> เลือกทีมคณะกรรมการ
-      </div>
-      <div class="team-grid">
-        <div class="team-card" id="team1Card" onclick="selectTeam(1)">
-          <div class="team-num">1</div>
-          <div class="team-label">ทีมที่ 1</div>
-          <div class="team-count">👥 7 คน · 19 พื้นที่ตรวจ</div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1">วันที่ประเมิน</label>
+                <input type="date" id="evalDate" class="w-full p-2 border rounded">
+            </div>
+
+            <button onclick="saveInitialData()" class="w-full bg-blue-500 text-white py-3 rounded-lg font-bold hover:bg-blue-600 transition shadow-lg">
+                บันทึกข้อมูลผู้ประเมิน <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            
+            <button onclick="goToPage(3)" class="w-full mt-4 bg-gray-100 text-gray-600 py-2 rounded-lg text-sm border hover:bg-gray-200">
+                <i class="fas fa-list mr-2"></i>ดูรายการที่บันทึกแล้ว
+            </button>
         </div>
-        <div class="team-card" id="team2Card" onclick="selectTeam(2)">
-          <div class="team-num">2</div>
-          <div class="team-label">ทีมที่ 2</div>
-          <div class="team-count">👥 7 คน · 17 พื้นที่ตรวจ</div>
+    </section>
+
+    <section id="page2" class="page">
+        <button onclick="goToPage(1)" class="mb-4 text-blue-600 font-semibold"><i class="fas fa-chevron-left mr-1"></i> กลับ</button>
+        
+        <div class="bg-white p-4 card border-l-4 border-blue-500">
+            <label class="block font-bold mb-2">ส่วนที่ 1: เลือกพื้นที่ตรวจประเมิน</label>
+            <select id="areaSelect" class="w-full p-2 border rounded bg-gray-50"></select>
         </div>
-      </div>
-    </div>
 
-    <!-- MEMBER PREVIEW -->
-    <div class="card" id="memberPreviewCard" style="display:none">
-      <div class="card-title">👥 รายชื่อกรรมการในทีม</div>
-      <div id="memberPreviewList" style="display:grid;gap:6px"></div>
-    </div>
+        <form id="evaluationForm">
+            <div class="bg-5s p-4 card">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="font-bold text-blue-800">หมวดที่ 1: มาตรฐาน 5ส</h3>
+                    <span class="text-sm font-bold bg-white px-2 py-1 rounded">รวม: <span id="sum5s">0</span></span>
+                </div>
+                <div id="container5s" class="space-y-3"></div>
+            </div>
 
-    <div class="card">
-      <div class="card-title">👤 ข้อมูลผู้ประเมิน</div>
-      <div class="form-group">
-        <label class="form-label">ชื่อผู้ประเมิน <span class="required">*</span></label>
-        <select class="form-control" id="evaluatorSelect" onchange="onEvaluatorChange(this)">
-          <option value="">-- เลือกชื่อผู้ประเมิน --</option>
-        </select>
-        <div style="margin-top:6px;font-size:11px;color:var(--gray-500)">
-          💡 รายชื่อจะเปลี่ยนตามทีมที่เลือกด้านบน
+            <div class="bg-safety p-4 card">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="font-bold text-yellow-800">หมวดที่ 2: ความปลอดภัยขั้นพื้นฐาน</h3>
+                    <span class="text-sm font-bold bg-white px-2 py-1 rounded">รวม: <span id="sumSafety">0</span></span>
+                </div>
+                <div id="containerSafety" class="space-y-3"></div>
+            </div>
+
+            <div class="bg-innovation p-4 card">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="font-bold text-green-800">หมวดที่ 3: นวัตกรรมและความคิดสร้างสรรค์</h3>
+                    <span class="text-sm font-bold bg-white px-2 py-1 rounded">รวม: <span id="sumInnovation">0</span></span>
+                </div>
+                <div id="containerInnovation" class="space-y-3"></div>
+            </div>
+
+            <div class="bg-white p-4 card">
+                <label class="block font-bold mb-2 text-gray-700">ส่วนที่ 5: รายละเอียดเพิ่มเติม/ข้อเสนอแนะ</label>
+                <textarea id="moreDetails" class="w-full p-2 border rounded h-24" placeholder="ระบุสิ่งที่พบเจอ..."></textarea>
+            </div>
+
+            <div class="bg-white p-4 card">
+                <label class="block font-bold mb-2 text-gray-700">ส่วนที่ 6: แนบไฟล์รูปภาพ (สูงสุด 7 รูป)</label>
+                <input type="file" id="imageUpload" multiple accept="image/*" class="w-full text-sm" onchange="handleImageUpload(this)">
+                <div id="imagePreview" class="flex flex-wrap gap-2 mt-2"></div>
+            </div>
+
+            <div class="bg-blue-600 p-6 card text-white text-center">
+                <p class="text-lg">สรุปคะแนนรวมทั้งหมด</p>
+                <h2 class="text-4xl font-bold mt-1" id="totalScore">0</h2>
+                <button type="button" onclick="submitEvaluation()" class="mt-4 bg-white text-blue-600 px-8 py-3 rounded-full font-bold text-lg shadow-xl hover:bg-gray-100 w-full">
+                    <i class="fas fa-save mr-2"></i> บันทึกข้อมูล
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <section id="page3" class="page">
+        <div class="flex justify-between items-center mb-4">
+            <button onclick="goToPage(1)" class="text-blue-600 font-semibold"><i class="fas fa-home mr-1"></i> หน้าแรก</button>
+            <h2 class="text-xl font-bold">รายการประเมิน</h2>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">วันที่ประเมิน <span class="required">*</span></label>
-        <input type="date" class="form-control" id="evalDate">
-      </div>
-    </div>
 
-    <button class="btn btn-primary btn-full" onclick="saveSetupAndGo()">
-      💾 บันทึกการตั้งค่า และเริ่มประเมิน →
-    </button>
-  </div>
-
-  <!-- ======================== PAGE: ASSESS ======================== -->
-  <div class="page" id="page-assess">
-
-    <!-- SECTION 1: เลือกพื้นที่ -->
-    <div class="card">
-      <div class="card-title">📍 เลือกพื้นที่การประเมิน</div>
-      <div class="form-group">
-        <label class="form-label">พื้นที่ <span class="required">*</span></label>
-        <select class="form-control" id="areaSelect">
-          <option value="">-- เลือกพื้นที่ --</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">ทีม / ผู้ประเมิน</label>
-        <div id="assessInfoDisplay" style="padding:8px;background:var(--gray-50);border-radius:6px;font-size:13px;color:var(--gray-700);">-</div>
-      </div>
-    </div>
-
-    <!-- SECTION 2: หมวดที่ 1 (5ส) -->
-    <div class="cat-section cat1" id="cat1section">
-      <div class="cat-header">
-        <h3>📋 หมวดที่ 1 : การปรับปรุงตามมาตรฐาน 5ส</h3>
-        <div class="cat-score-badge">รวม: <span id="cat1total">0</span>/40</div>
-      </div>
-      <div class="cat-body" id="cat1body"></div>
-    </div>
-
-    <!-- SECTION 3: หมวดที่ 2 (ความปลอดภัย) -->
-    <div class="cat-section cat2" id="cat2section">
-      <div class="cat-header">
-        <h3>🛡️ หมวดที่ 2 : ความปลอดภัยขั้นพื้นฐาน</h3>
-        <div class="cat-score-badge">รวม: <span id="cat2total">0</span>/40</div>
-      </div>
-      <div class="cat-body" id="cat2body"></div>
-    </div>
-
-    <!-- SECTION 4: หมวดที่ 3 (นวัตกรรม) -->
-    <div class="cat-section cat3" id="cat3section">
-      <div class="cat-header">
-        <h3>💡 หมวดที่ 3 : นวัตกรรมและความคิดสร้างสรรค์</h3>
-        <div class="cat-score-badge">รวม: <span id="cat3total">0</span>/20</div>
-      </div>
-      <div class="cat-body" id="cat3body"></div>
-    </div>
-
-    <!-- SECTION 5: บันทึกเพิ่มเติม -->
-    <div class="card">
-      <div class="card-title">📝 รายละเอียดเพิ่มเติมจากการประเมิน</div>
-      <textarea class="form-control" id="extraNote" placeholder="บันทึกข้อสังเกต รายละเอียดที่พบเจอ หรือข้อเสนอแนะเพิ่มเติม..."></textarea>
-    </div>
-
-    <!-- SECTION 6: แนบรูป -->
-    <div class="card">
-      <div class="card-title">📷 แนบรูปภาพประกอบ <span class="text-sm">(สูงสุด 7 ไฟล์)</span></div>
-      <div class="upload-zone" onclick="document.getElementById('imageInput').click()">
-        <div class="icon">📁</div>
-        <p>แตะเพื่อเลือกรูปภาพ<br><span style="font-size:11px">รองรับ JPG, PNG, HEIC (สูงสุด 7 ไฟล์)</span></p>
-      </div>
-      <input type="file" id="imageInput" accept="image/*" multiple style="display:none" onchange="handleImages(this)">
-      <div class="upload-preview" id="uploadPreview"></div>
-    </div>
-
-    <!-- SECTION 7: สรุปคะแนนรวม -->
-    <div class="summary-card">
-      <h3>🏆 สรุปคะแนนรวมทั้งหมด</h3>
-      <div class="summary-grid">
-        <div class="summary-item">
-          <div class="val" id="s1disp">0</div>
-          <div class="lbl">หมวด 1 (5ส)<br>/40 คะแนน</div>
+        <div class="bg-white p-4 card flex flex-col md:flex-row gap-2">
+            <input type="text" id="searchArea" placeholder="ค้นหาพื้นที่..." class="p-2 border rounded flex-1">
+            <input type="text" id="searchEvaluator" placeholder="ค้นหาผู้ประเมิน..." class="p-2 border rounded flex-1">
+            <button onclick="renderRecordList()" class="bg-blue-500 text-white px-4 py-2 rounded"><i class="fas fa-search"></i></button>
         </div>
-        <div class="summary-item">
-          <div class="val" id="s2disp">0</div>
-          <div class="lbl">หมวด 2 (ปลอดภัย)<br>/40 คะแนน</div>
+
+        <div class="flex flex-wrap gap-2 mb-4">
+            <button onclick="exportToExcel()" class="bg-green-600 text-white px-3 py-2 rounded text-sm flex-1"><i class="fas fa-file-excel mr-1"></i> Excel</button>
+            <button onclick="exportToWord()" class="bg-blue-800 text-white px-3 py-2 rounded text-sm flex-1"><i class="fas fa-file-word mr-1"></i> สรุปรายงาน (Word)</button>
         </div>
-        <div class="summary-item">
-          <div class="val" id="s3disp">0</div>
-          <div class="lbl">หมวด 3 (นวัตกรรม)<br>/20 คะแนน</div>
-        </div>
-      </div>
-      <div class="summary-total">
-        <div class="big" id="grandTotal">0</div>
-        <div class="lbl">คะแนนรวมทั้งหมด / 100 คะแนน</div>
-      </div>
-    </div>
 
-    <div id="validationAlert" class="alert alert-danger" style="display:none"></div>
-
-    <div class="btn-group mt-8">
-      <button class="btn btn-success btn-full" onclick="saveRecord()">
-        💾 บันทึกข้อมูล
-      </button>
-    </div>
-    <div class="text-sm text-center mt-8" id="recordIdDisplay"></div>
-  </div>
-
-  <!-- ======================== PAGE: LIST ======================== -->
-  <div class="page" id="page-list">
-    <div class="search-bar">
-      <input type="text" class="form-control" id="searchInput" placeholder="🔍 ค้นหาพื้นที่หรือผู้ประเมิน..." oninput="renderList()">
-    </div>
-    <div class="flex-between mb-8">
-      <div class="text-sm" id="listCount"></div>
-      <div class="btn-group">
-        <button class="btn btn-success btn-sm" onclick="exportExcel()">📊 ส่งออก Excel</button>
-        <button class="btn btn-outline btn-sm" onclick="newAssessment()">➕ ประเมินใหม่</button>
-      </div>
-    </div>
-    <div id="listContainer"></div>
-  </div>
-
-  <!-- ======================== PAGE: REPORT ======================== -->
-  <div class="page" id="page-report">
-    <div class="flex-between mb-12">
-      <h2 style="font-family:var(--font-display);font-size:16px;color:var(--primary)">📊 สรุปรายงาน</h2>
-      <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ พิมพ์รายงาน</button>
-    </div>
-    <div id="reportContainer"></div>
-  </div>
-
-</div><!-- end app-shell -->
-
-<!-- TOAST -->
-<div class="toast-container" id="toastContainer"></div>
-
-<!-- VIEW MODAL -->
-<div class="modal-overlay" id="viewModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h3 style="font-family:var(--font-display);font-size:15px">ดูรายละเอียดการประเมิน</h3>
-      <button onclick="closeModal('viewModal')" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--gray-500)">✕</button>
-    </div>
-    <div class="modal-body" id="viewModalBody"></div>
-    <div class="modal-footer">
-      <button class="btn btn-outline btn-sm" onclick="closeModal('viewModal')">ปิด</button>
-    </div>
-  </div>
-</div>
-
-<!-- CONFIRM DELETE MODAL -->
-<div class="modal-overlay" id="deleteModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h3 style="font-family:var(--font-display);font-size:15px;color:var(--danger)">⚠️ ยืนยันการลบ</h3>
-    </div>
-    <div class="modal-body">
-      <p>ต้องการลบรายการประเมินนี้ใช่หรือไม่? ไม่สามารถกู้คืนได้</p>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline btn-sm" onclick="closeModal('deleteModal')">ยกเลิก</button>
-      <button class="btn btn-danger btn-sm" onclick="confirmDelete()">ลบข้อมูล</button>
-    </div>
-  </div>
+        <div id="recordList" class="space-y-3">
+            </div>
+    </section>
 </div>
 
 <script>
-// ===== DATA =====
-const STORAGE_KEY = 'SmartSafetyWorkplaceAssessmentData';
-const DRAFT_KEY = 'SmartSafetyWorkplaceDraft';
-const SETUP_KEY = 'SmartSafetyWorkplaceSetup';
-
-// ===== รายชื่อกรรมการแต่ละทีม =====
-const TEAM1_MEMBERS = [
-  'จิรัฏฐ์ เลียวกิจสิริ',
-  'ยุทธนันท์ อังกูรสุทธิพันธ์',
-  'วิชเลิศ กลิ่นถือศิล',
-  'สลักใจ แพงศรี',
-  'วุฒิภัทร ภิรมย์สุข',
-  'สุมิตรา แจ่มถนอม',
-  'กาญจนา พรกมลวรรณ',
-];
-
-const TEAM2_MEMBERS = [
-  'พลัฏฐ์ เลียวกิจสิริ',
-  'ชาตรี บุษราคัมกุล',
-  'เอกราช คล้ายแจ้ง',
-  'อานนท์ สามพ่วงบุญ',
-  'สัญชัย ฉิมอ่อง',
-  'พรพรรณ พงศ์ทองผาสุข',
-  'ชัชชญา คัณฑเขตต์',
-];
-
-const TEAM1_AREAS = [
-  '1. เจาะบาก (คุณอดิเรก อ่ำแจ่ม)',
-  '2. ตัดและพื้นที่จอดแร๊ค (คุณอิสเรท อยู่มั่น)',
-  '3. คลังกระจกและพื้นที่จอดแร๊ค (คุณจิรวัฒน์ น้อยจีน)',
-  '5. เทมเปอร์ใหญ่ (คุณวิโรจน์ นรินทร์)',
-  '6. เจียรตั้ง (คุณสลักใจ แพงศรี)',
-  '7. เจียรนอน (คุณสลักใจ แพงศรี)',
-  '8. Insulate (คุณชาตรี บุษราคัมกุล)',
-  '10. Packing (คุณวิโรจน์ นรินทร์)',
-  '11. จัดส่ง Zone 1 (คุณหรรษา เอมเจริญ)',
-  '12. จัดส่ง Zone 2 (คุณอานนท์ สามพ่วงบุญ)',
-  '13. ประกบลายผ้า/SPL (คุณปรีชา ชาฎา)',
-  '14. ประกบ Bagging (คุณนันทพล ธรรมประกอบ)',
-  '15. ประกบ-Auto (คุณนันทพล ธรรมประกอบ)',
-  '16. ถังอัด (คุณพีรพล ตรีเพชร)',
-  '17. ดัดโค้ง (คุณอาทิตย์ สืบพันธ์โกย)',
-  '18. ตัดฟิล์ม+ประกบมือ (คุณกมลณิชา ทองมณโฑ)',
-  '19. CNC (คุณอดิเรก อ่ำแจ่ม)',
-  '20. CERAMIC FRIT-พ่นสี-สกรีน (คุณชาตรี บุษราคัมกุล)',
-  '21. พิกเซล-พ่นทรายและเคลือบผิว (คุณสมเจตน์ เซี่ยงหวอง)',
-];
-
-const TEAM2_AREAS = [
-  '1. ประกันคุณภาพ (คุณสรวิชญ์ พงษ์เสถียรศักดิ์)',
-  '2. QA (คุณวินัย เปี้ยวเฉียน)',
-  '3. วางแผน (คุณสุพจน์ เปลียวปลอด)',
-  '4. พัฒนากระบวนการ-ผลิต (คุณอภิรัตน์ รุ่งเรือง)',
-  '5. คลังสินค้า (คุณเอกราช คล้ายแจ้ง)',
-  '6. คลังผ้า (คุณเอกราช คล้ายแจ้ง)',
-  '7. วิศวกรรม (คุณธนวิสุทธิ์ จูเกษม)',
-  '8. Shop วิศวกรรม (คุณธนวิสุทธิ์ จูเกษม)',
-  '9. แบบมาตรฐาน (คุณวัลภา มณีรัตน์)',
-  '10. Generate (คุณสุรศักดิ์ เพียรประดิษฐกุล)',
-  '11. ทรัพยากรบุคคล (คุณชญาดา ละอองดี)',
-  '12. MIS (คุณอานนท์ แก้วภักดี)',
-  '13. ขาย (คุณณฐภัทร ภิญโญสรรพกิจ)',
-  '14. จัดซื้อ (คุณพีณะ รุ่งพรมา)',
-  '15. บัญชีการเงิน (คุณอัมภวรรณ ไม้โคกสูง)',
-  '16. นวัตกรรม (คุณอภิชาต แก้วเจริญ)',
-  '17. โรงอาหาร (คุณมนทิพ ปานทน)',
-];
-
-const CAT1_CRITERIA = [
-  {
-    name: '1. สะสาง (Seiri)',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'พบของไม่จำเป็น ขยะ หรือของเสีย วางปะปนกับของใช้งานในปริมาณมาก' },
-      { range: '3-4 คะแนน (พอใช้)', desc: 'เริ่มแยกของไม่จำเป็นออกบ้าง แต่ยังไม่มีการติดป้าย Tag หรือจุดพักของที่ชัดเจน' },
-      { range: '5-6 คะแนน (ดี/ตามมาตรฐาน)', desc: 'แยกของชัดเจน มีการติดป้าย Tag มีแผนการกำจัดของที่ไม่ได้ใช้' },
-      { range: '7-8 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'ไม่มีของไม่จำเป็นในพื้นที่ มีระบบจัดการของรอทิ้ง/บริจาคอย่างต่อเนื่อง เป็นระบบ' },
-    ], max: 8
-  },
-  {
-    name: '2. สะดวก (Seiton)',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'ของวางระเกะระกะ ไม่มีตำแหน่งที่ตั้งแน่นอน ไม่มีป้ายชื่อหรือสัญลักษณ์ใดๆ' },
-      { range: '3-4 คะแนน (พอใช้)', desc: 'มีที่วางชัดเจนบางส่วน แต่ยังไม่มีป้ายชื่อหรือสัญลักษณ์ ทำให้หาของยากหรือเสียเวลา' },
-      { range: '5-6 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีป้ายชื่อ ตีเส้นหรือขอบเขตชัดเจน ค้นหาของได้รวดเร็ว แต่อาจยังไม่สะดวก 100%' },
-      { range: '7-8 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'มี Location Index ชัดเจน หยิบง่าย-วางคืนที่เดิมได้ถูกต้อง 100% แม้คนนอกพื้นที่มาใช้' },
-    ], max: 8
-  },
-  {
-    name: '3. สะอาด (Seiso)',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'พื้นและอุปกรณ์มีฝุ่นหนา มีคราบสกปรกสะสม หรือมีร่องรอยการรั่วซึม ของน้ำมัน/สารเคมี' },
-      { range: '3-4 คะแนน (พอใช้)', desc: 'ทำความสะอาดเฉพาะจุดที่มองเห็นง่าย แต่ตามซอกมุมหรือหลังตู้ ยังมีฝุ่นและสิ่งสกปรก' },
-      { range: '5-6 คะแนน (ดี/ตามมาตรฐาน)', desc: 'พื้นที่และอุปกรณ์การทำงานส่วนใหญ่สะอาด จัดเก็บเป็นระเบียบ' },
-      { range: '7-8 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'พื้นที่ทุกจุดสะอาดเงางาม (รวมถึงจุดอับสายตา) อุปกรณ์ทำความสะอาดจัดเก็บเป็นระเบียบ มีตารางเวรทำความสะอาด' },
-    ], max: 8
-  },
-  {
-    name: '4. สุขลักษณะ (Seiketsu)',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'มีฝุ่น กลิ่น หรือความสกปรกสะสม ไม่ได้ถูกทำความสะอาดอย่างทั่วถึง' },
-      { range: '3-4 คะแนน (พอใช้)', desc: 'เริ่มมีการกำหนดมาตรฐานการจัดการพื้นที่บ้าง ในบางจุด แต่พื้นที่ส่วนใหญ่ยังไม่ได้ถูกจัดการ' },
-      { range: '5-6 คะแนน (ดี/ตามมาตรฐาน)', desc: 'พื้นที่ทำงานส่วนใหญ่มีมาตรฐานกำหนดหรือป้ายบ่งชี้ มีผู้รับผิดชอบชัดเจน เช่น การจัดวางอุปกรณ์ทำความสะอาด จุดทิ้งขยะ' },
-      { range: '7-8 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'พื้นที่ทำงานมีการควบคุมและกำหนดเป็นมาตรฐานในทุกจุด เพื่อให้พนักงานปฏิบัติได้เป็นนิสัยอย่างต่อเนื่อง เช่น Checklist, ป้ายบ่งชี้ ผู้รับผิดชอบ' },
-    ], max: 8
-  },
-  {
-    name: '5. สร้างนิสัย (Shitsuke)',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'ไม่มีตารางเวรทำความสะอาด หรือมีแต่ไม่มีการปฏิบัติจริง พนักงานขาดความร่วมมือ' },
-      { range: '3-4 คะแนน (พอใช้)', desc: 'มีบันทึกการทำความสะอาด แต่การทำความสะอาดยังไม่สม่ำเสมอ ต้องมีคนคอยเตือน' },
-      { range: '5-6 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีตารางเวร พนักงานส่วนใหญ่ปฏิบัติตามกฎระเบียบ มีการตรวจเช็คตามรอบเวลาที่กำหนด' },
-      { range: '7-8 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'พนักงานทุกคนปฏิบัติตามอย่างต่อเนื่อง มีการบันทึก Self-Audit ครบถ้วน สม่ำเสมอ' },
-    ], max: 8
-  }
-];
-
-const CAT2_CRITERIA = [
-  {
-    name: '1. พื้นที่ทางเดินและเส้นแบ่งเขต',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'มีของวางกีดขวางทางเดินหรือวางทับเส้นทางหนีไฟ' },
-      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'ทางเดินโล่ง แต่เส้นแบ่งเขต (Layout) เลือนรางหรือไม่ชัดเจนในบางจุด' },
-      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'ทางเดินโล่ง 100% มีการกำหนดเส้นแบ่งเขตชัดเจน มีการกำหนดทิศทางเดิน มีการติดตั้งเทปกันลื่น หรือป้ายเตือน ในจุดเสี่ยง' },
-    ], max: 5
-  },
-  {
-    name: '2. ระบบไฟฟ้าและปลั๊กพ่วง',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'สายไฟพันกันยุ่งเหยิง ปลั๊กไฟไม่มีการป้องกัน หรือใช้ปลั๊กพ่วงต่อพ่วงกันหลายชั้น' },
-      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'สายไฟมีการจัดเก็บบ้าง แต่ยังไม่เป็นระเบียบ ไม่มีการต่อพ่วงที่เป็นอันตราย มีการป้องกัน' },
-      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'จัดเก็บสายไฟร้อยท่อหรือใส่รางเรียบร้อย มิดชิดไม่มีการต่อพ่วงที่เป็นอันตราย มีการป้องกันที่ปลอดภัยตามมาตรฐาน' },
-    ], max: 5
-  },
-  {
-    name: '3. อุปกรณ์ป้องกันและระงับอัคคีภัย',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'อุปกรณ์ดับเพลิงไม่อยู่ในสภาพพร้อมใช้ หรือไม่มีการตรวจสอบ สกปรก' },
-      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีอุปกรณ์ดับเพลิงครบตามจุดที่กำหนด แต่ยังมีสิ่งของวางบดบังเล็กน้อย' },
-      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'อุปกรณ์ดับเพลิงเข้าถึงง่าย มีป้ายบ่งชี้ชัดเจน สะอาด อยู่ในสภาพพร้อมใช้งาน 100%' },
-    ], max: 5
-  },
-  {
-    name: '4. การจัดเก็บของหนักและการวางซ้อน',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'วางของหนักบนที่สูง ซึ่งเสี่ยงต่อการตกลงมา' },
-      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'จัดเก็บของหนักไว้ด้านล่างแล้ว แต่การวางซ้อนยังไม่เป็นระเบียบ' },
-      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'จัดเก็บถูกหลัก Ergonomics ของหนักอยู่ด้านล่าง การวางซ้อนอย่างมั่นคงปลอดภัย' },
-    ], max: 5
-  },
-  {
-    name: '5. สภาพแวดล้อมและแสงสว่าง',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'แสงสว่างไม่เพียงพอต่อการทำงานหรือมีจุดเสี่ยงที่มองเห็นไม่ชัดเจน' },
-      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'แสงสว่างเพียงพอตามมาตรฐาน แต่ขาดการทำความสะอาดอุปกรณ์ส่องสว่าง' },
-      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'แสงสว่างเหมาะสมทั่วถึง มีการทำความสะอาด มีการบำรุงรักษาอุปกรณ์ส่องสว่างเบื้องต้นอย่างสม่ำเสมอ' },
-    ], max: 5
-  },
-  {
-    name: '6. การจัดเก็บและบำรุงรักษาอุปกรณ์ PPE',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'วางอุปกรณ์ PPE ทิ้งไว้ตามโต๊ะทำงานหรือเครื่องจักร ไม่มีที่เก็บเป็นหลักแหล่ง อุปกรณ์สกปรกหรือชำรุด แต่ไม่มีการคัดแยก' },
-      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีที่เก็บอุปกรณ์ PPE แยกเป็นสัดส่วน (เช่น แขวนหมวก เก็บถุงมือในกล่อง) แต่อาจยังไม่มีป้ายชื่อระบุเจ้าของ หรือการจัดเก็บยังไม่เป็นระเบียบในบางครั้ง' },
-      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'มีจุดจัดเก็บ PPE ชัดเจน มีการทำป้ายบ่งชี้การจัดเก็บ เช่น Shadow Board หรือล็อคเกอร์ระบุชื่อ อุปกรณ์สะอาดพร้อมใช้งานเสมอ และมีตารางตรวจเช็กสภาพอุปกรณ์ทุกเดือน' },
-    ], max: 5
-  },
-  {
-    name: '7. ความพร้อมของป้ายเตือนและสัญลักษณ์ความปลอดภัย (Visual Safety)',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'ไม่มีป้ายเตือนในจุดที่อันตราย ใช้สัญลักษณ์ไม่ถูกต้อง หรือป้ายเก่า ซีดจางจนอ่านไม่ออก' },
-      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีป้ายเตือนครบถ้วน ใช้สัญลักษณ์ถูกต้องตามกฎหมายกำหนด แต่การติดตั้งอาจไม่อยู่ในระดับสายตาหรือถูกสิ่งของบดบังบางส่วน' },
-      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'ป้ายเตือนชัดเจน ครบถ้วน ใช้สัญลักษณ์ถูกต้องตามกฎหมายกำหนด ติดตั้งในตำแหน่งที่เห็นได้ง่ายจากทุกทิศทาง หรือมีป้ายแสดงสถิติความปลอดภัย' },
-    ], max: 5
-  },
-  {
-    name: '8. การจัดการสารเคมีและสารอันตราย',
-    bands: [
-      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'เก็บสารเคมีโดยไม่มีฝาปิด ไม่ถูกวิธี ใช้ภาชนะไม่ถูกต้อง หรือไม่มีป้ายระบุ เสี่ยงต่อการเกิดอันตราย' },
-      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีป้ายชื่อสารเคมีชัดเจน แต่ยังใช้ภาชนะไม่เหมาะสม ไม่มีถาดรองรับในกรณีที่เกิดการรั่วไหล' },
-      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'มี Safety Data Sheet (SDS) กำกับอยู่ในจุดที่มีการใช้งานสารเคมี ใช้ภาชนะเหมาะสม มีป้ายบ่งบอกชัดเจน มีระบบป้องกันการรั่วไหล มีแนวทางปฏิบัติกรณีเกิดเหตุฉุกเฉิน' },
-    ], max: 5
-  }
-];
-
-const CAT3_CRITERIA = [
-  {
-    name: '1. Visual Management (การสื่อสารด้วยภาพและสี)',
-    bands: [
-      { range: '1-2 คะแนน (พื้นฐาน)', desc: 'มีการติดป้ายชื่อสิ่งของทั่วไป ใช้สีพื้นฐานตามที่บริษัทกำหนด' },
-      { range: '3-4 คะแนน (ดี/สร้างสรรค์)', desc: 'มีการติดป้ายชื่อสิ่งของครบถ้วน มีที่จัดเก็บอุปกรณ์ที่ใช้งาน ใช้สีพื้นฐานตามที่บริษัทกำหนด และมีการใช้ Color Code แบ่งโซน หรือมีสัญลักษณ์บอกจุดอันตรายชัดเจนขึ้น' },
-      { range: '5 คะแนน (นวัตกรรม/ต้นแบบ)', desc: 'มีการติดป้ายชื่อสิ่งของครบถ้วน มีที่จัดเก็บอุปกรณ์ที่ใช้งาน ใช้สีพื้นฐานตามที่กำหนด มีการใช้ Color Code แบ่งโซนหรือมีสัญลักษณ์บอกจุดอันตรายชัดเจนขึ้น ออกแบบระบบ Visual ที่ช่วยลดความผิดพลาด (Poka-Yoke) เช่น เงาเครื่องมือหรือขีดวัดระดับ' },
-    ], max: 5
-  },
-  {
-    name: '2. DIY Solution (การประดิษฐ์อุปกรณ์ช่วยงาน)',
-    bands: [
-      { range: '1-2 คะแนน (พื้นฐาน)', desc: 'ซื้ออุปกรณ์สำเร็จรูปมาใช้ มีการดัดแปลงเล็กน้อยเพื่อความสะดวก' },
-      { range: '3-4 คะแนน (ดี/สร้างสรรค์)', desc: 'ประดิษฐ์อุปกรณ์ขึ้นเองจากวัสดุที่มีอยู่เพื่อแก้ปัญหาการจัดเก็บหรือการใช้งาน' },
-      { range: '5 คะแนน (นวัตกรรม/ต้นแบบ)', desc: 'อุปกรณ์ DIY มีความแข็งแรง ปลอดภัย ช่วยลดขั้นตอนงาน (Lean) ได้อย่างโดดเด่น' },
-    ], max: 5
-  },
-  {
-    name: '3. Safety Innovation (นวัตกรรมเพื่อความปลอดภัย)',
-    bands: [
-      { range: '1-2 คะแนน (พื้นฐาน)', desc: 'ปฏิบัติตามกฎความปลอดภัยพื้นฐาน แต่ไม่มีอุปกรณ์เสริมใหม่ๆ' },
-      { range: '3-4 คะแนน (ดี/สร้างสรรค์)', desc: 'มีการคิดค้นอุปกรณ์หรือวิธีการใหม่เพื่อลดความเสี่ยงในจุดอันตรายเฉพาะหน้างาน' },
-      { range: '5 คะแนน (นวัตกรรม/ต้นแบบ)', desc: 'สร้างนวัตกรรมที่กำจัดความเสี่ยงได้อย่างสิ้นเชิง นำไปปรับใช้ในแผนกอื่นได้' },
-    ], max: 5
-  },
-  {
-    name: '4. Space Optimizations (การบริหารพื้นที่อย่างชาญฉลาด)',
-    bands: [
-      { range: '1-2 คะแนน (พื้นฐาน)', desc: 'จัดวางของเป็นระเบียบตามพื้นที่ที่มีอยู่เดิม ไม่มีการปรับเปลี่ยนโครงสร้าง' },
-      { range: '3-4 คะแนน (ดี/สร้างสรรค์)', desc: 'มีการจัดสรรพื้นที่ใหม่ หรือใช้พื้นที่แนวตั้ง ใช้อุปกรณ์แนวตั้ง เพื่อเพิ่มพื้นที่ใช้สอยให้มากขึ้น' },
-      { range: '5 คะแนน (นวัตกรรม/ต้นแบบ)', desc: 'ปรับพื้นที่ Layout ที่ช่วยให้การไหลของงาน (Work Flow) คล่องตัวและประหยัดเนื้อที่สูงสุด' },
-    ], max: 5
-  }
-];
-
-// ===== STATE =====
-let currentTeam = 0;
-let editingId = null;
-let deleteTargetId = null;
-let uploadedImages = [];
-let scores = { cat1: {}, cat2: {}, cat3: {} };
-let autoSaveTimer = null;
-let setupData = {};
-
-// ===== INIT =====
-window.addEventListener('DOMContentLoaded', () => {
-  loadSetup();
-  setDefaultDate();
-  renderCriteria();
-  renderList();
-  renderReport();
-  startAutoSave();
-  loadDraft();
-});
-
-function setDefaultDate() {
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('evalDate').value = today;
-}
-
-function loadSetup() {
-  try {
-    const s = localStorage.getItem(SETUP_KEY);
-    if (s) {
-      setupData = JSON.parse(s);
-      if (setupData.team) {
-        selectTeam(setupData.team, true);
-        // Restore evaluator value after dropdown is populated
-        if (setupData.evaluator) document.getElementById('evaluatorSelect').value = setupData.evaluator;
-      }
-      if (setupData.date) document.getElementById('evalDate').value = setupData.date;
-    }
-  } catch(e) {}
-}
-
-function saveSetup() {
-  setupData = {
-    team: currentTeam,
-    evaluator: document.getElementById('evaluatorSelect').value,
-    date: document.getElementById('evalDate').value
-  };
-  localStorage.setItem(SETUP_KEY, JSON.stringify(setupData));
-}
-
-function saveSetupAndGo() {
-  if (!currentTeam) { showToast('กรุณาเลือกทีมคณะกรรมการ', 'error'); return; }
-  if (!document.getElementById('evaluatorSelect').value) { showToast('กรุณาเลือกชื่อผู้ประเมิน', 'error'); return; }
-  saveSetup();
-  populateAreaDropdown();
-  updateAssessInfo();
-  showPage('assess');
-  showToast('บันทึกการตั้งค่าสำเร็จ', 'success');
-}
-
-// ===== TEAM SELECTION =====
-function selectTeam(num, silent) {
-  currentTeam = num;
-  document.getElementById('team1Card').classList.toggle('selected', num === 1);
-  document.getElementById('team2Card').classList.toggle('selected', num === 2);
-  const badge = document.getElementById('headerTeamBadge');
-  badge.style.display = 'flex';
-  badge.textContent = `ทีม ${num}`;
-  populateEvaluatorDropdown(num);
-  if (!silent) populateAreaDropdown();
-}
-
-function populateEvaluatorDropdown(teamNum) {
-  const sel = document.getElementById('evaluatorSelect');
-  const members = teamNum === 1 ? TEAM1_MEMBERS : TEAM2_MEMBERS;
-  const current = sel.value;
-  sel.innerHTML = '<option value="">-- เลือกชื่อผู้ประเมิน --</option>';
-  members.forEach(name => {
-    const opt = document.createElement('option');
-    opt.value = name;
-    opt.textContent = name;
-    if (name === current) opt.selected = true;
-    sel.appendChild(opt);
-  });
-
-  // Show member preview
-  const previewCard = document.getElementById('memberPreviewCard');
-  const previewList = document.getElementById('memberPreviewList');
-  if (previewCard && previewList) {
-    previewCard.style.display = 'block';
-    previewList.innerHTML = members.map((name, i) => `
-      <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--gray-50);border-radius:8px;font-size:13px;cursor:pointer;transition:background 0.15s"
-           onclick="document.getElementById('evaluatorSelect').value='${name}';highlightMember(this)"
-           id="memberItem_${i}">
-        <div style="background:var(--primary);color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">${i+1}</div>
-        <div style="flex:1;font-weight:500">${name}</div>
-        <div style="font-size:11px;color:var(--gray-500)" id="memberCheck_${i}"></div>
-      </div>
-    `).join('');
-    // Reflect current selection
-    if (sel.value) {
-      const idx = members.indexOf(sel.value);
-      if (idx >= 0) highlightMemberByIndex(idx, members.length);
-    }
-  }
-}
-
-function highlightMember(el) {
-  // Remove highlight from all
-  document.querySelectorAll('[id^="memberItem_"]').forEach(item => {
-    item.style.background = 'var(--gray-50)';
-    item.style.fontWeight = '500';
-  });
-  document.querySelectorAll('[id^="memberCheck_"]').forEach(c => c.textContent = '');
-  // Highlight selected
-  el.style.background = '#e0f2fe';
-  el.style.fontWeight = '700';
-  const idx = el.id.replace('memberItem_', '');
-  const checkEl = document.getElementById(`memberCheck_${idx}`);
-  if (checkEl) checkEl.textContent = '✓ เลือกแล้ว';
-}
-
-function highlightMemberByIndex(idx, total) {
-  document.querySelectorAll('[id^="memberItem_"]').forEach(item => {
-    item.style.background = 'var(--gray-50)';
-  });
-  document.querySelectorAll('[id^="memberCheck_"]').forEach(c => c.textContent = '');
-  const el = document.getElementById(`memberItem_${idx}`);
-  if (el) {
-    el.style.background = '#e0f2fe';
-    const checkEl = document.getElementById(`memberCheck_${idx}`);
-    if (checkEl) checkEl.textContent = '✓ เลือกแล้ว';
-  }
-}
-
-function onEvaluatorChange(sel) {
-  if (!currentTeam) return;
-  const members = currentTeam === 1 ? TEAM1_MEMBERS : TEAM2_MEMBERS;
-  const idx = members.indexOf(sel.value);
-  if (idx >= 0) highlightMemberByIndex(idx, members.length);
-  else { // clear all highlights
-    document.querySelectorAll('[id^="memberItem_"]').forEach(item => item.style.background = 'var(--gray-50)');
-    document.querySelectorAll('[id^="memberCheck_"]').forEach(c => c.textContent = '');
-  }
-}
-
-
-  const sel = document.getElementById('areaSelect');
-  const areas = currentTeam === 1 ? TEAM1_AREAS : TEAM2_AREAS;
-  sel.innerHTML = '<option value="">-- เลือกพื้นที่ --</option>';
-  areas.forEach(a => {
-    const opt = document.createElement('option');
-    opt.value = a;
-    opt.textContent = a;
-    sel.appendChild(opt);
-  });
-}
-
-function updateAssessInfo() {
-  const name = document.getElementById('evaluatorSelect').value || '-';
-  const date = document.getElementById('evalDate').value || '-';
-  document.getElementById('assessInfoDisplay').textContent = `ทีม ${currentTeam} | ผู้ประเมิน: ${name} | วันที่: ${date}`;
-}
-
-// ===== RENDER CRITERIA =====
-function renderCriteria() {
-  renderCat('cat1body', CAT1_CRITERIA, 'cat1', 'score-options-cat1', 8);
-  renderCat('cat2body', CAT2_CRITERIA, 'cat2', 'score-options-cat2', 5);
-  renderCat('cat3body', CAT3_CRITERIA, 'cat3', 'score-options-cat3', 5);
-}
-
-function renderCat(containerId, criteria, catKey, scoreClass, maxScore) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-  criteria.forEach((c, idx) => {
-    const item = document.createElement('div');
-    item.className = 'criteria-item';
-    item.id = `${catKey}_item_${idx}`;
-
-    const bandClasses = ['band-1','band-2','band-3','band-4'];
-
-    let bandsHtml = c.bands.map((b, bi) => `
-      <div class="criteria-band ${bandClasses[bi] || 'band-3'}">
-        <div class="criteria-band-header">${b.range}</div>
-        <div class="criteria-band-desc">${b.desc}</div>
-      </div>
-    `).join('');
-
-    let scoreButtons = '';
-    for (let s = 1; s <= maxScore; s++) {
-      scoreButtons += `<button class="score-btn" data-cat="${catKey}" data-idx="${idx}" data-score="${s}" onclick="selectScore('${catKey}',${idx},${s})">${s}</button>`;
-    }
-
-    item.innerHTML = `
-      <div class="criteria-header" onclick="toggleCriteria('${catKey}_item_${idx}')">
-        <div class="criteria-num">${idx+1}</div>
-        <div class="criteria-name">${c.name}</div>
-        <div class="criteria-status" id="${catKey}_status_${idx}">ยังไม่ได้ประเมิน</div>
-        <div class="criteria-chevron">▼</div>
-      </div>
-      <div class="criteria-body">
-        <div class="criteria-grid">${bandsHtml}</div>
-        <div class="score-selector">
-          <div class="score-label">เลือกคะแนน (1-${maxScore}):</div>
-          <div class="${scoreClass}">${scoreButtons}</div>
-        </div>
-      </div>
-    `;
-    container.appendChild(item);
-  });
-}
-
-function toggleCriteria(id) {
-  const el = document.getElementById(id);
-  el.classList.toggle('open');
-}
-
-function selectScore(catKey, idx, score) {
-  if (!scores[catKey]) scores[catKey] = {};
-  scores[catKey][idx] = score;
-
-  // Update button UI
-  const catMap = { cat1: CAT1_CRITERIA, cat2: CAT2_CRITERIA, cat3: CAT3_CRITERIA };
-  document.querySelectorAll(`[data-cat="${catKey}"][data-idx="${idx}"]`).forEach(btn => {
-    btn.classList.toggle('selected', parseInt(btn.dataset.score) === score);
-  });
-
-  // Update status & collapse
-  const statusEl = document.getElementById(`${catKey}_status_${idx}`);
-  if (statusEl) {
-    statusEl.textContent = `✓ ${score} คะแนน`;
-    statusEl.className = 'criteria-status done';
-  }
-  const itemEl = document.getElementById(`${catKey}_item_${idx}`);
-  if (itemEl) {
-    itemEl.classList.add('scored');
-    itemEl.classList.remove('open');
-  }
-
-  updateTotals();
-  saveDraft();
-}
-
-function updateTotals() {
-  const sum = (obj) => Object.values(obj).reduce((a,b)=>a+b,0);
-  const s1 = sum(scores.cat1 || {});
-  const s2 = sum(scores.cat2 || {});
-  const s3 = sum(scores.cat3 || {});
-  const total = s1 + s2 + s3;
-
-  document.getElementById('cat1total').textContent = s1;
-  document.getElementById('cat2total').textContent = s2;
-  document.getElementById('cat3total').textContent = s3;
-  document.getElementById('s1disp').textContent = s1;
-  document.getElementById('s2disp').textContent = s2;
-  document.getElementById('s3disp').textContent = s3;
-  document.getElementById('grandTotal').textContent = total;
-}
-
-// ===== IMAGE UPLOAD =====
-function handleImages(input) {
-  const files = Array.from(input.files);
-  const remaining = 7 - uploadedImages.length;
-  const toAdd = files.slice(0, remaining);
-
-  if (files.length > remaining) showToast(`สามารถแนบได้สูงสุด 7 ไฟล์ (เพิ่มได้อีก ${remaining} ไฟล์)`, 'info');
-
-  toAdd.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      uploadedImages.push({ name: file.name, data: e.target.result });
-      renderImagePreview();
+    // --- Data Configuration  ---
+    const committeeData = {
+        "1": ["จิรัฏฐ์ เลียวกิจสิริ", "ยุทธนันท์ อังกูรสุทธิพันธ์", "วิชเลิศ กลิ่นถือศิล", "สลักใจ แพงศรี", "วุฒิภัทร ภิรมย์สุข", "สุมิตรา แจ่มถนอม", "กาญจนา พรกมลวรรณ", "พลัฏฐ์ เลียวกิจสิริ", "ชาตรี บุษราคัมกุล", "เอกราช คล้ายแจ้ง", "อานนท์ สามพ่วงบุญ", "สัญชัย ฉิมอ่อง", "พรพรรณ พงศ์ทองผาสุข", "ชัชชญา คัณฑเขตต์"],
+        "2": ["สรวิชญ์ พงษ์เสถียรศักดิ์", "วินัย เปี้ยวเฉียน", "สุพจน์ เปลียวปลอด", "อภิรัตน์ รุ่งเรือง", "เอกราช คล้ายแจ้ง", "ธนวิสุทธิ์ จูเกษม", "วัลภา มณีรัตน์", "สุรศักดิ์ เพียรประดิษฐกุล", "ชญาดา ละอองดี", "อานนท์ แก้วภักดี", "ณฐภัทร ภิญโญสรรพกิจ", "พีณะ รุ่งพรมมา", "อัมภวรรณ ไม้โคกสูง", "อภิชาต แก้วเจริญ", "มนทิพ ปานทน"]
     };
-    reader.readAsDataURL(file);
-  });
-  input.value = '';
-}
 
-function renderImagePreview() {
-  const preview = document.getElementById('uploadPreview');
-  preview.innerHTML = uploadedImages.map((img, i) => `
-    <div class="preview-thumb">
-      <img src="${img.data}" alt="${img.name}">
-      <button class="del" onclick="removeImage(${i})">✕</button>
-    </div>
-  `).join('');
-}
+    const areaData = {
+        "1": ["1. เจาะบาก (คุณอดิเรก)", "2. ตัดและพื้นที่จอดแร๊ค (คุณอิสเรท)", "3. คลังกระจก (คุณจิรวัฒน์)", "5. เทมเปอร์ใหญ่ (คุณวิโรจน์)", "6. เจียรตั้ง (คุณสลักใจ)", "7. เจียรนอน (คุณสลักใจ)", "8. Insulate (คุณชาตรี)", "10. Packing (คุณวิโรจน์)", "11. จัดส่ง Zone 1 (คุณหรรษา)", "12. จัดส่ง Zone 2 (คุณอานนท์)", "13. ประกบลายผ้า/SPL (คุณปรีชา)", "14. ประกบ Bagging (คุณนันทพล)", "15. ประกบ-Auto (คุณนันทพล)", "16. ถังอัด (คุณพีรพล)", "17. ดัดโค้ง (คุณอาทิตย์)", "18. ตัดฟิล์ม+ประกบมือ (คุณกมลณิชา)", "19. CNC (คุณอดิเรก)", "20. CERAMIC FRIT-พ่นสี-สกรีน (คุณชาตรี)", "21. พิกเซล-พ่นทราย (คุณสมเจตน์)"],
+        "2": ["1. ประกันคุณภาพ (คุณสรวิชญ์)", "2. QA (คุณวินัย)", "3. วางแผน (คุณสุพจน์)", "4. พัฒนากระบวนการ (คุณอภิรัตน์)", "5. คลังสินค้า (คุณเอกราช)", "6. คลังผ้า (คุณเอกราช)", "7. วิศวกรรม (คุณธนวิสุทธิ์)", "8. Shop วิศวกรรม (คุณธนวิสุทธิ์)", "9. แบบมาตรฐาน (คุณวัลภา)", "10. Generate (คุณสุรศักดิ์)", "11. ทรัพยากรบุคคล (คุณชญาดา)", "12. MIS (คุณอานนท์)", "13. ขาย (คุณณฐภัทร)", "14. จัดซื้อ (คุณพีณะ)", "15. บัญชีการเงิน (คุณอัมภวรรณ)", "16. นวัตกรรม (คุณอภิชาต)", "17. โรงอาหาร (คุณมนทิพ)"]
+    };
 
-function removeImage(idx) {
-  uploadedImages.splice(idx, 1);
-  renderImagePreview();
-}
-
-// ===== VALIDATION =====
-function validateForm() {
-  const errors = [];
-  if (!document.getElementById('areaSelect').value) errors.push({ msg: 'กรุณาเลือกพื้นที่การประเมิน', id: 'areaSelect' });
-
-  CAT1_CRITERIA.forEach((c, i) => { if (scores.cat1[i] === undefined) errors.push({ msg: `หมวด 1 ข้อ ${i+1}: ${c.name} ยังไม่ได้ประเมิน`, id: `cat1_item_${i}` }); });
-  CAT2_CRITERIA.forEach((c, i) => { if (scores.cat2[i] === undefined) errors.push({ msg: `หมวด 2 ข้อ ${i+1}: ${c.name} ยังไม่ได้ประเมิน`, id: `cat2_item_${i}` }); });
-  CAT3_CRITERIA.forEach((c, i) => { if (scores.cat3[i] === undefined) errors.push({ msg: `หมวด 3 ข้อ ${i+1}: ${c.name} ยังไม่ได้ประเมิน`, id: `cat3_item_${i}` }); });
-
-  return errors;
-}
-
-// ===== SAVE RECORD =====
-function saveRecord() {
-  updateAssessInfo();
-  const errors = validateForm();
-  const alertEl = document.getElementById('validationAlert');
-
-  if (errors.length > 0) {
-    alertEl.style.display = 'block';
-    alertEl.innerHTML = `<strong>กรอกข้อมูลไม่ครบถ้วน:</strong><br>${errors.map(e=>`• ${e.msg}`).join('<br>')}`;
-    // Scroll to first error
-    const firstErr = document.getElementById(errors[0].id);
-    if (firstErr) {
-      firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      if (firstErr.classList.contains('criteria-item')) firstErr.classList.add('open');
-    }
-    return;
-  }
-  alertEl.style.display = 'none';
-
-  const records = getRecords();
-  const sum = (obj) => Object.values(obj).reduce((a,b)=>a+b,0);
-
-  const record = {
-    id: editingId || 'rec_' + Date.now(),
-    timestamp: new Date().toISOString(),
-    team: currentTeam,
-    evaluator: document.getElementById('evaluatorSelect').value,
-    date: document.getElementById('evalDate').value,
-    area: document.getElementById('areaSelect').value,
-    scores: JSON.parse(JSON.stringify(scores)),
-    cat1Total: sum(scores.cat1),
-    cat2Total: sum(scores.cat2),
-    cat3Total: sum(scores.cat3),
-    grandTotal: sum(scores.cat1) + sum(scores.cat2) + sum(scores.cat3),
-    note: document.getElementById('extraNote').value,
-    images: uploadedImages.map(i => ({ name: i.name, data: i.data }))
-  };
-
-  const idx = records.findIndex(r => r.id === record.id);
-  if (idx >= 0) records[idx] = record;
-  else records.push(record);
-
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-  clearDraft();
-
-  document.getElementById('recordIdDisplay').textContent = `ID: ${record.id}`;
-  showToast(editingId ? 'แก้ไขข้อมูลสำเร็จ' : 'บันทึกข้อมูลสำเร็จ', 'success');
-  editingId = null;
-  renderList();
-  renderReport();
-  showPage('list');
-}
-
-// ===== LOCAL STORAGE =====
-function getRecords() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-  catch(e) { return []; }
-}
-
-// ===== AUTO SAVE =====
-function startAutoSave() {
-  autoSaveTimer = setInterval(saveDraft, 30000);
-}
-
-function saveDraft() {
-  if (!document.getElementById('areaSelect').value && Object.keys(scores.cat1).length === 0) return;
-  const draft = {
-    ts: new Date().toISOString(),
-    area: document.getElementById('areaSelect').value,
-    scores: JSON.parse(JSON.stringify(scores)),
-    note: document.getElementById('extraNote').value,
-    editingId
-  };
-  localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-  const t = new Date();
-  document.getElementById('autosaveText').textContent = `บันทึกอัตโนมัติล่าสุด: ${t.getHours().toString().padStart(2,'0')}:${t.getMinutes().toString().padStart(2,'0')} น.`;
-}
-
-function loadDraft() {
-  try {
-    const d = localStorage.getItem(DRAFT_KEY);
-    if (!d) return;
-    const draft = JSON.parse(d);
-    scores = draft.scores || { cat1:{}, cat2:{}, cat3:{} };
-    if (draft.note) document.getElementById('extraNote').value = draft.note;
-    if (draft.editingId) editingId = draft.editingId;
-
-    // Restore score UI
-    Object.entries(scores.cat1 || {}).forEach(([i,s]) => restoreScore('cat1', i, s));
-    Object.entries(scores.cat2 || {}).forEach(([i,s]) => restoreScore('cat2', i, s));
-    Object.entries(scores.cat3 || {}).forEach(([i,s]) => restoreScore('cat3', i, s));
-    updateTotals();
-
-    const ts = new Date(draft.ts);
-    document.getElementById('autosaveText').textContent = `กู้คืนร่างล่าสุด: ${ts.getHours().toString().padStart(2,'0')}:${ts.getMinutes().toString().padStart(2,'0')} น.`;
-  } catch(e) {}
-}
-
-function restoreScore(catKey, idx, score) {
-  document.querySelectorAll(`[data-cat="${catKey}"][data-idx="${idx}"]`).forEach(btn => {
-    btn.classList.toggle('selected', parseInt(btn.dataset.score) === score);
-  });
-  const statusEl = document.getElementById(`${catKey}_status_${idx}`);
-  if (statusEl) { statusEl.textContent = `✓ ${score} คะแนน`; statusEl.className = 'criteria-status done'; }
-  const itemEl = document.getElementById(`${catKey}_item_${idx}`);
-  if (itemEl) itemEl.classList.add('scored');
-}
-
-function clearDraft() {
-  localStorage.removeItem(DRAFT_KEY);
-}
-
-// ===== RESET FORM =====
-function newAssessment() {
-  editingId = null;
-  scores = { cat1: {}, cat2: {}, cat3: {} };
-  uploadedImages = [];
-  document.getElementById('areaSelect').value = '';
-  document.getElementById('extraNote').value = '';
-  document.getElementById('uploadPreview').innerHTML = '';
-  document.getElementById('recordIdDisplay').textContent = '';
-  document.getElementById('validationAlert').style.display = 'none';
-  renderCriteria();
-  updateTotals();
-  clearDraft();
-  if (currentTeam) populateAreaDropdown();
-  showPage('assess');
-  window.scrollTo(0, 0);
-}
-
-// ===== RENDER LIST =====
-function renderList() {
-  const records = getRecords();
-  const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
-  const filtered = records.filter(r =>
-    r.area.toLowerCase().includes(search) ||
-    r.evaluator.toLowerCase().includes(search)
-  ).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-
-  const count = document.getElementById('listCount');
-  if (count) count.textContent = `พบ ${filtered.length} รายการ (ทั้งหมด ${records.length} รายการ)`;
-
-  const container = document.getElementById('listContainer');
-  if (!container) return;
-
-  if (filtered.length === 0) {
-    container.innerHTML = `<div class="empty-state"><div class="icon">📂</div><p>ยังไม่มีรายการประเมิน<br>กดปุ่ม "ประเมินใหม่" เพื่อเริ่มต้น</p></div>`;
-    return;
-  }
-
-  container.innerHTML = filtered.map(r => `
-    <div class="record-card">
-      <div class="rc-title">📍 ${r.area}</div>
-      <div class="rc-meta">ทีม ${r.team} | ${r.evaluator} | ${formatDate(r.date)} | บันทึก: ${formatDateTime(r.timestamp)}</div>
-      <div class="rc-scores">
-        <span class="score-pill pill-blue">5ส: ${r.cat1Total}/40</span>
-        <span class="score-pill pill-yellow">ปลอดภัย: ${r.cat2Total}/40</span>
-        <span class="score-pill pill-green">นวัตกรรม: ${r.cat3Total}/20</span>
-        <span class="score-pill pill-gray">รวม: ${r.grandTotal}/100</span>
-      </div>
-      <div class="rc-actions">
-        <button class="btn btn-outline btn-sm" onclick="viewRecord('${r.id}')">👁️ ดูข้อมูล</button>
-        <button class="btn btn-warning btn-sm" onclick="editRecord('${r.id}')">✏️ แก้ไข</button>
-        <button class="btn btn-danger btn-sm" onclick="promptDelete('${r.id}')">🗑️ ลบ</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-// ===== VIEW RECORD =====
-function viewRecord(id) {
-  const records = getRecords();
-  const r = records.find(x => x.id === id);
-  if (!r) return;
-
-  const catNames = (criteria, scores, maxPer) => criteria.map((c,i) => `
-    <div class="criteria-result-row">
-      <div class="cr-name">${c.name}</div>
-      <div class="cr-score">${scores[i] || '-'}/${maxPer}</div>
-    </div>
-  `).join('');
-
-  const imgsHtml = r.images && r.images.length > 0
-    ? `<div class="upload-preview mt-8">${r.images.map(img=>`<div class="preview-thumb"><img src="${img.data}" alt="${img.name}"></div>`).join('')}</div>`
-    : '<p class="text-sm">ไม่มีรูปภาพ</p>';
-
-  document.getElementById('viewModalBody').innerHTML = `
-    <div class="view-header">
-      <h2>📍 ${r.area}</h2>
-      <div class="view-meta">
-        <div class="view-meta-item"><div class="lbl">ทีม</div><div class="val">ทีม ${r.team}</div></div>
-        <div class="view-meta-item"><div class="lbl">ผู้ประเมิน</div><div class="val">${r.evaluator}</div></div>
-        <div class="view-meta-item"><div class="lbl">วันที่</div><div class="val">${formatDate(r.date)}</div></div>
-        <div class="view-meta-item"><div class="lbl">คะแนนรวม</div><div class="val">${r.grandTotal}/100</div></div>
-      </div>
-    </div>
-
-    <div class="card" style="background:var(--cat1-bg);margin-bottom:12px">
-      <div class="card-title">📋 หมวด 1: 5ส (${r.cat1Total}/40)</div>
-      ${catNames(CAT1_CRITERIA, r.scores.cat1, 8)}
-    </div>
-
-    <div class="card" style="background:var(--cat2-bg);margin-bottom:12px">
-      <div class="card-title">🛡️ หมวด 2: ความปลอดภัย (${r.cat2Total}/40)</div>
-      ${catNames(CAT2_CRITERIA, r.scores.cat2, 5)}
-    </div>
-
-    <div class="card" style="background:var(--cat3-bg);margin-bottom:12px">
-      <div class="card-title">💡 หมวด 3: นวัตกรรม (${r.cat3Total}/20)</div>
-      ${catNames(CAT3_CRITERIA, r.scores.cat3, 5)}
-    </div>
-
-    ${r.note ? `<div class="card"><div class="card-title">📝 บันทึกเพิ่มเติม</div><p style="font-size:13px">${r.note}</p></div>` : ''}
-
-    <div class="card"><div class="card-title">📷 รูปภาพ</div>${imgsHtml}</div>
-  `;
-  document.getElementById('viewModal').classList.add('open');
-}
-
-// ===== EDIT RECORD =====
-function editRecord(id) {
-  const records = getRecords();
-  const r = records.find(x => x.id === id);
-  if (!r) return;
-
-  editingId = id;
-  currentTeam = r.team;
-  selectTeam(r.team, true);
-  // Restore evaluator in dropdown after it's populated
-  document.getElementById('evaluatorSelect').value = r.evaluator;
-  document.getElementById('evalDate').value = r.date;
-  populateAreaDropdown();
-  document.getElementById('areaSelect').value = r.area;
-  scores = JSON.parse(JSON.stringify(r.scores));
-  document.getElementById('extraNote').value = r.note || '';
-  uploadedImages = r.images ? [...r.images] : [];
-  renderImagePreview();
-  renderCriteria();
-
-  Object.entries(scores.cat1 || {}).forEach(([i,s]) => restoreScore('cat1', i, s));
-  Object.entries(scores.cat2 || {}).forEach(([i,s]) => restoreScore('cat2', i, s));
-  Object.entries(scores.cat3 || {}).forEach(([i,s]) => restoreScore('cat3', i, s));
-  updateTotals();
-  updateAssessInfo();
-
-  showPage('assess');
-  window.scrollTo(0, 0);
-  showToast('โหลดข้อมูลเพื่อแก้ไขสำเร็จ', 'info');
-}
-
-// ===== DELETE =====
-function promptDelete(id) {
-  deleteTargetId = id;
-  document.getElementById('deleteModal').classList.add('open');
-}
-
-function confirmDelete() {
-  let records = getRecords();
-  records = records.filter(r => r.id !== deleteTargetId);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-  closeModal('deleteModal');
-  renderList();
-  renderReport();
-  showToast('ลบข้อมูลสำเร็จ', 'success');
-  deleteTargetId = null;
-}
-
-// ===== REPORT =====
-function renderReport() {
-  const records = getRecords().sort((a,b) => new Date(b.timestamp)-new Date(a.timestamp));
-  const container = document.getElementById('reportContainer');
-  if (!container) return;
-
-  if (records.length === 0) {
-    container.innerHTML = `<div class="empty-state"><div class="icon">📊</div><p>ยังไม่มีข้อมูลการประเมิน</p></div>`;
-    return;
-  }
-
-  container.innerHTML = records.map((r, ri) => `
-    <div class="card ${ri > 0 ? 'report-page-break' : ''}" style="margin-bottom:20px">
-      <div style="background:var(--primary);color:white;border-radius:10px;padding:16px;margin-bottom:16px">
-        <div style="font-family:var(--font-display);font-size:16px;font-weight:700">📍 ${r.area}</div>
-        <div style="font-size:12px;opacity:0.8;margin-top:4px">ทีม ${r.team} | ${r.evaluator} | ${formatDate(r.date)}</div>
-        <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
-          <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:8px 16px;text-align:center">
-            <div style="font-size:20px;font-weight:800">${r.cat1Total}</div><div style="font-size:11px">5ส /40</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:8px 16px;text-align:center">
-            <div style="font-size:20px;font-weight:800">${r.cat2Total}</div><div style="font-size:11px">ปลอดภัย /40</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:8px 16px;text-align:center">
-            <div style="font-size:20px;font-weight:800">${r.cat3Total}</div><div style="font-size:11px">นวัตกรรม /20</div>
-          </div>
-          <div style="background:rgba(255,165,0,0.5);border-radius:8px;padding:8px 16px;text-align:center">
-            <div style="font-size:24px;font-weight:800">${r.grandTotal}</div><div style="font-size:11px">รวม /100</div>
-          </div>
-        </div>
-      </div>
-
-      <div style="background:var(--cat1-bg);border-radius:10px;padding:14px;margin-bottom:12px">
-        <div style="font-weight:700;font-size:13px;color:#1e3a5f;margin-bottom:10px">📋 หมวด 1: การปรับปรุงตามมาตรฐาน 5ส</div>
-        ${CAT1_CRITERIA.map((c,i)=>`
-          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:12px">
-            <span>${c.name}</span><strong>${r.scores.cat1[i]||0}/8</strong>
-          </div>`).join('')}
-      </div>
-
-      <div style="background:var(--cat2-bg);border-radius:10px;padding:14px;margin-bottom:12px">
-        <div style="font-weight:700;font-size:13px;color:#713f12;margin-bottom:10px">🛡️ หมวด 2: ความปลอดภัยขั้นพื้นฐาน</div>
-        ${CAT2_CRITERIA.map((c,i)=>`
-          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:12px">
-            <span>${c.name}</span><strong>${r.scores.cat2[i]||0}/5</strong>
-          </div>`).join('')}
-      </div>
-
-      <div style="background:var(--cat3-bg);border-radius:10px;padding:14px;margin-bottom:12px">
-        <div style="font-weight:700;font-size:13px;color:#14532d;margin-bottom:10px">💡 หมวด 3: นวัตกรรมและความคิดสร้างสรรค์</div>
-        ${CAT3_CRITERIA.map((c,i)=>`
-          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:12px">
-            <span>${c.name}</span><strong>${r.scores.cat3[i]||0}/5</strong>
-          </div>`).join('')}
-      </div>
-
-      ${r.note ? `<div style="background:var(--gray-50);border-radius:8px;padding:12px;font-size:12px;margin-bottom:12px"><strong>📝 บันทึกเพิ่มเติม:</strong><br>${r.note}</div>` : ''}
-
-      ${r.images && r.images.length > 0 ? `
-        <div style="margin-bottom:8px;font-weight:600;font-size:12px">📷 รูปภาพ (${r.images.length} ไฟล์)</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px">
-          ${r.images.map(img=>`<img src="${img.data}" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px">`).join('')}
-        </div>
-      ` : ''}
-    </div>
-  `).join('');
-}
-
-// ===== EXCEL EXPORT =====
-function exportExcel() {
-  const records = getRecords();
-  if (records.length === 0) { showToast('ไม่มีข้อมูลสำหรับส่งออก', 'info'); return; }
-
-  let csv = '\uFEFF'; // BOM for Thai
-  const headers = ['ลำดับ','ID','ทีม','ผู้ประเมิน','วันที่','พื้นที่'];
-  CAT1_CRITERIA.forEach((c,i) => headers.push(`5ส_${i+1}`));
-  CAT2_CRITERIA.forEach((c,i) => headers.push(`ปลอดภัย_${i+1}`));
-  CAT3_CRITERIA.forEach((c,i) => headers.push(`นวัตกรรม_${i+1}`));
-  headers.push('คะแนน5ส','คะแนนปลอดภัย','คะแนนนวัตกรรม','คะแนนรวม','บันทึก');
-  csv += headers.join(',') + '\n';
-
-  records.forEach((r,i) => {
-    const row = [
-      i+1, r.id, `ทีม ${r.team}`, r.evaluator, r.date,
-      `"${r.area.replace(/"/g,'""')}"`
+    const criteria5S = [
+        { id: '5s_1', title: '1.สะสาง (Seiri)', desc: ['พบของไม่จำเป็น/ขยะมาก', 'เริ่มแยกบ้างแต่ไม่มีป้าย', 'แยกของชัดเจน มีแผนกำจัด', 'ไม่มีของไม่จำเป็น/เป็นระบบ'] },
+        { id: '5s_2', title: '2.สะดวก (Seiton)', desc: ['วางระเกะระกะ ไม่มีที่ตั้ง', 'มีที่วางบ้างแต่ไม่มีป้าย', 'มีป้ายชื่อ ตีเส้นชัดเจน', 'หยิบง่าย-วางคืนถูก 100%'] },
+        { id: '5s_3', title: '3.สะอาด (Seiso)', desc: ['ฝุ่นหนา/รั่วซึม', 'สะอาดเฉพาะจุดที่เห็น', 'สะอาดจัดเก็บเป็นระเบียบ', 'สะอาดทุกจุดเงางาม'] },
+        { id: '5s_4', title: '4.สุขลักษณะ (Seiketsu)', desc: ['มีฝุ่น/กลิ่นสะสม', 'เริ่มกำหนดมาตรฐานบางจุด', 'มีมาตรฐาน/ผู้รับผิดชอบ', 'ควบคุมเป็นมาตรฐานทุกจุด'] },
+        { id: '5s_5', title: '5.สร้างนิสัย (Shitsuke)', desc: ['ไม่มีเวรทำความสะอาด', 'มีบันทึกแต่ไม่สม่ำเสมอ', 'ปฏิบัติตามกฎตามรอบ', 'ทำต่อเนื่อง/มี Self-Audit'] }
     ];
-    CAT1_CRITERIA.forEach((_,ci) => row.push(r.scores.cat1[ci]||0));
-    CAT2_CRITERIA.forEach((_,ci) => row.push(r.scores.cat2[ci]||0));
-    CAT3_CRITERIA.forEach((_,ci) => row.push(r.scores.cat3[ci]||0));
-    row.push(r.cat1Total, r.cat2Total, r.cat3Total, r.grandTotal);
-    row.push(`"${(r.note||'').replace(/"/g,'""')}"`);
-    csv += row.join(',') + '\n';
-  });
 
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `SmartSafety_Assessment_${new Date().toISOString().split('T')[0]}.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('ส่งออกข้อมูล Excel สำเร็จ', 'success');
-}
+    const criteriaSafety = [
+        { id: 'saf_1', title: '1. พื้นที่ทางเดิน', desc: ['กีดขวางทางเดิน', 'ทางเดินโล่งแต่เส้นเลือน', 'โล่ง 100% มีเส้น/กันลื่น'] },
+        { id: 'saf_2', title: '2. ระบบไฟฟ้า', desc: ['สายไฟยุ่งเหยิง/อันตราย', 'เก็บบ้างแต่ไม่เป็นระเบียบ', 'ร้อยท่อ/มิดชิด/ปลอดภัย'] },
+        { id: 'saf_3', title: '3. อุปกรณ์ดับเพลิง', desc: ['ไม่พร้อมใช้/สกปรก', 'มีครบแต่มีของบังบ้าง', 'พร้อมใช้ 100%/สะอาด'] },
+        { id: 'saf_4', title: '4. ของหนัก/วางซ้อน', desc: ['วางของหนักที่สูง', 'ของหนักอยู่ล่างแต่ไม่เป็นระเบียบ', 'ถูกหลัก Ergonomics ปลอดภัย'] },
+        { id: 'saf_5', title: '5. แสงสว่าง', desc: ['แสงไม่พอ/จุดเสี่ยง', 'แสงพอแต่ขาดความสะอาด', 'แสงเหมาะสมทั่วถึง/บำรุงรักษา'] },
+        { id: 'saf_6', title: '6. อุปกรณ์ PPE', desc: ['วางทิ้งไว้/สกปรก', 'มีที่แยกแต่ไม่มีป้าย', 'มี Shadow Board/สะอาดพร้อมใช้'] },
+        { id: 'saf_7', title: '7. ป้ายเตือน (Visual)', desc: ['ไม่มีป้ายเตือน', 'มีป้ายแต่ถูกบัง', 'ชัดเจน/เห็นง่ายทุกทิศ'] },
+        { id: 'saf_8', title: '8. การจัดการสารเคมี', desc: ['ไม่มีฝาปิด/ไม่มีป้าย', 'มีป้ายแต่ภาชนะไม่เหมาะสม', 'มี SDS/ถาดรอง/ป้องกันรั่ว'] }
+    ];
 
-// ===== NAVIGATION =====
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-'+name)?.classList.add('active');
-  document.querySelectorAll('.nav-tab').forEach(t => {
-    if (t.textContent.includes(pageLabel(name))) t.classList.add('active');
-  });
-  if (name === 'assess' && currentTeam) { populateAreaDropdown(); updateAssessInfo(); }
-  if (name === 'list') renderList();
-  if (name === 'report') renderReport();
-}
+    const criteriaInno = [
+        { id: 'inn_1', title: '1. Visual Management', desc: ['ป้ายชื่อทั่วไป', 'มี Color Code แบ่งโซน', 'Poka-Yoke ลดผิดพลาด'] },
+        { id: 'inn_2', title: '2. DIY Solution', desc: ['ซื้อสำเร็จรูป', 'ประดิษฐ์เองแก้ปัญหาได้', 'แข็งแรง/ลดขั้นตอน (Lean)'] },
+        { id: 'inn_3', title: '3. Safety Innovation', desc: ['ตามกฎพื้นฐาน', 'คิดค้นวิธีลดเสี่ยงหน้างาน', 'กำจัดความเสี่ยงสิ้นเชิง'] },
+        { id: 'inn_4', title: '4. Space Optimization', desc: ['วางตามพื้นที่เดิม', 'ใช้พื้นที่แนวตั้ง', 'Layout งานคล่องตัวสูงสุด'] }
+    ];
 
-function pageLabel(n) { return {setup:'ตั้งค่า',assess:'ประเมิน',list:'รายการ',report:'รายงาน'}[n]||''; }
+    // --- State Management ---
+    let currentImages = [];
+    const DB_KEY = "SmartSafetyWorkplaceAssessmentData";
 
-// ===== MODAL =====
-function closeModal(id) { document.getElementById(id)?.classList.remove('open'); }
+    // --- Initialization ---
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('evalDate').valueAsDate = new Date();
+        initForms();
+        loadLastAutoSave();
+    });
 
-// ===== TOAST =====
-function showToast(msg, type='info') {
-  const container = document.getElementById('toastContainer');
-  const toast = document.createElement('div');
-  toast.className = `toast toast-${type}`;
-  toast.textContent = msg;
-  container.appendChild(toast);
-  setTimeout(() => { toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(()=>toast.remove(),300); }, 2800);
-}
+    function initForms() {
+        renderFormGroup('container5s', criteria5S, [1,3,5,7], 8);
+        renderFormGroup('containerSafety', criteriaSafety, [1,3,5], 5);
+        renderFormGroup('containerInnovation', criteriaInno, [1,3,5], 5);
+    }
 
-// ===== UTILS =====
-function formatDate(d) {
-  if (!d) return '-';
-  const [y,m,day] = d.split('-');
-  const months = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-  return `${parseInt(day)} ${months[parseInt(m)-1]} ${parseInt(y)+543}`;
-}
+    function renderFormGroup(containerId, data, intervals, max) {
+        const container = document.getElementById(containerId);
+        data.forEach(item => {
+            let descHtml = `<div class="grid grid-cols-2 gap-2 mt-2 text-[10px]">`;
+            intervals.forEach((val, idx) => {
+                descHtml += `<div class="p-1 border rounded bg-white/50"><strong>${val}-${val+1} แต้ม:</strong> ${item.desc[idx] || ''}</div>`;
+            });
+            descHtml += `</div>`;
 
-function formatDateTime(ts) {
-  if (!ts) return '-';
-  const d = new Date(ts);
-  return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()+543} ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
-}
+            const section = document.createElement('div');
+            section.className = "p-3 border-b border-gray-200 section-item";
+            section.id = `section_${item.id}`;
+            section.innerHTML = `
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleSection('${item.id}')">
+                    <span class="text-sm font-semibold">${item.title}</span>
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="${item.id}" min="1" max="${max}" placeholder="1-${max}" 
+                            class="score-input" onchange="calculateScores(); checkAndCollapse('${item.id}')" onclick="event.stopPropagation()">
+                        <i class="fas fa-chevron-down text-xs ml-1" id="icon_${item.id}"></i>
+                    </div>
+                </div>
+                <div id="desc_${item.id}" class="mt-2">${descHtml}</div>
+            `;
+            container.appendChild(section);
+        });
+    }
 
-// Close modals on overlay click
-document.querySelectorAll('.modal-overlay').forEach(overlay => {
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.classList.remove('open');
-  });
-});
+    // --- Functions ---
+    function updateEvaluatorDropdown() {
+        const team = document.getElementById('teamSelect').value;
+        const select = document.getElementById('evaluatorSelect');
+        const areaSelect = document.getElementById('areaSelect');
+        
+        select.innerHTML = '<option value="">-- เลือกผู้ประเมิน --</option>';
+        areaSelect.innerHTML = '<option value="">-- เลือกพื้นที่ --</option>';
+
+        if (team) {
+            committeeData[team].forEach(name => select.innerHTML += `<option value="${name}">${name}</option>`);
+            areaData[team].forEach(area => areaSelect.innerHTML += `<option value="${area}">${area}</option>`);
+        }
+    }
+
+    function toggleSection(id) {
+        const el = document.getElementById(`desc_${id}`);
+        const icon = document.getElementById(`icon_${id}`);
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        icon.classList.toggle('fa-chevron-up');
+        icon.classList.toggle('fa-chevron-down');
+    }
+
+    function checkAndCollapse(id) {
+        const val = document.getElementById(id).value;
+        if(val) {
+            document.getElementById(`desc_${id}`).style.display = 'none';
+            document.getElementById(`icon_${id}`).className = 'fas fa-chevron-down text-xs ml-1';
+        }
+    }
+
+    function calculateScores() {
+        const getSum = (ids) => ids.reduce((sum, item) => sum + (parseInt(document.getElementById(item.id).value) || 0), 0);
+        
+        const s5 = getSum(criteria5S);
+        const saf = getSum(criteriaSafety);
+        const inn = getSum(criteriaInno);
+
+        document.getElementById('sum5s').innerText = s5;
+        document.getElementById('sumSafety').innerText = saf;
+        document.getElementById('sumInnovation').innerText = inn;
+        document.getElementById('totalScore').innerText = s5 + saf + inn;
+    }
+
+    function goToPage(pageNum) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(`page${pageNum}`).classList.add('active');
+        window.scrollTo(0, 0);
+        if(pageNum === 3) renderRecordList();
+    }
+
+    function saveInitialData() {
+        const team = document.getElementById('teamSelect').value;
+        const name = document.getElementById('evaluatorSelect').value;
+        if(!team || !name) return alert("กรุณาเลือกทีมและผู้ประเมิน");
+        goToPage(2);
+    }
+
+    async function handleImageUpload(input) {
+        const files = Array.from(input.files).slice(0, 7);
+        currentImages = [];
+        const preview = document.getElementById('imagePreview');
+        preview.innerHTML = '';
+
+        for (const file of files) {
+            const base64 = await toBase64(file);
+            currentImages.push(base64);
+            const img = document.createElement('img');
+            img.src = base64;
+            img.className = "w-16 h-16 object-cover rounded border";
+            preview.appendChild(img);
+        }
+    }
+
+    const toBase64 = file => new Promise((res, rej) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => res(reader.result);
+        reader.onerror = error => rej(error);
+    });
+
+    function submitEvaluation() {
+        // Validation
+        const area = document.getElementById('areaSelect').value;
+        if(!area) { alert("กรุณาเลือกพื้นที่"); return; }
+        
+        const allIds = [...criteria5S, ...criteriaSafety, ...criteriaInno];
+        for(let item of allIds) {
+            const el = document.getElementById(item.id);
+            if(!el.value) {
+                alert("กรุณากรอกคะแนนให้ครบทุกช่อง");
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+        }
+
+        const record = {
+            id: Date.now(),
+            team: document.getElementById('teamSelect').value,
+            evaluator: document.getElementById('evaluatorSelect').value,
+            date: document.getElementById('evalDate').value,
+            area: area,
+            scores: allIds.reduce((acc, item) => ({...acc, [item.id]: document.getElementById(item.id).value}), {}),
+            totals: {
+                s5: document.getElementById('sum5s').innerText,
+                saf: document.getElementById('sumSafety').innerText,
+                inn: document.getElementById('sumInnovation').innerText,
+                total: document.getElementById('totalScore').innerText
+            },
+            details: document.getElementById('moreDetails').value,
+            images: currentImages,
+            timestamp: new Date().toLocaleString('th-TH')
+        };
+
+        const records = JSON.parse(localStorage.getItem(DB_KEY) || "[]");
+        records.push(record);
+        localStorage.setItem(DB_KEY, JSON.stringify(records));
+
+        alert("บันทึกผลการประเมินเรียบร้อยแล้ว");
+        resetForm();
+        goToPage(3);
+    }
+
+    function resetForm() {
+        document.getElementById('evaluationForm').reset();
+        document.getElementById('imagePreview').innerHTML = '';
+        currentImages = [];
+        calculateScores();
+        initForms(); // Re-render to show all descriptions
+    }
+
+    function renderRecordList() {
+        const records = JSON.parse(localStorage.getItem(DB_KEY) || "[]");
+        const searchArea = document.getElementById('searchArea').value.toLowerCase();
+        const searchEval = document.getElementById('searchEvaluator').value.toLowerCase();
+        const list = document.getElementById('recordList');
+        list.innerHTML = '';
+
+        records.filter(r => r.area.toLowerCase().includes(searchArea) && r.evaluator.toLowerCase().includes(searchEval))
+               .reverse()
+               .forEach(r => {
+            const div = document.createElement('div');
+            div.className = "bg-white p-4 card border-l-4 border-blue-500 flex justify-between items-center";
+            div.innerHTML = `
+                <div>
+                    <div class="font-bold text-gray-800">${r.area}</div>
+                    <div class="text-xs text-gray-500">ผู้ประเมิน: ${r.evaluator} | คะแนน: ${r.totals.total}</div>
+                    <div class="text-[10px] text-gray-400">${r.timestamp}</div>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="viewRecord(${r.id})" class="text-blue-500"><i class="fas fa-eye"></i></button>
+                    <button onclick="deleteRecord(${r.id})" class="text-red-400 ml-2"><i class="fas fa-trash"></i></button>
+                </div>
+            `;
+            list.appendChild(div);
+        });
+    }
+
+    function deleteRecord(id) {
+        if(!confirm("ต้องการลบข้อมูลนี้ใช่หรือไม่?")) return;
+        const records = JSON.parse(localStorage.getItem(DB_KEY) || "[]");
+        const filtered = records.filter(r => r.id !== id);
+        localStorage.setItem(DB_KEY, JSON.stringify(filtered));
+        renderRecordList();
+    }
+
+    function loadLastAutoSave() {
+        const records = JSON.parse(localStorage.getItem(DB_KEY) || "[]");
+        if(records.length > 0) {
+            const last = records[records.length - 1];
+            document.getElementById('autoSaveLabel').innerText = `บันทึกอัตโนมัติล่าสุด: ${last.timestamp}`;
+        }
+    }
+
+    // --- Export Functions ---
+    function exportToExcel() {
+        const records = JSON.parse(localStorage.getItem(DB_KEY) || "[]");
+        if(records.length === 0) return alert("ไม่มีข้อมูล");
+        
+        const wsData = records.map(r => ({
+            "วันที่": r.date,
+            "ทีม": r.team,
+            "ผู้ประเมิน": r.evaluator,
+            "พื้นที่": r.area,
+            "คะแนน 5ส": r.totals.s5,
+            "คะแนน Safety": r.totals.saf,
+            "คะแนน Innovation": r.totals.inn,
+            "คะแนนรวม": r.totals.total,
+            "รายละเอียด": r.details
+        }));
+
+        const ws = XLSX.utils.json_to_sheet(wsData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Assessment Results");
+        XLSX.writeFile(wb, `Assessment_Report_${new Date().getTime()}.xlsx`);
+    }
+
+    // Simple placeholder for Word Export (Needs full library implementation for base64 images)
+    function exportToWord() {
+        alert("กำลังจัดทำรายงาน Microsoft Word... (ระบบจะดาวน์โหลดไฟล์อัตโนมัติ)");
+        // Logic for docx generation would go here
+    }
+
 </script>
 </body>
 </html>
