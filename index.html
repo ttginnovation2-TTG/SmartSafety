@@ -2,1338 +2,1584 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart & Safety Workplace 2026 – แบบประเมินกิจกรรม</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Smart & Safety Workplace 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap');
+:root {
+  --primary: #1a3a5c;
+  --primary-light: #2563a8;
+  --accent: #f59e0b;
+  --accent2: #10b981;
+  --danger: #ef4444;
+  --cat1-bg: #dbeafe;
+  --cat1-border: #3b82f6;
+  --cat2-bg: #fefce8;
+  --cat2-border: #eab308;
+  --cat3-bg: #dcfce7;
+  --cat3-border: #22c55e;
+  --white: #ffffff;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-500: #64748b;
+  --gray-700: #334155;
+  --gray-900: #0f172a;
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --font: 'Sarabun', sans-serif;
+  --font-display: 'Prompt', sans-serif;
+}
 
-  :root {
-    --primary: #0f4c81;
-    --primary-light: #1a6fba;
-    --accent: #f59e0b;
-    --accent2: #10b981;
-    --danger: #ef4444;
-    --bg: #f0f4f8;
-    --card: #ffffff;
-    --border: #e2e8f0;
-    --text: #1e293b;
-    --text-muted: #64748b;
-    --score-low: #fee2e2;
-    --score-low-border: #f87171;
-    --score-mid: #fef3c7;
-    --score-mid-border: #f59e0b;
-    --score-good: #d1fae5;
-    --score-good-border: #10b981;
-    --score-best: #dbeafe;
-    --score-best-border: #3b82f6;
-    --radius: 12px;
-    --shadow: 0 2px 12px rgba(15,76,129,0.10);
-    --shadow-lg: 0 8px 32px rgba(15,76,129,0.16);
-  }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font);
+  background: var(--gray-50);
+  color: var(--gray-900);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
 
-  body {
-    font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    font-size: 15px;
-    line-height: 1.6;
-  }
+/* ===== LAYOUT ===== */
+.app-shell { max-width: 900px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
 
-  /* ===== HEADER ===== */
-  .app-header {
-    background: linear-gradient(135deg, var(--primary) 0%, #1a6fba 60%, #0ea5e9 100%);
-    color: #fff;
-    padding: 20px 24px 16px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 20px rgba(15,76,129,0.25);
-  }
-  .app-header h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.2px; }
-  .app-header p { font-size: 12px; opacity: 0.82; margin-top: 2px; }
-  .header-nav { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-  .nav-btn {
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    color: #fff;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: all .2s;
-    font-weight: 500;
-  }
-  .nav-btn:hover, .nav-btn.active { background: #fff; color: var(--primary); }
+.top-bar {
+  background: var(--primary);
+  color: white;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
 
-  /* ===== MAIN ===== */
-  .main { max-width: 960px; margin: 0 auto; padding: 20px 12px 40px; }
+.top-bar h1 { font-family: var(--font-display); font-size: 16px; font-weight: 600; letter-spacing: 0.3px; }
+.top-bar .subtitle { font-size: 11px; opacity: 0.7; margin-top: 1px; }
+.top-bar .logo { display: flex; align-items: center; gap: 10px; }
+.top-bar .logo svg { width: 30px; height: 30px; }
 
-  /* ===== CARD ===== */
-  .card {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    margin-bottom: 20px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-  .card-header {
-    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
-    color: #fff;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .card-header .badge {
-    background: var(--accent);
-    color: #1a1a1a;
-    border-radius: 20px;
-    padding: 2px 10px;
-    font-size: 12px;
-    font-weight: 700;
-  }
-  .card-header h2 { font-size: 15px; font-weight: 700; }
-  .card-body { padding: 20px; }
+.nav-tabs {
+  display: flex;
+  background: var(--primary);
+  border-top: 1px solid rgba(255,255,255,0.15);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tab {
+  flex: 1;
+  min-width: 80px;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-family: var(--font);
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.nav-tab.active { color: white; border-bottom-color: var(--accent); }
+.nav-tab:hover { color: white; background: rgba(255,255,255,0.08); }
 
-  /* ===== FORM ===== */
-  .form-group { margin-bottom: 18px; }
-  .form-group label {
-    display: block;
-    font-weight: 600;
-    font-size: 13px;
-    margin-bottom: 6px;
-    color: var(--text);
-  }
-  .form-group label .req { color: var(--danger); margin-left: 2px; }
-  .form-control {
-    width: 100%;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 14px;
-    font-family: inherit;
-    color: var(--text);
-    background: #fff;
-    transition: border-color .2s;
-    -webkit-appearance: none;
-  }
-  .form-control:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(26,111,186,0.12); }
-  .form-control.error { border-color: var(--danger); }
+.page { display: none; flex: 1; padding: 20px; }
+.page.active { display: block; }
 
-  /* ===== TEAM SELECT ===== */
-  .team-select-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .team-card {
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    cursor: pointer;
-    transition: all .2s;
-    text-align: center;
-    background: #f8fafc;
-  }
-  .team-card:hover { border-color: var(--primary-light); background: #f0f7ff; }
-  .team-card.selected { border-color: var(--primary); background: #e8f4ff; box-shadow: 0 0 0 3px rgba(15,76,129,0.12); }
-  .team-card .team-icon { font-size: 32px; margin-bottom: 6px; }
-  .team-card .team-name { font-weight: 700; font-size: 15px; color: var(--primary); }
-  .team-card .team-members { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+/* ===== AUTOSAVE BAR ===== */
+.autosave-bar {
+  background: #e0f2fe;
+  border-bottom: 1px solid #bae6fd;
+  padding: 6px 20px;
+  font-size: 12px;
+  color: #0369a1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.autosave-bar .dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-  /* ===== SCORE CRITERIA ===== */
-  .criteria-grid { display: grid; gap: 8px; }
-  .criteria-row {
-    border-radius: 8px;
-    padding: 10px 14px;
-    border-left: 4px solid;
-    font-size: 13px;
-    line-height: 1.5;
-  }
-  .criteria-1-2 { background: var(--score-low); border-color: var(--score-low-border); }
-  .criteria-3-4 { background: var(--score-mid); border-color: var(--score-mid-border); }
-  .criteria-5-6 { background: var(--score-good); border-color: var(--score-good-border); }
-  .criteria-7-8 { background: var(--score-best); border-color: var(--score-best-border); }
-  .criteria-5 { background: var(--score-best); border-color: var(--score-best-border); }
-  .criteria-label { font-weight: 700; font-size: 12px; margin-bottom: 3px; }
+/* ===== CARDS ===== */
+.card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title .badge {
+  background: var(--primary);
+  color: white;
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 500;
+}
 
-  /* ===== SCORE TABLE ===== */
-  .score-section { margin-bottom: 24px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-  .score-section-header {
-    background: #f8fafc;
-    padding: 12px 16px;
-    font-weight: 700;
-    font-size: 14px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .score-section-header .topic-num {
-    background: var(--primary);
-    color: #fff;
-    border-radius: 50%;
-    width: 24px; height: 24px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    flex-shrink: 0;
-  }
-  .score-section-body { padding: 14px 16px; }
+/* ===== FORM ELEMENTS ===== */
+.form-group { margin-bottom: 14px; }
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 6px;
+}
+.form-label .required { color: var(--danger); margin-left: 3px; }
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: var(--font);
+  color: var(--gray-900);
+  background: var(--gray-50);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-control:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(37,99,168,0.12); background: white; }
+.form-control.error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
+select.form-control { cursor: pointer; }
+textarea.form-control { min-height: 100px; resize: vertical; }
 
-  .score-input-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-  .score-input-row label { font-size: 13px; font-weight: 600; flex-shrink: 0; }
-  .score-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
-  .score-btn {
-    width: 38px; height: 38px;
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    background: #fff;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    transition: all .15s;
-    font-family: inherit;
-    color: var(--text);
-  }
-  .score-btn:hover { border-color: var(--primary-light); background: #f0f7ff; }
-  .score-btn.active-1, .score-btn.active-2 { background: var(--score-low-border); border-color: var(--score-low-border); color: #fff; }
-  .score-btn.active-3, .score-btn.active-4 { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .score-btn.active-5, .score-btn.active-6 { background: var(--accent2); border-color: var(--accent2); color: #fff; }
-  .score-btn.active-7, .score-btn.active-8 { background: #3b82f6; border-color: #3b82f6; color: #fff; }
+/* ===== TEAM SELECTION ===== */
+.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.team-card {
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.team-card:hover { border-color: var(--primary-light); background: #f0f7ff; }
+.team-card.selected { border-color: var(--primary); background: #e8f0fe; }
+.team-card .team-num { font-size: 28px; font-weight: 800; font-family: var(--font-display); color: var(--primary); }
+.team-card .team-label { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+.team-card .team-count { font-size: 11px; color: var(--gray-500); margin-top: 6px; }
 
-  /* ===== SCORE SUMMARY ===== */
-  .score-summary-bar {
-    background: linear-gradient(90deg, #f0f7ff 0%, #e8f4ff 100%);
-    border-radius: 10px;
-    padding: 14px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 16px;
-    border: 1px solid #bfdbfe;
-  }
-  .score-summary-bar .label { font-weight: 600; font-size: 14px; }
-  .score-summary-bar .score { font-size: 24px; font-weight: 800; color: var(--primary); }
-  .score-summary-bar .max { font-size: 13px; color: var(--text-muted); }
+/* ===== CATEGORY SECTIONS ===== */
+.cat-section {
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.cat-header {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+}
+.cat-header h3 { font-family: var(--font-display); font-size: 14px; font-weight: 600; }
+.cat-score-badge {
+  background: rgba(0,0,0,0.12);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.cat-body { padding: 16px; }
 
-  /* ===== TOTAL SUMMARY ===== */
-  .total-summary {
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    border-radius: var(--radius);
-    padding: 24px;
-    color: #fff;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  .total-summary h3 { font-size: 16px; opacity: 0.9; margin-bottom: 8px; }
-  .total-score { font-size: 52px; font-weight: 800; line-height: 1; }
-  .total-max { font-size: 14px; opacity: 0.75; margin-top: 4px; }
-  .total-breakdown { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; justify-content: center; }
-  .breakdown-item { background: rgba(255,255,255,0.18); border-radius: 8px; padding: 8px 16px; text-align: center; flex: 1; min-width: 120px; }
-  .breakdown-item .b-label { font-size: 11px; opacity: 0.8; }
-  .breakdown-item .b-val { font-size: 20px; font-weight: 700; }
+.cat1 .cat-header { background: #bfdbfe; color: #1e3a5f; }
+.cat1 .cat-body { background: var(--cat1-bg); }
+.cat2 .cat-header { background: #fde68a; color: #713f12; }
+.cat2 .cat-body { background: var(--cat2-bg); }
+.cat3 .cat-header { background: #bbf7d0; color: #14532d; }
+.cat3 .cat-body { background: var(--cat3-bg); }
 
-  /* ===== NOTES & UPLOAD ===== */
-  textarea.form-control { min-height: 100px; resize: vertical; }
-  .upload-area {
-    border: 2px dashed var(--border);
-    border-radius: 10px;
-    padding: 24px;
-    text-align: center;
-    cursor: pointer;
-    transition: all .2s;
-    background: #f8fafc;
-  }
-  .upload-area:hover, .upload-area.drag { border-color: var(--primary-light); background: #f0f7ff; }
-  .upload-area .upload-icon { font-size: 32px; }
-  .upload-area p { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
-  .file-list { margin-top: 12px; display: grid; gap: 8px; }
-  .file-item {
-    display: flex; align-items: center; gap: 10px;
-    background: #f0f7ff; border-radius: 8px; padding: 8px 12px;
-    border: 1px solid #bfdbfe;
-  }
-  .file-item .file-thumb { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; background: var(--border); }
-  .file-item .file-name { flex: 1; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .file-item .file-remove { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 18px; padding: 0 4px; }
-  .upload-progress { height: 4px; background: var(--border); border-radius: 2px; margin-top: 4px; overflow: hidden; }
-  .upload-progress-bar { height: 100%; background: var(--accent2); border-radius: 2px; transition: width .3s; }
+/* ===== CRITERIA ITEMS ===== */
+.criteria-item {
+  background: white;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  overflow: hidden;
+  border: 1.5px solid var(--gray-200);
+  transition: border-color 0.2s;
+}
+.criteria-item.scored { border-color: #86efac; }
+.criteria-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  cursor: pointer;
+  gap: 10px;
+}
+.criteria-header:hover { background: var(--gray-50); }
+.criteria-num {
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.criteria-name { font-size: 13px; font-weight: 600; flex: 1; }
+.criteria-status { font-size: 12px; color: var(--gray-500); white-space: nowrap; }
+.criteria-status.done { color: #16a34a; font-weight: 600; }
+.criteria-chevron { font-size: 14px; color: var(--gray-500); transition: transform 0.2s; flex-shrink: 0; }
+.criteria-body { padding: 0 14px 14px; display: none; }
+.criteria-item.open .criteria-chevron { transform: rotate(180deg); }
+.criteria-item.open .criteria-body { display: block; }
 
-  /* ===== BUTTONS ===== */
-  .btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all .2s;
-    text-decoration: none;
-  }
-  .btn-primary { background: var(--primary); color: #fff; }
-  .btn-primary:hover { background: var(--primary-light); }
-  .btn-accent { background: var(--accent); color: #1a1a1a; }
-  .btn-accent:hover { background: #d97706; color: #fff; }
-  .btn-success { background: var(--accent2); color: #fff; }
-  .btn-success:hover { background: #059669; }
-  .btn-danger { background: var(--danger); color: #fff; }
-  .btn-danger:hover { background: #dc2626; }
-  .btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
-  .btn-ghost:hover { background: #f0f7ff; }
-  .btn-sm { padding: 6px 14px; font-size: 13px; }
-  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+/* ===== SCORE CRITERIA TABLE ===== */
+.criteria-grid { display: grid; gap: 8px; margin: 10px 0; }
+.criteria-band {
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.criteria-band-header {
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.criteria-band.band-1 .criteria-band-header { background: #fee2e2; color: #991b1b; }
+.criteria-band.band-2 .criteria-band-header { background: #fef9c3; color: #854d0e; }
+.criteria-band.band-3 .criteria-band-header { background: #dbeafe; color: #1e40af; }
+.criteria-band.band-4 .criteria-band-header { background: #dcfce7; color: #14532d; }
+.criteria-band-desc { padding: 8px 12px; font-size: 12px; color: var(--gray-700); background: white; line-height: 1.5; }
 
-  /* ===== ACTIONS ROW ===== */
-  .actions-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+/* ===== SCORE SELECTOR ===== */
+.score-selector { margin-top: 12px; }
+.score-label { font-size: 12px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px; }
 
-  /* ===== ALERT ===== */
-  .alert {
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    font-size: 14px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .alert-danger { background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; }
-  .alert-success { background: #d1fae5; border: 1px solid #6ee7b7; color: #065f46; }
-  .alert-info { background: #dbeafe; border: 1px solid #93c5fd; color: #1e40af; }
+.score-options-cat1 { display: grid; grid-template-columns: repeat(8,1fr); gap: 4px; }
+.score-options-cat2, .score-options-cat3 { display: grid; grid-template-columns: repeat(5,1fr); gap: 4px; }
 
-  /* ===== RECORDS LIST ===== */
-  .search-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-  .record-item {
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    background: #fff;
-    transition: box-shadow .2s;
-  }
-  .record-item:hover { box-shadow: var(--shadow); }
-  .record-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-  .record-tag {
-    background: #f0f7ff; border: 1px solid #bfdbfe;
-    border-radius: 20px; padding: 2px 10px;
-    font-size: 12px; color: var(--primary); font-weight: 600;
-  }
-  .record-tag.team { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
-  .record-scores { display: flex; gap: 10px; margin-top: 6px; font-size: 13px; }
-  .record-scores span { font-weight: 700; color: var(--primary); }
-  .record-actions { display: flex; gap: 6px; margin-top: 10px; }
+.score-btn {
+  aspect-ratio: 1;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: white;
+  color: var(--gray-500);
+  transition: all 0.15s;
+  font-family: var(--font);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.score-btn:hover { border-color: var(--primary-light); color: var(--primary); background: #f0f7ff; }
+.score-btn.selected { background: var(--primary); border-color: var(--primary); color: white; }
 
-  /* ===== MODAL ===== */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(15,76,129,0.4);
-    z-index: 200; display: flex; align-items: flex-start; justify-content: center;
-    padding: 20px 12px;
-    overflow-y: auto;
-  }
-  .modal {
-    background: var(--card); border-radius: var(--radius);
-    box-shadow: var(--shadow-lg);
-    width: 100%; max-width: 800px;
-    animation: slideIn .25s ease;
-  }
-  @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-  .modal-header {
-    background: linear-gradient(90deg, var(--primary), var(--primary-light));
-    color: #fff;
-    padding: 14px 20px;
-    display: flex; justify-content: space-between; align-items: center;
-    border-radius: var(--radius) var(--radius) 0 0;
-  }
-  .modal-header h3 { font-size: 15px; font-weight: 700; }
-  .modal-close { background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; padding: 0; }
-  .modal-body { padding: 20px; max-height: 80vh; overflow-y: auto; }
+/* ===== SUMMARY ===== */
+.summary-card {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.summary-card h3 { font-family: var(--font-display); margin-bottom: 14px; font-size: 15px; }
+.summary-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; text-align: center; }
+.summary-item { background: rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 6px; }
+.summary-item .val { font-size: 24px; font-weight: 800; font-family: var(--font-display); }
+.summary-item .lbl { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+.summary-total { text-align: center; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.2); }
+.summary-total .big { font-size: 40px; font-weight: 800; font-family: var(--font-display); }
+.summary-total .lbl { font-size: 13px; opacity: 0.8; }
 
-  /* ===== VIEW DETAIL ===== */
-  .detail-section { margin-bottom: 20px; }
-  .detail-section h4 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 10px; border-bottom: 1.5px solid var(--border); padding-bottom: 6px; }
-  .detail-row { display: flex; gap: 8px; margin-bottom: 6px; font-size: 13px; }
-  .detail-row .d-label { min-width: 140px; color: var(--text-muted); flex-shrink: 0; }
-  .detail-row .d-val { font-weight: 600; }
-  .detail-score-item { display: flex; justify-content: space-between; padding: 6px 10px; border-radius: 6px; background: #f8fafc; margin-bottom: 4px; font-size: 13px; }
-  .detail-score-item .d-score { font-weight: 700; color: var(--primary); }
-  .detail-images { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-  .detail-images img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; }
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 20px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-light); }
+.btn-success { background: #16a34a; color: white; }
+.btn-success:hover { background: #15803d; }
+.btn-warning { background: var(--accent); color: white; }
+.btn-warning:hover { background: #d97706; }
+.btn-danger { background: var(--danger); color: white; }
+.btn-danger:hover { background: #dc2626; }
+.btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+.btn-outline:hover { background: #f0f7ff; }
+.btn-sm { padding: 7px 14px; font-size: 12px; }
+.btn-full { width: 100%; }
+.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
 
-  /* ===== HIDDEN ===== */
-  .hidden { display: none !important; }
-  #fileInput { display: none; }
+/* ===== IMAGE UPLOAD ===== */
+.upload-zone {
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--gray-50);
+}
+.upload-zone:hover { border-color: var(--primary-light); background: #f0f7ff; }
+.upload-zone .icon { font-size: 28px; margin-bottom: 8px; }
+.upload-zone p { font-size: 13px; color: var(--gray-500); }
+.upload-preview { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px,1fr)); gap: 8px; margin-top: 12px; }
+.preview-thumb { position: relative; border-radius: var(--radius-sm); overflow: hidden; aspect-ratio: 1; }
+.preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.preview-thumb .del { position: absolute; top: 3px; right: 3px; background: rgba(239,68,68,0.9); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 600px) {
-    .team-select-grid { grid-template-columns: 1fr 1fr; }
-    .search-row { grid-template-columns: 1fr; }
-    .total-breakdown { flex-direction: column; }
-    .score-buttons { gap: 4px; }
-    .score-btn { width: 34px; height: 34px; font-size: 13px; }
-    .record-scores { flex-direction: column; gap: 4px; }
-  }
+/* ===== LIST PAGE ===== */
+.search-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+.search-bar .form-control { flex: 1; }
+.record-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-left: 4px solid var(--primary);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+.record-card:hover { box-shadow: var(--shadow-lg); }
+.record-card .rc-title { font-weight: 700; font-size: 14px; color: var(--primary); }
+.record-card .rc-meta { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
+.record-card .rc-scores { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.score-pill { padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.pill-blue { background: #dbeafe; color: #1d4ed8; }
+.pill-yellow { background: #fef9c3; color: #a16207; }
+.pill-green { background: #dcfce7; color: #15803d; }
+.pill-gray { background: var(--gray-100); color: var(--gray-700); }
+.rc-actions { display: flex; gap: 6px; margin-top: 10px; }
+.empty-state { text-align: center; padding: 60px 20px; color: var(--gray-500); }
+.empty-state .icon { font-size: 48px; margin-bottom: 12px; }
 
-  .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
-  .empty-state .e-icon { font-size: 48px; margin-bottom: 12px; }
-  .step-indicator { display: flex; gap: 0; margin-bottom: 4px; overflow: hidden; border-radius: 6px; }
-  .step-indicator .step { flex: 1; height: 4px; background: var(--border); }
-  .step-indicator .step.done { background: var(--accent2); }
-  .step-indicator .step.current { background: var(--accent); }
+/* ===== VIEW/REPORT PAGE ===== */
+.view-header { background: var(--primary); color: white; border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+.view-header h2 { font-family: var(--font-display); font-size: 18px; }
+.view-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.view-meta-item { background: rgba(255,255,255,0.12); border-radius: var(--radius-sm); padding: 10px; }
+.view-meta-item .lbl { font-size: 11px; opacity: 0.7; }
+.view-meta-item .val { font-size: 13px; font-weight: 600; margin-top: 2px; }
 
-  .google-drive-note {
-    background: #e8f5e9; border: 1px solid #a5d6a7;
-    border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #2e7d32;
-    margin-top: 8px;
-  }
-  .google-drive-note a { color: #1b5e20; font-weight: 600; }
+.criteria-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gray-100);
+  gap: 12px;
+}
+.criteria-result-row:last-child { border-bottom: none; }
+.cr-name { font-size: 13px; font-weight: 500; flex: 1; }
+.cr-score { font-size: 16px; font-weight: 800; font-family: var(--font-display); color: var(--primary); white-space: nowrap; }
+
+/* ===== TOAST ===== */
+.toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; width: 90%; max-width: 400px; }
+.toast {
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.3s ease;
+  pointer-events: all;
+}
+.toast-success { background: #16a34a; color: white; }
+.toast-error { background: var(--danger); color: white; }
+.toast-info { background: var(--primary); color: white; }
+@keyframes slideUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+
+/* ===== ALERT ===== */
+.alert { padding: 12px 16px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 12px; }
+.alert-danger { background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; }
+.alert-info { background: #dbeafe; border: 1px solid #93c5fd; color: #1e40af; }
+
+/* ===== REPORT PRINT ===== */
+@media print {
+  .top-bar, .nav-tabs, .autosave-bar, .btn, .btn-group, .search-bar, .nav-tab, .rc-actions { display: none !important; }
+  .page { display: block !important; padding: 0; }
+  .app-shell { max-width: 100%; }
+  .report-page-break { page-break-before: always; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .summary-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .score-options-cat1 { grid-template-columns: repeat(4,1fr); }
+  .view-meta { grid-template-columns: 1fr; }
+  .page { padding: 14px; }
+}
+
+.divider { height: 1px; background: var(--gray-200); margin: 16px 0; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.text-sm { font-size: 12px; color: var(--gray-500); }
+.text-center { text-align: center; }
+.mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.open { display: flex; }
+.modal { background: white; border-radius: var(--radius); max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto; }
+.modal-header { padding: 16px 20px; border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center; }
+.modal-body { padding: 20px; }
+.modal-footer { padding: 16px 20px; border-top: 1px solid var(--gray-200); display: flex; gap: 8px; justify-content: flex-end; }
+
+.info-chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; background: #e0f2fe; color: #0369a1; border-radius: 20px; font-size: 11px; font-weight: 600; }
 </style>
 </head>
 <body>
 
-<div class="app-header">
-  <h1>🏭 Smart & Safety Workplace 2026</h1>
-  <p>ระบบบันทึกผลการประเมินกิจกรรม 5ส และความปลอดภัย</p>
-  <div class="header-nav">
-    <button class="nav-btn active" onclick="showView('form')">📝 บันทึกการประเมิน</button>
-    <button class="nav-btn" onclick="showView('records')">📋 รายการทั้งหมด</button>
-  </div>
-</div>
-
-<div class="main">
-
-  <!-- ===== FORM VIEW ===== -->
-  <div id="view-form">
-    <div id="alertBox" class="hidden"></div>
-
-    <!-- STEP INDICATOR -->
-    <div class="step-indicator" id="stepIndicator">
-      <div class="step current" id="step1"></div>
-      <div class="step" id="step2"></div>
-      <div class="step" id="step3"></div>
-      <div class="step" id="step4"></div>
-      <div class="step" id="step5"></div>
-      <div class="step" id="step6"></div>
-      <div class="step" id="step7"></div>
-      <div class="step" id="step8"></div>
-    </div>
-
-    <!-- PART 1: TEAM SELECTION -->
-    <div class="card" id="section-team">
-      <div class="card-header">
-        <span class="badge">ส่วนที่ 1</span>
-        <h2>เลือกทีมคณะกรรมการ</h2>
-      </div>
-      <div class="card-body">
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">กรุณาเลือกทีมที่คุณเป็นสมาชิก เพื่อกรองข้อมูลพื้นที่และรายชื่อกรรมการที่ถูกต้อง</p>
-        <div class="team-select-grid">
-          <div class="team-card" id="team1-card" onclick="selectTeam(1)">
-            <div class="team-icon">👥</div>
-            <div class="team-name">ทีมที่ 1</div>
-            <div class="team-members">จิรัฏฐ์ / ยุทธนันท์ / วิชเลิศ<br>สลักใจ / วุฒิภัทร / สุมิตรา / กาญจนา</div>
-          </div>
-          <div class="team-card" id="team2-card" onclick="selectTeam(2)">
-            <div class="team-icon">👥</div>
-            <div class="team-name">ทีมที่ 2</div>
-            <div class="team-members">พลัฏฐ์ / ชาตรี / เอกราช<br>อานนท์ / สัญชัย / พรพรรณ / ชัชชญา</div>
-          </div>
-        </div>
-        <input type="hidden" id="selectedTeam" value="">
+<div class="app-shell">
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="logo">
+      <svg viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" fill="rgba(255,255,255,0.15)"/>
+        <path d="M20 8L28 14V22C28 27 24 31 20 33C16 31 12 27 12 22V14L20 8Z" fill="rgba(255,255,255,0.9)" opacity="0.8"/>
+        <path d="M16 20L19 23L25 17" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:700">Smart & Safety Workplace</div>
+        <div class="subtitle">ระบบประเมินกิจกรรม 2026</div>
       </div>
     </div>
-
-    <!-- PART 2: EVALUATOR INFO -->
-    <div class="card" id="section-info">
-      <div class="card-header">
-        <span class="badge">ส่วนที่ 2</span>
-        <h2>ข้อมูลการประเมิน</h2>
-      </div>
-      <div class="card-body">
-        <div class="form-group">
-          <label>วันที่ประเมิน <span class="req">*</span></label>
-          <input type="date" class="form-control" id="evalDate">
-        </div>
-        <div class="form-group">
-          <label>ชื่อผู้ประเมิน <span class="req">*</span></label>
-          <select class="form-control" id="evalName">
-            <option value="">-- กรุณาเลือกทีมก่อน --</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>พื้นที่การตรวจ <span class="req">*</span></label>
-          <select class="form-control" id="evalArea">
-            <option value="">-- กรุณาเลือกทีมก่อน --</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <!-- PART 3: SECTION 1 - 5S -->
-    <div class="card" id="section-5s">
-      <div class="card-header">
-        <span class="badge">ส่วนที่ 3</span>
-        <h2>หมวดที่ 1: การปรับปรุงตามมาตรฐาน 5ส</h2>
-      </div>
-      <div class="card-body">
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">กรุณาให้คะแนนแต่ละหัวข้อ (1–8 คะแนน) โดยพิจารณาจากเกณฑ์ที่แสดงด้านล่าง</p>
-
-        <!-- 5S Topic 1 -->
-        <div class="score-section" id="s5s-1">
-          <div class="score-section-header">
-            <span class="topic-num">1</span>
-            สะสาง (Seiri)
-          </div>
-          <div class="score-section-body">
-            <div class="criteria-grid">
-              <div class="criteria-row criteria-1-2">
-                <div class="criteria-label">🔴 1–2 คะแนน (ต้องปรับปรุง)</div>
-                พบของไม่จำเป็น ขยะ หรือของเสีย วางปะปนกับของใช้งานในปริมาณมาก
-              </div>
-              <div class="criteria-row criteria-3-4">
-                <div class="criteria-label">🟡 3–4 คะแนน (พอใช้)</div>
-                เริ่มแยกของไม่จำเป็นออกบ้าง แต่ยังไม่มีการติดป้าย Tag หรือจุดพักของที่ชัดเจน
-              </div>
-              <div class="criteria-row criteria-5-6">
-                <div class="criteria-label">🟢 5–6 คะแนน (ดี/ตามมาตรฐาน)</div>
-                แยกของชัดเจน มีการติดป้าย Tag มีแผนการกำจัดของที่ไม่ได้ใช้
-              </div>
-              <div class="criteria-row criteria-7-8">
-                <div class="criteria-label">🔵 7–8 คะแนน (ยอดเยี่ยม/ยั่งยืน)</div>
-                <strong>ไม่มีของไม่จำเป็นในพื้นที่</strong> มีระบบจัดการของรอทิ้ง/บริจาคอย่างต่อเนื่อง เป็นระบบ
-              </div>
-            </div>
-            <div class="score-input-row">
-              <label>คะแนน:</label>
-              <div class="score-buttons" id="s5s1-btns"></div>
-              <input type="hidden" id="s5s1" value="">
-            </div>
-          </div>
-        </div>
-
-        <!-- 5S Topic 2 -->
-        <div class="score-section" id="s5s-2">
-          <div class="score-section-header">
-            <span class="topic-num">2</span>
-            สะดวก (Seiton)
-          </div>
-          <div class="score-section-body">
-            <div class="criteria-grid">
-              <div class="criteria-row criteria-1-2">
-                <div class="criteria-label">🔴 1–2 คะแนน (ต้องปรับปรุง)</div>
-                ของวางระเกะระกะ ไม่มีตำแหน่งที่ตั้งแน่นอน ไม่มีป้ายชื่อหรือสัญลักษณ์ใดๆ
-              </div>
-              <div class="criteria-row criteria-3-4">
-                <div class="criteria-label">🟡 3–4 คะแนน (พอใช้)</div>
-                มีที่วางชัดเจนบางส่วน แต่ยังไม่มีป้ายชื่อหรือสัญลักษณ์ ทำให้หาของยากหรือเสียเวลา
-              </div>
-              <div class="criteria-row criteria-5-6">
-                <div class="criteria-label">🟢 5–6 คะแนน (ดี/ตามมาตรฐาน)</div>
-                มีป้ายชื่อ ตีเส้นหรือขอบเขตชัดเจน ค้นหาของได้รวดเร็ว แต่อาจยังไม่สะดวก 100%
-              </div>
-              <div class="criteria-row criteria-7-8">
-                <div class="criteria-label">🔵 7–8 คะแนน (ยอดเยี่ยม/ยั่งยืน)</div>
-                <strong>มี Location Index ชัดเจน</strong> หยิบง่าย-วางคืนที่เดิมได้ถูกต้อง 100% แม้คนนอกพื้นที่มาใช้
-              </div>
-            </div>
-            <div class="score-input-row">
-              <label>คะแนน:</label>
-              <div class="score-buttons" id="s5s2-btns"></div>
-              <input type="hidden" id="s5s2" value="">
-            </div>
-          </div>
-        </div>
-
-        <!-- 5S Topic 3 -->
-        <div class="score-section" id="s5s-3">
-          <div class="score-section-header">
-            <span class="topic-num">3</span>
-            สะอาด (Seiso)
-          </div>
-          <div class="score-section-body">
-            <div class="criteria-grid">
-              <div class="criteria-row criteria-1-2">
-                <div class="criteria-label">🔴 1–2 คะแนน (ต้องปรับปรุง)</div>
-                พื้นและอุปกรณ์มีฝุ่นหนา มีคราบสกปรกสะสม หรือมีร่องรอยการรั่วซึมของน้ำมัน/สารเคมี
-              </div>
-              <div class="criteria-row criteria-3-4">
-                <div class="criteria-label">🟡 3–4 คะแนน (พอใช้)</div>
-                ทำความสะอาดเฉพาะจุดที่มองเห็นง่าย แต่ตามซอกมุมหรือหลังตู้ยังมีฝุ่นและสิ่งสกปรก
-              </div>
-              <div class="criteria-row criteria-5-6">
-                <div class="criteria-label">🟢 5–6 คะแนน (ดี/ตามมาตรฐาน)</div>
-                พื้นที่และอุปกรณ์การทำงานส่วนใหญ่สะอาด จัดเก็บเป็นระเบียบ
-              </div>
-              <div class="criteria-row criteria-7-8">
-                <div class="criteria-label">🔵 7–8 คะแนน (ยอดเยี่ยม/ยั่งยืน)</div>
-                <strong>พื้นที่ทุกจุดสะอาดเงางาม (รวมถึงจุดอับสายตา)</strong> อุปกรณ์ทำความสะอาดจัดเก็บเป็นระเบียบ มีตารางเวรทำความสะอาด
-              </div>
-            </div>
-            <div class="score-input-row">
-              <label>คะแนน:</label>
-              <div class="score-buttons" id="s5s3-btns"></div>
-              <input type="hidden" id="s5s3" value="">
-            </div>
-          </div>
-        </div>
-
-        <!-- 5S Topic 4 -->
-        <div class="score-section" id="s5s-4">
-          <div class="score-section-header">
-            <span class="topic-num">4</span>
-            สุขลักษณะ (Seiketsu)
-          </div>
-          <div class="score-section-body">
-            <div class="criteria-grid">
-              <div class="criteria-row criteria-1-2">
-                <div class="criteria-label">🔴 1–2 คะแนน (ต้องปรับปรุง)</div>
-                มีฝุ่น กลิ่น หรือความสกปรกสะสม ไม่ได้ถูกทำความสะอาดอย่างทั่วถึง
-              </div>
-              <div class="criteria-row criteria-3-4">
-                <div class="criteria-label">🟡 3–4 คะแนน (พอใช้)</div>
-                เริ่มมีการกำหนดมาตรฐานการจัดการพื้นที่บ้างในบางจุด แต่พื้นที่ส่วนใหญ่ยังไม่ได้ถูกจัดการ
-              </div>
-              <div class="criteria-row criteria-5-6">
-                <div class="criteria-label">🟢 5–6 คะแนน (ดี/ตามมาตรฐาน)</div>
-                พื้นที่ทำงานส่วนใหญ่มีมาตรฐานกำหนดหรือป้ายบ่งชี้ มีผู้รับผิดชอบชัดเจน เช่น การจัดวางอุปกรณ์ทำความสะอาด จุดทิ้งขยะ
-              </div>
-              <div class="criteria-row criteria-7-8">
-                <div class="criteria-label">🔵 7–8 คะแนน (ยอดเยี่ยม/ยั่งยืน)</div>
-                <strong>พื้นที่ทำงานมีการควบคุมและกำหนดเป็นมาตรฐานในทุกจุด</strong> เพื่อให้พนักงานปฏิบัติได้เป็นนิสัยอย่างต่อเนื่อง เช่น Checklist, ป้ายบ่งชี้ ผู้รับผิดชอบ
-              </div>
-            </div>
-            <div class="score-input-row">
-              <label>คะแนน:</label>
-              <div class="score-buttons" id="s5s4-btns"></div>
-              <input type="hidden" id="s5s4" value="">
-            </div>
-          </div>
-        </div>
-
-        <!-- 5S Topic 5 -->
-        <div class="score-section" id="s5s-5">
-          <div class="score-section-header">
-            <span class="topic-num">5</span>
-            สร้างนิสัย (Shitsuke)
-          </div>
-          <div class="score-section-body">
-            <div class="criteria-grid">
-              <div class="criteria-row criteria-1-2">
-                <div class="criteria-label">🔴 1–2 คะแนน (ต้องปรับปรุง)</div>
-                ไม่มีตารางเวรทำความสะอาด หรือมีแต่ไม่มีการปฏิบัติจริง พนักงานขาดความร่วมมือ
-              </div>
-              <div class="criteria-row criteria-3-4">
-                <div class="criteria-label">🟡 3–4 คะแนน (พอใช้)</div>
-                มีบันทึกการทำความสะอาด แต่การทำความสะอาดยังไม่สม่ำเสมอ ต้องมีคนคอยเตือน
-              </div>
-              <div class="criteria-row criteria-5-6">
-                <div class="criteria-label">🟢 5–6 คะแนน (ดี/ตามมาตรฐาน)</div>
-                มีตารางเวร พนักงานส่วนใหญ่ปฏิบัติตามกฎระเบียบ มีการตรวจเช็คตามรอบเวลาที่กำหนด
-              </div>
-              <div class="criteria-row criteria-7-8">
-                <div class="criteria-label">🔵 7–8 คะแนน (ยอดเยี่ยม/ยั่งยืน)</div>
-                <strong>พนักงานทุกคนปฏิบัติตามอย่างต่อเนื่อง</strong> มีการบันทึก Self-Audit ครบถ้วน สม่ำเสมอ
-              </div>
-            </div>
-            <div class="score-input-row">
-              <label>คะแนน:</label>
-              <div class="score-buttons" id="s5s5-btns"></div>
-              <input type="hidden" id="s5s5" value="">
-            </div>
-          </div>
-        </div>
-
-        <div class="score-summary-bar">
-          <div>
-            <div class="label">คะแนนรวม หมวดที่ 1 (5ส)</div>
-            <div class="max">คะแนนเต็ม 40 คะแนน</div>
-          </div>
-          <div class="score" id="total5s">0</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PART 4: SECTION 2 - SAFETY -->
-    <div class="card" id="section-safety">
-      <div class="card-header">
-        <span class="badge">ส่วนที่ 4</span>
-        <h2>หมวดที่ 2: การปรับปรุงตามมาตรฐานความปลอดภัยขั้นพื้นฐาน</h2>
-      </div>
-      <div class="card-body">
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">กรุณาให้คะแนนแต่ละหัวข้อ (1–5 คะแนน) โดยพิจารณาจากเกณฑ์ที่แสดงด้านล่าง</p>
-
-        <!-- Safety topics -->
-        <div id="safety-topics"></div>
-
-        <div class="score-summary-bar">
-          <div>
-            <div class="label">คะแนนรวม หมวดที่ 2 (ความปลอดภัย)</div>
-            <div class="max">คะแนนเต็ม 40 คะแนน</div>
-          </div>
-          <div class="score" id="totalSafety">0</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PART 5: SECTION 3 - INNOVATION -->
-    <div class="card" id="section-innovation">
-      <div class="card-header">
-        <span class="badge">ส่วนที่ 5</span>
-        <h2>หมวดที่ 3: นวัตกรรมและความคิดสร้างสรรค์</h2>
-      </div>
-      <div class="card-body">
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">กรุณาให้คะแนนแต่ละหัวข้อ (1–5 คะแนน) โดยพิจารณาจากเกณฑ์ที่แสดงด้านล่าง</p>
-
-        <div id="innovation-topics"></div>
-
-        <div class="score-summary-bar">
-          <div>
-            <div class="label">คะแนนรวม หมวดที่ 3 (นวัตกรรม)</div>
-            <div class="max">คะแนนเต็ม 20 คะแนน</div>
-          </div>
-          <div class="score" id="totalInnovation">0</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PART 6: NOTES -->
-    <div class="card" id="section-notes">
-      <div class="card-header">
-        <span class="badge">ส่วนที่ 6</span>
-        <h2>บันทึกรายละเอียดเพิ่มเติม</h2>
-      </div>
-      <div class="card-body">
-        <div class="form-group">
-          <label>ข้อสังเกตและรายละเอียดที่พบจากการประเมิน</label>
-          <textarea class="form-control" id="evalNotes" placeholder="บันทึกข้อสังเกต ปัญหาที่พบ หรือข้อเสนอแนะจากการตรวจประเมิน..."></textarea>
-        </div>
-      </div>
-    </div>
-
-    <!-- PART 7: PHOTOS -->
-    <div class="card" id="section-photos">
-      <div class="card-header">
-        <span class="badge">ส่วนที่ 7</span>
-        <h2>แนบไฟล์รูปประกอบ</h2>
-      </div>
-      <div class="card-body">
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">สามารถแนบรูปภาพได้สูงสุด 7 ไฟล์ รองรับ JPG, PNG (ไม่เกิน 20 MB ต่อไฟล์)</p>
-        <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()" ondragover="handleDrag(event)" ondrop="handleDrop(event)">
-          <div class="upload-icon">📷</div>
-          <p>คลิกหรือลากไฟล์มาวางที่นี่</p>
-          <p style="font-size:11px;">JPG, PNG · สูงสุด 7 ไฟล์ · ไฟล์ละไม่เกิน 20MB</p>
-        </div>
-        <input type="file" id="fileInput" accept="image/*,.pdf,.docx,.xlsx" multiple onchange="handleFiles(this.files)">
-        <div class="file-list" id="fileList"></div>
-        <div class="google-drive-note">
-          📁 ไฟล์รูปภาพจะถูกบันทึกลงใน <a href="https://drive.google.com/drive/folders/1TsS1CGdjs6yUSS6efeHYJ7OQMHkMLb0G" target="_blank">Google Drive Folder</a> โดยอัตโนมัติเมื่อกดบันทึก
-        </div>
-      </div>
-    </div>
-
-    <!-- PART 8: TOTAL SUMMARY -->
-    <div class="card" id="section-total">
-      <div class="card-header">
-        <span class="badge">ส่วนที่ 8</span>
-        <h2>สรุปคะแนนรวมทั้งหมด</h2>
-      </div>
-      <div class="card-body">
-        <div class="total-summary">
-          <h3>คะแนนรวมจากการประเมิน 3 หมวด</h3>
-          <div class="total-score" id="grandTotal">0</div>
-          <div class="total-max">จาก 100 คะแนน</div>
-          <div class="total-breakdown">
-            <div class="breakdown-item">
-              <div class="b-label">หมวด 1 (5ส)</div>
-              <div class="b-val" id="sum5s">0/40</div>
-            </div>
-            <div class="breakdown-item">
-              <div class="b-label">หมวด 2 (ความปลอดภัย)</div>
-              <div class="b-val" id="sumSafety">0/40</div>
-            </div>
-            <div class="breakdown-item">
-              <div class="b-label">หมวด 3 (นวัตกรรม)</div>
-              <div class="b-val" id="sumInnovation">0/20</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="actions-row">
-          <button class="btn btn-primary" onclick="saveRecord()" id="saveBtn">💾 บันทึกข้อมูล</button>
-          <button class="btn btn-ghost" onclick="resetForm()">🔄 ล้างข้อมูล</button>
-        </div>
-      </div>
-    </div>
+    <div class="info-chip" id="headerTeamBadge" style="display:none"></div>
   </div>
 
-  <!-- ===== RECORDS VIEW ===== -->
-  <div id="view-records" class="hidden">
+  <!-- AUTOSAVE BAR -->
+  <div class="autosave-bar" id="autosaveBar">
+    <div class="dot"></div>
+    <span id="autosaveText">พร้อมใช้งาน</span>
+  </div>
+
+  <!-- NAV TABS -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('setup')">⚙️ ตั้งค่า</button>
+    <button class="nav-tab" onclick="showPage('assess')">📋 ประเมิน</button>
+    <button class="nav-tab" onclick="showPage('list')">📂 รายการ</button>
+    <button class="nav-tab" onclick="showPage('report')">📊 รายงาน</button>
+  </div>
+
+  <!-- ======================== PAGE: SETUP ======================== -->
+  <div class="page active" id="page-setup">
     <div class="card">
-      <div class="card-header">
-        <span class="badge">📋</span>
-        <h2>รายการประเมินทั้งหมด</h2>
+      <div class="card-title">
+        <span>🏷️</span> เลือกทีมคณะกรรมการ
       </div>
-      <div class="card-body">
-        <div class="search-row">
-          <div>
-            <label style="font-size:13px;font-weight:600;display:block;margin-bottom:4px;">ค้นหาพื้นที่</label>
-            <input type="text" class="form-control" id="searchArea" placeholder="พิมพ์ชื่อพื้นที่..." oninput="filterRecords()">
-          </div>
-          <div>
-            <label style="font-size:13px;font-weight:600;display:block;margin-bottom:4px;">ค้นหาผู้ประเมิน</label>
-            <input type="text" class="form-control" id="searchEvaluator" placeholder="พิมพ์ชื่อผู้ประเมิน..." oninput="filterRecords()">
-          </div>
+      <div class="team-grid">
+        <div class="team-card" id="team1Card" onclick="selectTeam(1)">
+          <div class="team-num">1</div>
+          <div class="team-label">ทีมที่ 1</div>
+          <div class="team-count">👥 7 คน · 19 พื้นที่ตรวจ</div>
         </div>
-        <div class="actions-row" style="margin-bottom:16px;">
-          <button class="btn btn-success btn-sm" onclick="exportExcel()">📊 ส่งออก Excel</button>
-          <button class="btn btn-accent btn-sm" onclick="exportReport()">📄 สรุปรายงาน</button>
-          <button class="btn btn-primary btn-sm" onclick="showView('form')">➕ เพิ่มการประเมิน</button>
+        <div class="team-card" id="team2Card" onclick="selectTeam(2)">
+          <div class="team-num">2</div>
+          <div class="team-label">ทีมที่ 2</div>
+          <div class="team-count">👥 7 คน · 17 พื้นที่ตรวจ</div>
         </div>
-        <div id="recordsList"></div>
       </div>
     </div>
+
+    <!-- MEMBER PREVIEW -->
+    <div class="card" id="memberPreviewCard" style="display:none">
+      <div class="card-title">👥 รายชื่อกรรมการในทีม</div>
+      <div id="memberPreviewList" style="display:grid;gap:6px"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">👤 ข้อมูลผู้ประเมิน</div>
+      <div class="form-group">
+        <label class="form-label">ชื่อผู้ประเมิน <span class="required">*</span></label>
+        <select class="form-control" id="evaluatorSelect" onchange="onEvaluatorChange(this)">
+          <option value="">-- เลือกชื่อผู้ประเมิน --</option>
+        </select>
+        <div style="margin-top:6px;font-size:11px;color:var(--gray-500)">
+          💡 รายชื่อจะเปลี่ยนตามทีมที่เลือกด้านบน
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">วันที่ประเมิน <span class="required">*</span></label>
+        <input type="date" class="form-control" id="evalDate">
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-full" onclick="saveSetupAndGo()">
+      💾 บันทึกการตั้งค่า และเริ่มประเมิน →
+    </button>
   </div>
 
-</div>
+  <!-- ======================== PAGE: ASSESS ======================== -->
+  <div class="page" id="page-assess">
 
-<!-- MODAL: View / Edit -->
-<div class="modal-overlay hidden" id="modalOverlay" onclick="closeModalIfBg(event)">
+    <!-- SECTION 1: เลือกพื้นที่ -->
+    <div class="card">
+      <div class="card-title">📍 เลือกพื้นที่การประเมิน</div>
+      <div class="form-group">
+        <label class="form-label">พื้นที่ <span class="required">*</span></label>
+        <select class="form-control" id="areaSelect">
+          <option value="">-- เลือกพื้นที่ --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">ทีม / ผู้ประเมิน</label>
+        <div id="assessInfoDisplay" style="padding:8px;background:var(--gray-50);border-radius:6px;font-size:13px;color:var(--gray-700);">-</div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: หมวดที่ 1 (5ส) -->
+    <div class="cat-section cat1" id="cat1section">
+      <div class="cat-header">
+        <h3>📋 หมวดที่ 1 : การปรับปรุงตามมาตรฐาน 5ส</h3>
+        <div class="cat-score-badge">รวม: <span id="cat1total">0</span>/40</div>
+      </div>
+      <div class="cat-body" id="cat1body"></div>
+    </div>
+
+    <!-- SECTION 3: หมวดที่ 2 (ความปลอดภัย) -->
+    <div class="cat-section cat2" id="cat2section">
+      <div class="cat-header">
+        <h3>🛡️ หมวดที่ 2 : ความปลอดภัยขั้นพื้นฐาน</h3>
+        <div class="cat-score-badge">รวม: <span id="cat2total">0</span>/40</div>
+      </div>
+      <div class="cat-body" id="cat2body"></div>
+    </div>
+
+    <!-- SECTION 4: หมวดที่ 3 (นวัตกรรม) -->
+    <div class="cat-section cat3" id="cat3section">
+      <div class="cat-header">
+        <h3>💡 หมวดที่ 3 : นวัตกรรมและความคิดสร้างสรรค์</h3>
+        <div class="cat-score-badge">รวม: <span id="cat3total">0</span>/20</div>
+      </div>
+      <div class="cat-body" id="cat3body"></div>
+    </div>
+
+    <!-- SECTION 5: บันทึกเพิ่มเติม -->
+    <div class="card">
+      <div class="card-title">📝 รายละเอียดเพิ่มเติมจากการประเมิน</div>
+      <textarea class="form-control" id="extraNote" placeholder="บันทึกข้อสังเกต รายละเอียดที่พบเจอ หรือข้อเสนอแนะเพิ่มเติม..."></textarea>
+    </div>
+
+    <!-- SECTION 6: แนบรูป -->
+    <div class="card">
+      <div class="card-title">📷 แนบรูปภาพประกอบ <span class="text-sm">(สูงสุด 7 ไฟล์)</span></div>
+      <div class="upload-zone" onclick="document.getElementById('imageInput').click()">
+        <div class="icon">📁</div>
+        <p>แตะเพื่อเลือกรูปภาพ<br><span style="font-size:11px">รองรับ JPG, PNG, HEIC (สูงสุด 7 ไฟล์)</span></p>
+      </div>
+      <input type="file" id="imageInput" accept="image/*" multiple style="display:none" onchange="handleImages(this)">
+      <div class="upload-preview" id="uploadPreview"></div>
+    </div>
+
+    <!-- SECTION 7: สรุปคะแนนรวม -->
+    <div class="summary-card">
+      <h3>🏆 สรุปคะแนนรวมทั้งหมด</h3>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="val" id="s1disp">0</div>
+          <div class="lbl">หมวด 1 (5ส)<br>/40 คะแนน</div>
+        </div>
+        <div class="summary-item">
+          <div class="val" id="s2disp">0</div>
+          <div class="lbl">หมวด 2 (ปลอดภัย)<br>/40 คะแนน</div>
+        </div>
+        <div class="summary-item">
+          <div class="val" id="s3disp">0</div>
+          <div class="lbl">หมวด 3 (นวัตกรรม)<br>/20 คะแนน</div>
+        </div>
+      </div>
+      <div class="summary-total">
+        <div class="big" id="grandTotal">0</div>
+        <div class="lbl">คะแนนรวมทั้งหมด / 100 คะแนน</div>
+      </div>
+    </div>
+
+    <div id="validationAlert" class="alert alert-danger" style="display:none"></div>
+
+    <div class="btn-group mt-8">
+      <button class="btn btn-success btn-full" onclick="saveRecord()">
+        💾 บันทึกข้อมูล
+      </button>
+    </div>
+    <div class="text-sm text-center mt-8" id="recordIdDisplay"></div>
+  </div>
+
+  <!-- ======================== PAGE: LIST ======================== -->
+  <div class="page" id="page-list">
+    <div class="search-bar">
+      <input type="text" class="form-control" id="searchInput" placeholder="🔍 ค้นหาพื้นที่หรือผู้ประเมิน..." oninput="renderList()">
+    </div>
+    <div class="flex-between mb-8">
+      <div class="text-sm" id="listCount"></div>
+      <div class="btn-group">
+        <button class="btn btn-success btn-sm" onclick="exportExcel()">📊 ส่งออก Excel</button>
+        <button class="btn btn-outline btn-sm" onclick="newAssessment()">➕ ประเมินใหม่</button>
+      </div>
+    </div>
+    <div id="listContainer"></div>
+  </div>
+
+  <!-- ======================== PAGE: REPORT ======================== -->
+  <div class="page" id="page-report">
+    <div class="flex-between mb-12">
+      <h2 style="font-family:var(--font-display);font-size:16px;color:var(--primary)">📊 สรุปรายงาน</h2>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ พิมพ์รายงาน</button>
+    </div>
+    <div id="reportContainer"></div>
+  </div>
+
+</div><!-- end app-shell -->
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- VIEW MODAL -->
+<div class="modal-overlay" id="viewModal">
   <div class="modal">
     <div class="modal-header">
-      <h3 id="modalTitle">รายละเอียด</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3 style="font-family:var(--font-display);font-size:15px">ดูรายละเอียดการประเมิน</h3>
+      <button onclick="closeModal('viewModal')" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--gray-500)">✕</button>
     </div>
-    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-body" id="viewModalBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('viewModal')">ปิด</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 style="font-family:var(--font-display);font-size:15px;color:var(--danger)">⚠️ ยืนยันการลบ</h3>
+    </div>
+    <div class="modal-body">
+      <p>ต้องการลบรายการประเมินนี้ใช่หรือไม่? ไม่สามารถกู้คืนได้</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('deleteModal')">ยกเลิก</button>
+      <button class="btn btn-danger btn-sm" onclick="confirmDelete()">ลบข้อมูล</button>
+    </div>
   </div>
 </div>
 
 <script>
 // ===== DATA =====
-const TEAMS = {
-  1: {
-    members: ['จิรัฏฐ์ เลียวกิจสิริ','ยุทธนันท์ อังกูรสุทธิพันธ์','วิชเลิศ กลิ่นถือศิล','สลักใจ แพงศรี','วุฒิภัทร ภิรมย์สุข','สุมิตรา แจ่มถนอม','กาญจนา พรกมลวรรณ'],
-    areas: ['เจาะบาก (คุณอดิเรก อ่ำแจ่ม)','ตัดและพื้นที่จอดแร๊ค (คุณอิสเรท อยู่มั่น)','คลังกระจกและพื้นที่จอดแร๊ค (คุณจิรวัฒน์ น้อยจีน)','เทมเปอร์ใหญ่ (คุณวิโรจน์ นรินทร์)','เจียรตั้ง (คุณสลักใจ แพงศรี)','เจียรนอน (คุณสลักใจ แพงศรี)','Insulate (คุณชาตรี บุษราคัมกุล)','Packing (คุณวิโรจน์ นรินทร์)','จัดส่ง Zone 1 (คุณหรรษา เอมเจริญ)','จัดส่ง Zone 2 (คุณอานนท์ สามพ่วงบุญ)','ประกบลายผ้า/SPL (คุณปรีชา ชาฎา)','ประกบ Bagging (คุณนันทพล ธรรมประกอบ)','ประกบ-Auto (คุณนันทพล ธรรมประกอบ)','ถังอัด (คุณพีรพล ตรีเพชร)','ดัดโค้ง (คุณอาทิตย์ สืบพันธ์โกย)','ตัดฟิล์ม+ประกบมือ (คุณกมลณิชา ทองมณโฑ)','CNC (คุณอดิเรก อ่ำแจ่ม)','CERAMIC FRIT-พ่นสี-สกรีน (คุณชาตรี บุษราคัมกุล)','พิกเซล-พ่นทรายและเคลือบผิว (คุณสมเจตน์ เซี่ยงหวอง)']
+const STORAGE_KEY = 'SmartSafetyWorkplaceAssessmentData';
+const DRAFT_KEY = 'SmartSafetyWorkplaceDraft';
+const SETUP_KEY = 'SmartSafetyWorkplaceSetup';
+
+// ===== รายชื่อกรรมการแต่ละทีม =====
+const TEAM1_MEMBERS = [
+  'จิรัฏฐ์ เลียวกิจสิริ',
+  'ยุทธนันท์ อังกูรสุทธิพันธ์',
+  'วิชเลิศ กลิ่นถือศิล',
+  'สลักใจ แพงศรี',
+  'วุฒิภัทร ภิรมย์สุข',
+  'สุมิตรา แจ่มถนอม',
+  'กาญจนา พรกมลวรรณ',
+];
+
+const TEAM2_MEMBERS = [
+  'พลัฏฐ์ เลียวกิจสิริ',
+  'ชาตรี บุษราคัมกุล',
+  'เอกราช คล้ายแจ้ง',
+  'อานนท์ สามพ่วงบุญ',
+  'สัญชัย ฉิมอ่อง',
+  'พรพรรณ พงศ์ทองผาสุข',
+  'ชัชชญา คัณฑเขตต์',
+];
+
+const TEAM1_AREAS = [
+  '1. เจาะบาก (คุณอดิเรก อ่ำแจ่ม)',
+  '2. ตัดและพื้นที่จอดแร๊ค (คุณอิสเรท อยู่มั่น)',
+  '3. คลังกระจกและพื้นที่จอดแร๊ค (คุณจิรวัฒน์ น้อยจีน)',
+  '5. เทมเปอร์ใหญ่ (คุณวิโรจน์ นรินทร์)',
+  '6. เจียรตั้ง (คุณสลักใจ แพงศรี)',
+  '7. เจียรนอน (คุณสลักใจ แพงศรี)',
+  '8. Insulate (คุณชาตรี บุษราคัมกุล)',
+  '10. Packing (คุณวิโรจน์ นรินทร์)',
+  '11. จัดส่ง Zone 1 (คุณหรรษา เอมเจริญ)',
+  '12. จัดส่ง Zone 2 (คุณอานนท์ สามพ่วงบุญ)',
+  '13. ประกบลายผ้า/SPL (คุณปรีชา ชาฎา)',
+  '14. ประกบ Bagging (คุณนันทพล ธรรมประกอบ)',
+  '15. ประกบ-Auto (คุณนันทพล ธรรมประกอบ)',
+  '16. ถังอัด (คุณพีรพล ตรีเพชร)',
+  '17. ดัดโค้ง (คุณอาทิตย์ สืบพันธ์โกย)',
+  '18. ตัดฟิล์ม+ประกบมือ (คุณกมลณิชา ทองมณโฑ)',
+  '19. CNC (คุณอดิเรก อ่ำแจ่ม)',
+  '20. CERAMIC FRIT-พ่นสี-สกรีน (คุณชาตรี บุษราคัมกุล)',
+  '21. พิกเซล-พ่นทรายและเคลือบผิว (คุณสมเจตน์ เซี่ยงหวอง)',
+];
+
+const TEAM2_AREAS = [
+  '1. ประกันคุณภาพ (คุณสรวิชญ์ พงษ์เสถียรศักดิ์)',
+  '2. QA (คุณวินัย เปี้ยวเฉียน)',
+  '3. วางแผน (คุณสุพจน์ เปลียวปลอด)',
+  '4. พัฒนากระบวนการ-ผลิต (คุณอภิรัตน์ รุ่งเรือง)',
+  '5. คลังสินค้า (คุณเอกราช คล้ายแจ้ง)',
+  '6. คลังผ้า (คุณเอกราช คล้ายแจ้ง)',
+  '7. วิศวกรรม (คุณธนวิสุทธิ์ จูเกษม)',
+  '8. Shop วิศวกรรม (คุณธนวิสุทธิ์ จูเกษม)',
+  '9. แบบมาตรฐาน (คุณวัลภา มณีรัตน์)',
+  '10. Generate (คุณสุรศักดิ์ เพียรประดิษฐกุล)',
+  '11. ทรัพยากรบุคคล (คุณชญาดา ละอองดี)',
+  '12. MIS (คุณอานนท์ แก้วภักดี)',
+  '13. ขาย (คุณณฐภัทร ภิญโญสรรพกิจ)',
+  '14. จัดซื้อ (คุณพีณะ รุ่งพรมา)',
+  '15. บัญชีการเงิน (คุณอัมภวรรณ ไม้โคกสูง)',
+  '16. นวัตกรรม (คุณอภิชาต แก้วเจริญ)',
+  '17. โรงอาหาร (คุณมนทิพ ปานทน)',
+];
+
+const CAT1_CRITERIA = [
+  {
+    name: '1. สะสาง (Seiri)',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'พบของไม่จำเป็น ขยะ หรือของเสีย วางปะปนกับของใช้งานในปริมาณมาก' },
+      { range: '3-4 คะแนน (พอใช้)', desc: 'เริ่มแยกของไม่จำเป็นออกบ้าง แต่ยังไม่มีการติดป้าย Tag หรือจุดพักของที่ชัดเจน' },
+      { range: '5-6 คะแนน (ดี/ตามมาตรฐาน)', desc: 'แยกของชัดเจน มีการติดป้าย Tag มีแผนการกำจัดของที่ไม่ได้ใช้' },
+      { range: '7-8 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'ไม่มีของไม่จำเป็นในพื้นที่ มีระบบจัดการของรอทิ้ง/บริจาคอย่างต่อเนื่อง เป็นระบบ' },
+    ], max: 8
   },
-  2: {
-    members: ['พลัฏฐ์ เลียวกิจสิริ','ชาตรี บุษราคัมกุล','เอกราช คล้ายแจ้ง','อานนท์ สามพ่วงบุญ','สัญชัย ฉิมอ่อง','พรพรรณ พงศ์ทองผาสุข','ชัชชญา คัณฑเขตต์'],
-    areas: ['ประกันคุณภาพ (คุณสรวิชญ์ พงษ์เสถียรศักดิ์)','QA (คุณวินัย เปี้ยวเฉียน)','วางแผน (คุณสุพจน์ เปลียวปลอด)','พัฒนากระบวนการ-ผลิต (คุณอภิรัตน์ รุ่งเรือง)','คลังสินค้า (คุณเอกราช คล้ายแจ้ง)','คลังผ้า (คุณเอกราช คล้ายแจ้ง)','วิศวกรรม (คุณธนวิสุทธิ์ จูเกษม)','Shop วิศวกรรม (คุณธนวิสุทธิ์ จูเกษม)','แบบมาตรฐาน (คุณวัลภา มณีรัตน์)','Generate (คุณสุรศักดิ์ เพียรประดิษฐกุล)','ทรัพยากรบุคคล (คุณชญาดา ละอองดี)','MIS (คุณอานนท์ แก้วภักดี)','ขาย (คุณณฐภัทร ภิญโญสรรพกิจ)','จัดซื้อ (คุณพีณะ รุ่งพรมมา)','บัญชีการเงิน (คุณอัมภวรรณ ไม้โคกสูง)','นวัตกรรม (คุณอภิชาต แก้วเจริญ)','โรงอาหาร (คุณมนทิพ ปานทน)']
+  {
+    name: '2. สะดวก (Seiton)',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'ของวางระเกะระกะ ไม่มีตำแหน่งที่ตั้งแน่นอน ไม่มีป้ายชื่อหรือสัญลักษณ์ใดๆ' },
+      { range: '3-4 คะแนน (พอใช้)', desc: 'มีที่วางชัดเจนบางส่วน แต่ยังไม่มีป้ายชื่อหรือสัญลักษณ์ ทำให้หาของยากหรือเสียเวลา' },
+      { range: '5-6 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีป้ายชื่อ ตีเส้นหรือขอบเขตชัดเจน ค้นหาของได้รวดเร็ว แต่อาจยังไม่สะดวก 100%' },
+      { range: '7-8 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'มี Location Index ชัดเจน หยิบง่าย-วางคืนที่เดิมได้ถูกต้อง 100% แม้คนนอกพื้นที่มาใช้' },
+    ], max: 8
+  },
+  {
+    name: '3. สะอาด (Seiso)',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'พื้นและอุปกรณ์มีฝุ่นหนา มีคราบสกปรกสะสม หรือมีร่องรอยการรั่วซึม ของน้ำมัน/สารเคมี' },
+      { range: '3-4 คะแนน (พอใช้)', desc: 'ทำความสะอาดเฉพาะจุดที่มองเห็นง่าย แต่ตามซอกมุมหรือหลังตู้ ยังมีฝุ่นและสิ่งสกปรก' },
+      { range: '5-6 คะแนน (ดี/ตามมาตรฐาน)', desc: 'พื้นที่และอุปกรณ์การทำงานส่วนใหญ่สะอาด จัดเก็บเป็นระเบียบ' },
+      { range: '7-8 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'พื้นที่ทุกจุดสะอาดเงางาม (รวมถึงจุดอับสายตา) อุปกรณ์ทำความสะอาดจัดเก็บเป็นระเบียบ มีตารางเวรทำความสะอาด' },
+    ], max: 8
+  },
+  {
+    name: '4. สุขลักษณะ (Seiketsu)',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'มีฝุ่น กลิ่น หรือความสกปรกสะสม ไม่ได้ถูกทำความสะอาดอย่างทั่วถึง' },
+      { range: '3-4 คะแนน (พอใช้)', desc: 'เริ่มมีการกำหนดมาตรฐานการจัดการพื้นที่บ้าง ในบางจุด แต่พื้นที่ส่วนใหญ่ยังไม่ได้ถูกจัดการ' },
+      { range: '5-6 คะแนน (ดี/ตามมาตรฐาน)', desc: 'พื้นที่ทำงานส่วนใหญ่มีมาตรฐานกำหนดหรือป้ายบ่งชี้ มีผู้รับผิดชอบชัดเจน เช่น การจัดวางอุปกรณ์ทำความสะอาด จุดทิ้งขยะ' },
+      { range: '7-8 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'พื้นที่ทำงานมีการควบคุมและกำหนดเป็นมาตรฐานในทุกจุด เพื่อให้พนักงานปฏิบัติได้เป็นนิสัยอย่างต่อเนื่อง เช่น Checklist, ป้ายบ่งชี้ ผู้รับผิดชอบ' },
+    ], max: 8
+  },
+  {
+    name: '5. สร้างนิสัย (Shitsuke)',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'ไม่มีตารางเวรทำความสะอาด หรือมีแต่ไม่มีการปฏิบัติจริง พนักงานขาดความร่วมมือ' },
+      { range: '3-4 คะแนน (พอใช้)', desc: 'มีบันทึกการทำความสะอาด แต่การทำความสะอาดยังไม่สม่ำเสมอ ต้องมีคนคอยเตือน' },
+      { range: '5-6 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีตารางเวร พนักงานส่วนใหญ่ปฏิบัติตามกฎระเบียบ มีการตรวจเช็คตามรอบเวลาที่กำหนด' },
+      { range: '7-8 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'พนักงานทุกคนปฏิบัติตามอย่างต่อเนื่อง มีการบันทึก Self-Audit ครบถ้วน สม่ำเสมอ' },
+    ], max: 8
   }
-};
-
-const SAFETY_TOPICS = [
-  { id:'saf1', name:'พื้นที่ทางเดินและเส้นแบ่งเขต', c12:'มีของวางกีดขวางทางเดินหรือวางทับเส้นทางหนีไฟ', c34:'ทางเดินโล่ง แต่เส้นแบ่งเขต (Layout) เลือนรางหรือไม่ชัดเจนในบางจุด', c5:'<strong>ทางเดินโล่ง 100% มีการกำหนดเส้นแบ่งเขตชัดเจน มีการกำหนดทิศทางเดิน</strong> มีการติดตั้งเทปกันลื่น หรือป้ายเตือนในจุดเสี่ยง' },
-  { id:'saf2', name:'ระบบไฟฟ้าและปลั๊กพ่วง', c12:'สายไฟพันกันยุ่งเหยิง ปลั๊กไฟไม่มีการป้องกัน หรือใช้ปลั๊กพ่วงต่อพ่วงกันหลายชั้น', c34:'สายไฟมีการจัดเก็บบ้าง แต่ยังไม่เป็นระเบียบ ไม่มีการต่อพ่วงที่เป็นอันตราย มีการป้องกัน', c5:'<strong>จัดเก็บสายไฟร้อยท่อหรือใส่รางเรียบร้อย</strong> มิดชิดไม่มีการต่อพ่วงที่เป็นอันตราย มีการป้องกันที่ปลอดภัยตามมาตรฐาน' },
-  { id:'saf3', name:'อุปกรณ์ป้องกันและระงับอัคคีภัย', c12:'อุปกรณ์ดับเพลิงไม่อยู่ในสภาพพร้อมใช้ หรือไม่มีการตรวจสอบ สกปรก', c34:'มีอุปกรณ์ดับเพลิงครบตามจุดที่กำหนด แต่ยังมีสิ่งของวางบดบังเล็กน้อย', c5:'<strong>อุปกรณ์ดับเพลิงเข้าถึงง่าย มีป้ายบ่งชี้ชัดเจน</strong> สะอาด อยู่ในสภาพพร้อมใช้งาน 100%' },
-  { id:'saf4', name:'การจัดเก็บของหนักและการวางซ้อน', c12:'วางของหนักบนที่สูง ซึ่งเสี่ยงต่อการตกลงมา', c34:'จัดเก็บของหนักไว้ด้านล่างแล้ว แต่การวางซ้อนยังไม่เป็นระเบียบ', c5:'<strong>จัดเก็บถูกหลัก Ergonomics</strong> ของหนักอยู่ด้านล่าง การวางซ้อนอย่างมั่นคงปลอดภัย' },
-  { id:'saf5', name:'สภาพแวดล้อมและแสงสว่าง', c12:'แสงสว่างไม่เพียงพอต่อการทำงานหรือมีจุดเสี่ยงที่มองเห็นไม่ชัดเจน', c34:'แสงสว่างเพียงพอตามมาตรฐาน แต่ขาดการทำความสะอาดอุปกรณ์ส่องสว่าง', c5:'<strong>แสงสว่างเหมาะสมทั่วถึง</strong> มีการทำความสะอาด มีการบำรุงรักษาอุปกรณ์ส่องสว่างเบื้องต้นอย่างสม่ำเสมอ' },
-  { id:'saf6', name:'การจัดเก็บและบำรุงรักษาอุปกรณ์ PPE', c12:'วางอุปกรณ์ PPE ทิ้งไว้ตามโต๊ะทำงานหรือเครื่องจักร ไม่มีที่เก็บเป็นหลักแหล่ง อุปกรณ์สกปรกหรือชำรุด แต่ไม่มีการคัดแยก', c34:'มีที่เก็บอุปกรณ์ PPE แยกเป็นสัดส่วน (เช่น แขวนหมวก เก็บถุงมือในกล่อง) แต่อาจจะยังไม่มีป้ายชื่อระบุเจ้าของ หรือการจัดเก็บยังไม่เป็นระเบียบในบางครั้ง', c5:'<strong>มีจุดจัดเก็บ PPE ชัดเจน</strong> มีการทำป้ายบ่งชี้การจัดเก็บ เช่น Shadow Board หรือล็อคเกอร์ระบุชื่อ อุปกรณ์สะอาดพร้อมใช้งานเสมอ และมีตารางตรวจเช็กสภาพอุปกรณ์ทุกเดือน' },
-  { id:'saf7', name:'ความพร้อมของป้ายเตือนและสัญลักษณ์ความปลอดภัย (Visual Safety)', c12:'ไม่มีป้ายเตือนในจุดที่อันตราย ใช้สัญลักษณ์ไม่ถูกต้อง หรือป้ายเก่า ซีดจางจนอ่านไม่ออก', c34:'มีป้ายเตือนครบถ้วน ใช้สัญลักษณ์ถูกต้องตามกฎหมายกำหนด แต่การติดตั้งอาจไม่อยู่ในระดับสายตาหรือถูกสิ่งของบดบังบางส่วน', c5:'<strong>ป้ายเตือนชัดเจน ครบถ้วน ใช้สัญลักษณ์ถูกต้อง</strong>ตามกฎหมายกำหนด ติดตั้งในตำแหน่งที่เห็นได้ง่ายจากทุกทิศทาง หรือมีป้ายแสดงสถิติความปลอดภัย' },
-  { id:'saf8', name:'การจัดการสารเคมีและสารอันตราย', c12:'เก็บสารเคมีโดยไม่มีฝาปิด ไม่ถูกวิธี ใช้ภาชนะไม่ถูกต้อง หรือไม่มีป้ายระบุ เสี่ยงต่อการเกิดอันตราย', c34:'มีป้ายชื่อสารเคมีชัดเจน แต่ยังใช้ภาชนะไม่เหมาะสม ไม่มีถาดรองรับในกรณีที่เกิดการรั่วไหล', c5:'<strong>มี Safety Data Sheet (SDS) กำกับอยู่ในจุดที่มีการใช้งานสารเคมี</strong> ใช้ภาชนะเหมาะสม มีป้ายบ่งบอกชัดเจน มีระบบป้องกันการรั่วไหล มีแนวทางปฏิบัติกรณีเกิดเหตุฉุกเฉิน' }
 ];
 
-const INNOVATION_TOPICS = [
-  { id:'inn1', name:'Visual Management (การสื่อสารด้วยภาพและสี)', c12:'มีการติดป้ายชื่อสิ่งของทั่วไป ใช้สีพื้นฐานตามที่บริษัทกำหนด', c34:'มีการติดป้ายชื่อสิ่งของครบถ้วน มีที่จัดเก็บอุปกรณ์ที่ใช้งาน ใช้สีพื้นฐานตามที่บริษัทกำหนด และมีการใช้ Color Code แบ่งโซน หรือมีสัญลักษณ์บอกจุดอันตรายชัดเจนขึ้น', c5:'<strong>มีการติดป้ายชื่อสิ่งของครบถ้วน มีที่จัดเก็บอุปกรณ์ที่ใช้งาน ใช้สีพื้นฐานตามที่กำหนด</strong> มีการใช้ Color Code แบ่งโซนหรือมีสัญลักษณ์บอกจุดอันตรายชัดเจนขึ้น ออกแบบระบบ Visual ที่ช่วยลดความผิดพลาด (Poka-Yoke) เช่น เงาเครื่องมือหรือขีดวัดระดับ' },
-  { id:'inn2', name:'DIY Solution (การประดิษฐ์อุปกรณ์ช่วยงาน)', c12:'ซื้ออุปกรณ์สำเร็จรูปมาใช้ มีการดัดแปลงเล็กน้อยเพื่อความสะดวก', c34:'ประดิษฐ์อุปกรณ์ขึ้นเองจากวัสดุที่มีอยู่เพื่อแก้ปัญหาการจัดเก็บหรือการใช้งาน', c5:'<strong>อุปกรณ์ DIY มีความแข็งแรง ปลอดภัย</strong> ช่วยลดขั้นตอนงาน (Lean) ได้อย่างโดดเด่น' },
-  { id:'inn3', name:'Safety Innovation (นวัตกรรมเพื่อความปลอดภัย)', c12:'ปฏิบัติตามกฎความปลอดภัยพื้นฐาน แต่ไม่มีอุปกรณ์เสริมใหม่ๆ', c34:'มีการคิดค้นอุปกรณ์หรือวิธีการใหม่เพื่อลดความเสี่ยงในจุดอันตรายเฉพาะหน้างาน', c5:'<strong>สร้างนวัตกรรมที่กำจัดความเสี่ยงได้อย่างสิ้นเชิง</strong> นำไปปรับใช้ในแผนกอื่นได้' },
-  { id:'inn4', name:'Space Optimizations (การบริหารพื้นที่อย่างชาญฉลาด)', c12:'จัดวางของเป็นระเบียบตามพื้นที่ที่มีอยู่เดิม ไม่มีการปรับเปลี่ยนโครงสร้าง', c34:'มีการจัดสรรพื้นที่ใหม่ หรือใช้พื้นที่แนวตั้ง ใช้อุปกรณ์แนวตั้งเพื่อเพิ่มพื้นที่ใช้สอยให้มากขึ้น', c5:'<strong>ปรับพื้นที่ Layout ที่ช่วยให้การไหลของงาน (Work Flow) คล่องตัวและประหยัดเนื้อที่สูงสุด</strong>' }
+const CAT2_CRITERIA = [
+  {
+    name: '1. พื้นที่ทางเดินและเส้นแบ่งเขต',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'มีของวางกีดขวางทางเดินหรือวางทับเส้นทางหนีไฟ' },
+      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'ทางเดินโล่ง แต่เส้นแบ่งเขต (Layout) เลือนรางหรือไม่ชัดเจนในบางจุด' },
+      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'ทางเดินโล่ง 100% มีการกำหนดเส้นแบ่งเขตชัดเจน มีการกำหนดทิศทางเดิน มีการติดตั้งเทปกันลื่น หรือป้ายเตือน ในจุดเสี่ยง' },
+    ], max: 5
+  },
+  {
+    name: '2. ระบบไฟฟ้าและปลั๊กพ่วง',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'สายไฟพันกันยุ่งเหยิง ปลั๊กไฟไม่มีการป้องกัน หรือใช้ปลั๊กพ่วงต่อพ่วงกันหลายชั้น' },
+      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'สายไฟมีการจัดเก็บบ้าง แต่ยังไม่เป็นระเบียบ ไม่มีการต่อพ่วงที่เป็นอันตราย มีการป้องกัน' },
+      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'จัดเก็บสายไฟร้อยท่อหรือใส่รางเรียบร้อย มิดชิดไม่มีการต่อพ่วงที่เป็นอันตราย มีการป้องกันที่ปลอดภัยตามมาตรฐาน' },
+    ], max: 5
+  },
+  {
+    name: '3. อุปกรณ์ป้องกันและระงับอัคคีภัย',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'อุปกรณ์ดับเพลิงไม่อยู่ในสภาพพร้อมใช้ หรือไม่มีการตรวจสอบ สกปรก' },
+      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีอุปกรณ์ดับเพลิงครบตามจุดที่กำหนด แต่ยังมีสิ่งของวางบดบังเล็กน้อย' },
+      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'อุปกรณ์ดับเพลิงเข้าถึงง่าย มีป้ายบ่งชี้ชัดเจน สะอาด อยู่ในสภาพพร้อมใช้งาน 100%' },
+    ], max: 5
+  },
+  {
+    name: '4. การจัดเก็บของหนักและการวางซ้อน',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'วางของหนักบนที่สูง ซึ่งเสี่ยงต่อการตกลงมา' },
+      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'จัดเก็บของหนักไว้ด้านล่างแล้ว แต่การวางซ้อนยังไม่เป็นระเบียบ' },
+      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'จัดเก็บถูกหลัก Ergonomics ของหนักอยู่ด้านล่าง การวางซ้อนอย่างมั่นคงปลอดภัย' },
+    ], max: 5
+  },
+  {
+    name: '5. สภาพแวดล้อมและแสงสว่าง',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'แสงสว่างไม่เพียงพอต่อการทำงานหรือมีจุดเสี่ยงที่มองเห็นไม่ชัดเจน' },
+      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'แสงสว่างเพียงพอตามมาตรฐาน แต่ขาดการทำความสะอาดอุปกรณ์ส่องสว่าง' },
+      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'แสงสว่างเหมาะสมทั่วถึง มีการทำความสะอาด มีการบำรุงรักษาอุปกรณ์ส่องสว่างเบื้องต้นอย่างสม่ำเสมอ' },
+    ], max: 5
+  },
+  {
+    name: '6. การจัดเก็บและบำรุงรักษาอุปกรณ์ PPE',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'วางอุปกรณ์ PPE ทิ้งไว้ตามโต๊ะทำงานหรือเครื่องจักร ไม่มีที่เก็บเป็นหลักแหล่ง อุปกรณ์สกปรกหรือชำรุด แต่ไม่มีการคัดแยก' },
+      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีที่เก็บอุปกรณ์ PPE แยกเป็นสัดส่วน (เช่น แขวนหมวก เก็บถุงมือในกล่อง) แต่อาจยังไม่มีป้ายชื่อระบุเจ้าของ หรือการจัดเก็บยังไม่เป็นระเบียบในบางครั้ง' },
+      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'มีจุดจัดเก็บ PPE ชัดเจน มีการทำป้ายบ่งชี้การจัดเก็บ เช่น Shadow Board หรือล็อคเกอร์ระบุชื่อ อุปกรณ์สะอาดพร้อมใช้งานเสมอ และมีตารางตรวจเช็กสภาพอุปกรณ์ทุกเดือน' },
+    ], max: 5
+  },
+  {
+    name: '7. ความพร้อมของป้ายเตือนและสัญลักษณ์ความปลอดภัย (Visual Safety)',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'ไม่มีป้ายเตือนในจุดที่อันตราย ใช้สัญลักษณ์ไม่ถูกต้อง หรือป้ายเก่า ซีดจางจนอ่านไม่ออก' },
+      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีป้ายเตือนครบถ้วน ใช้สัญลักษณ์ถูกต้องตามกฎหมายกำหนด แต่การติดตั้งอาจไม่อยู่ในระดับสายตาหรือถูกสิ่งของบดบังบางส่วน' },
+      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'ป้ายเตือนชัดเจน ครบถ้วน ใช้สัญลักษณ์ถูกต้องตามกฎหมายกำหนด ติดตั้งในตำแหน่งที่เห็นได้ง่ายจากทุกทิศทาง หรือมีป้ายแสดงสถิติความปลอดภัย' },
+    ], max: 5
+  },
+  {
+    name: '8. การจัดการสารเคมีและสารอันตราย',
+    bands: [
+      { range: '1-2 คะแนน (ต้องปรับปรุง)', desc: 'เก็บสารเคมีโดยไม่มีฝาปิด ไม่ถูกวิธี ใช้ภาชนะไม่ถูกต้อง หรือไม่มีป้ายระบุ เสี่ยงต่อการเกิดอันตราย' },
+      { range: '3-4 คะแนน (ดี/ตามมาตรฐาน)', desc: 'มีป้ายชื่อสารเคมีชัดเจน แต่ยังใช้ภาชนะไม่เหมาะสม ไม่มีถาดรองรับในกรณีที่เกิดการรั่วไหล' },
+      { range: '5 คะแนน (ยอดเยี่ยม/ยั่งยืน)', desc: 'มี Safety Data Sheet (SDS) กำกับอยู่ในจุดที่มีการใช้งานสารเคมี ใช้ภาชนะเหมาะสม มีป้ายบ่งบอกชัดเจน มีระบบป้องกันการรั่วไหล มีแนวทางปฏิบัติกรณีเกิดเหตุฉุกเฉิน' },
+    ], max: 5
+  }
 ];
 
-let attachedFiles = [];
-let records = JSON.parse(localStorage.getItem('evalRecords') || '[]');
+const CAT3_CRITERIA = [
+  {
+    name: '1. Visual Management (การสื่อสารด้วยภาพและสี)',
+    bands: [
+      { range: '1-2 คะแนน (พื้นฐาน)', desc: 'มีการติดป้ายชื่อสิ่งของทั่วไป ใช้สีพื้นฐานตามที่บริษัทกำหนด' },
+      { range: '3-4 คะแนน (ดี/สร้างสรรค์)', desc: 'มีการติดป้ายชื่อสิ่งของครบถ้วน มีที่จัดเก็บอุปกรณ์ที่ใช้งาน ใช้สีพื้นฐานตามที่บริษัทกำหนด และมีการใช้ Color Code แบ่งโซน หรือมีสัญลักษณ์บอกจุดอันตรายชัดเจนขึ้น' },
+      { range: '5 คะแนน (นวัตกรรม/ต้นแบบ)', desc: 'มีการติดป้ายชื่อสิ่งของครบถ้วน มีที่จัดเก็บอุปกรณ์ที่ใช้งาน ใช้สีพื้นฐานตามที่กำหนด มีการใช้ Color Code แบ่งโซนหรือมีสัญลักษณ์บอกจุดอันตรายชัดเจนขึ้น ออกแบบระบบ Visual ที่ช่วยลดความผิดพลาด (Poka-Yoke) เช่น เงาเครื่องมือหรือขีดวัดระดับ' },
+    ], max: 5
+  },
+  {
+    name: '2. DIY Solution (การประดิษฐ์อุปกรณ์ช่วยงาน)',
+    bands: [
+      { range: '1-2 คะแนน (พื้นฐาน)', desc: 'ซื้ออุปกรณ์สำเร็จรูปมาใช้ มีการดัดแปลงเล็กน้อยเพื่อความสะดวก' },
+      { range: '3-4 คะแนน (ดี/สร้างสรรค์)', desc: 'ประดิษฐ์อุปกรณ์ขึ้นเองจากวัสดุที่มีอยู่เพื่อแก้ปัญหาการจัดเก็บหรือการใช้งาน' },
+      { range: '5 คะแนน (นวัตกรรม/ต้นแบบ)', desc: 'อุปกรณ์ DIY มีความแข็งแรง ปลอดภัย ช่วยลดขั้นตอนงาน (Lean) ได้อย่างโดดเด่น' },
+    ], max: 5
+  },
+  {
+    name: '3. Safety Innovation (นวัตกรรมเพื่อความปลอดภัย)',
+    bands: [
+      { range: '1-2 คะแนน (พื้นฐาน)', desc: 'ปฏิบัติตามกฎความปลอดภัยพื้นฐาน แต่ไม่มีอุปกรณ์เสริมใหม่ๆ' },
+      { range: '3-4 คะแนน (ดี/สร้างสรรค์)', desc: 'มีการคิดค้นอุปกรณ์หรือวิธีการใหม่เพื่อลดความเสี่ยงในจุดอันตรายเฉพาะหน้างาน' },
+      { range: '5 คะแนน (นวัตกรรม/ต้นแบบ)', desc: 'สร้างนวัตกรรมที่กำจัดความเสี่ยงได้อย่างสิ้นเชิง นำไปปรับใช้ในแผนกอื่นได้' },
+    ], max: 5
+  },
+  {
+    name: '4. Space Optimizations (การบริหารพื้นที่อย่างชาญฉลาด)',
+    bands: [
+      { range: '1-2 คะแนน (พื้นฐาน)', desc: 'จัดวางของเป็นระเบียบตามพื้นที่ที่มีอยู่เดิม ไม่มีการปรับเปลี่ยนโครงสร้าง' },
+      { range: '3-4 คะแนน (ดี/สร้างสรรค์)', desc: 'มีการจัดสรรพื้นที่ใหม่ หรือใช้พื้นที่แนวตั้ง ใช้อุปกรณ์แนวตั้ง เพื่อเพิ่มพื้นที่ใช้สอยให้มากขึ้น' },
+      { range: '5 คะแนน (นวัตกรรม/ต้นแบบ)', desc: 'ปรับพื้นที่ Layout ที่ช่วยให้การไหลของงาน (Work Flow) คล่องตัวและประหยัดเนื้อที่สูงสุด' },
+    ], max: 5
+  }
+];
+
+// ===== STATE =====
+let currentTeam = 0;
 let editingId = null;
+let deleteTargetId = null;
+let uploadedImages = [];
+let scores = { cat1: {}, cat2: {}, cat3: {} };
+let autoSaveTimer = null;
+let setupData = {};
 
 // ===== INIT =====
-document.addEventListener('DOMContentLoaded', () => {
-  // Set today's date
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth()+1).padStart(2,'0');
-  const dd = String(today.getDate()).padStart(2,'0');
-  document.getElementById('evalDate').value = `${yyyy}-${mm}-${dd}`;
-
-  // Build score buttons for 5S (1-8)
-  ['s5s1','s5s2','s5s3','s5s4','s5s5'].forEach(id => {
-    buildScoreBtns(id+'-btns', id, 8);
-  });
-
-  // Build safety topics
-  const safetyContainer = document.getElementById('safety-topics');
-  SAFETY_TOPICS.forEach((t, i) => {
-    safetyContainer.innerHTML += buildTopicHTML(t, i+1, 5);
-  });
-  SAFETY_TOPICS.forEach(t => buildScoreBtns(t.id+'-btns', t.id, 5));
-
-  // Build innovation topics
-  const innContainer = document.getElementById('innovation-topics');
-  INNOVATION_TOPICS.forEach((t, i) => {
-    innContainer.innerHTML += buildTopicHTML(t, i+1, 5);
-  });
-  INNOVATION_TOPICS.forEach(t => buildScoreBtns(t.id+'-btns', t.id, 5));
-
-  renderRecords();
+window.addEventListener('DOMContentLoaded', () => {
+  loadSetup();
+  setDefaultDate();
+  renderCriteria();
+  renderList();
+  renderReport();
+  startAutoSave();
+  loadDraft();
 });
 
-function buildTopicHTML(t, num, max) {
-  const is5 = max === 5;
-  return `
-  <div class="score-section" id="${t.id}-section">
-    <div class="score-section-header">
-      <span class="topic-num">${num}</span>
-      ${t.name}
-    </div>
-    <div class="score-section-body">
-      <div class="criteria-grid">
-        <div class="criteria-row criteria-1-2">
-          <div class="criteria-label">🔴 1–2 คะแนน ${is5 ? '(ต้องปรับปรุง/พื้นฐาน)' : '(ต้องปรับปรุง)'}</div>
-          ${t.c12}
-        </div>
-        <div class="criteria-row criteria-3-4">
-          <div class="criteria-label">🟡 3–4 คะแนน ${is5 ? '(ดี/ตามมาตรฐาน/สร้างสรรค์)' : '(พอใช้)'}</div>
-          ${t.c34}
-        </div>
-        <div class="criteria-row criteria-5">
-          <div class="criteria-label">🔵 5 คะแนน (ยอดเยี่ยม/ยั่งยืน/นวัตกรรม)</div>
-          ${t.c5}
-        </div>
-      </div>
-      <div class="score-input-row">
-        <label>คะแนน:</label>
-        <div class="score-buttons" id="${t.id}-btns"></div>
-        <input type="hidden" id="${t.id}" value="">
-      </div>
-    </div>
-  </div>`;
+function setDefaultDate() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('evalDate').value = today;
 }
 
-function buildScoreBtns(containerId, fieldId, max) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  container.innerHTML = '';
-  for (let i = 1; i <= max; i++) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'score-btn';
-    btn.textContent = i;
-    btn.onclick = () => setScore(fieldId, i, max);
-    container.appendChild(btn);
-  }
-}
-
-function setScore(fieldId, val, max) {
-  document.getElementById(fieldId).value = val;
-  const container = document.getElementById(fieldId + '-btns');
-  if (!container) return;
-  Array.from(container.children).forEach((btn, i) => {
-    btn.className = 'score-btn';
-    if (i + 1 === val) {
-      if (val <= 2) btn.className += ' active-' + val;
-      else if (val <= 4) btn.className += ' active-' + val;
-      else if (val <= 6) btn.className += ' active-' + val;
-      else btn.className += ' active-' + val;
+function loadSetup() {
+  try {
+    const s = localStorage.getItem(SETUP_KEY);
+    if (s) {
+      setupData = JSON.parse(s);
+      if (setupData.team) {
+        selectTeam(setupData.team, true);
+        // Restore evaluator value after dropdown is populated
+        if (setupData.evaluator) document.getElementById('evaluatorSelect').value = setupData.evaluator;
+      }
+      if (setupData.date) document.getElementById('evalDate').value = setupData.date;
     }
-  });
-  updateTotals();
+  } catch(e) {}
 }
 
-function updateTotals() {
-  const ids5s = ['s5s1','s5s2','s5s3','s5s4','s5s5'];
-  const safIds = SAFETY_TOPICS.map(t => t.id);
-  const innIds = INNOVATION_TOPICS.map(t => t.id);
+function saveSetup() {
+  setupData = {
+    team: currentTeam,
+    evaluator: document.getElementById('evaluatorSelect').value,
+    date: document.getElementById('evalDate').value
+  };
+  localStorage.setItem(SETUP_KEY, JSON.stringify(setupData));
+}
 
-  const sum5s = ids5s.reduce((s,id) => s + (parseInt(document.getElementById(id).value)||0), 0);
-  const sumSafety = safIds.reduce((s,id) => s + (parseInt(document.getElementById(id).value)||0), 0);
-  const sumInn = innIds.reduce((s,id) => s + (parseInt(document.getElementById(id).value)||0), 0);
-  const grand = sum5s + sumSafety + sumInn;
-
-  document.getElementById('total5s').textContent = sum5s;
-  document.getElementById('totalSafety').textContent = sumSafety;
-  document.getElementById('totalInnovation').textContent = sumInn;
-  document.getElementById('grandTotal').textContent = grand;
-  document.getElementById('sum5s').textContent = sum5s + '/40';
-  document.getElementById('sumSafety').textContent = sumSafety + '/40';
-  document.getElementById('sumInnovation').textContent = sumInn + '/20';
+function saveSetupAndGo() {
+  if (!currentTeam) { showToast('กรุณาเลือกทีมคณะกรรมการ', 'error'); return; }
+  if (!document.getElementById('evaluatorSelect').value) { showToast('กรุณาเลือกชื่อผู้ประเมิน', 'error'); return; }
+  saveSetup();
+  populateAreaDropdown();
+  updateAssessInfo();
+  showPage('assess');
+  showToast('บันทึกการตั้งค่าสำเร็จ', 'success');
 }
 
 // ===== TEAM SELECTION =====
-function selectTeam(num) {
-  document.getElementById('selectedTeam').value = num;
-  document.getElementById('team1-card').classList.remove('selected');
-  document.getElementById('team2-card').classList.remove('selected');
-  document.getElementById('team' + num + '-card').classList.add('selected');
+function selectTeam(num, silent) {
+  currentTeam = num;
+  document.getElementById('team1Card').classList.toggle('selected', num === 1);
+  document.getElementById('team2Card').classList.toggle('selected', num === 2);
+  const badge = document.getElementById('headerTeamBadge');
+  badge.style.display = 'flex';
+  badge.textContent = `ทีม ${num}`;
+  populateEvaluatorDropdown(num);
+  if (!silent) populateAreaDropdown();
+}
 
-  const team = TEAMS[num];
-  const nameSelect = document.getElementById('evalName');
-  const areaSelect = document.getElementById('evalArea');
-
-  nameSelect.innerHTML = '<option value="">-- เลือกชื่อผู้ประเมิน --</option>';
-  team.members.forEach(m => {
-    nameSelect.innerHTML += `<option value="${m}">${m}</option>`;
+function populateEvaluatorDropdown(teamNum) {
+  const sel = document.getElementById('evaluatorSelect');
+  const members = teamNum === 1 ? TEAM1_MEMBERS : TEAM2_MEMBERS;
+  const current = sel.value;
+  sel.innerHTML = '<option value="">-- เลือกชื่อผู้ประเมิน --</option>';
+  members.forEach(name => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    if (name === current) opt.selected = true;
+    sel.appendChild(opt);
   });
 
-  areaSelect.innerHTML = '<option value="">-- เลือกพื้นที่การตรวจ --</option>';
-  team.areas.forEach(a => {
-    areaSelect.innerHTML += `<option value="${a}">${a}</option>`;
+  // Show member preview
+  const previewCard = document.getElementById('memberPreviewCard');
+  const previewList = document.getElementById('memberPreviewList');
+  if (previewCard && previewList) {
+    previewCard.style.display = 'block';
+    previewList.innerHTML = members.map((name, i) => `
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--gray-50);border-radius:8px;font-size:13px;cursor:pointer;transition:background 0.15s"
+           onclick="document.getElementById('evaluatorSelect').value='${name}';highlightMember(this)"
+           id="memberItem_${i}">
+        <div style="background:var(--primary);color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">${i+1}</div>
+        <div style="flex:1;font-weight:500">${name}</div>
+        <div style="font-size:11px;color:var(--gray-500)" id="memberCheck_${i}"></div>
+      </div>
+    `).join('');
+    // Reflect current selection
+    if (sel.value) {
+      const idx = members.indexOf(sel.value);
+      if (idx >= 0) highlightMemberByIndex(idx, members.length);
+    }
+  }
+}
+
+function highlightMember(el) {
+  // Remove highlight from all
+  document.querySelectorAll('[id^="memberItem_"]').forEach(item => {
+    item.style.background = 'var(--gray-50)';
+    item.style.fontWeight = '500';
+  });
+  document.querySelectorAll('[id^="memberCheck_"]').forEach(c => c.textContent = '');
+  // Highlight selected
+  el.style.background = '#e0f2fe';
+  el.style.fontWeight = '700';
+  const idx = el.id.replace('memberItem_', '');
+  const checkEl = document.getElementById(`memberCheck_${idx}`);
+  if (checkEl) checkEl.textContent = '✓ เลือกแล้ว';
+}
+
+function highlightMemberByIndex(idx, total) {
+  document.querySelectorAll('[id^="memberItem_"]').forEach(item => {
+    item.style.background = 'var(--gray-50)';
+  });
+  document.querySelectorAll('[id^="memberCheck_"]').forEach(c => c.textContent = '');
+  const el = document.getElementById(`memberItem_${idx}`);
+  if (el) {
+    el.style.background = '#e0f2fe';
+    const checkEl = document.getElementById(`memberCheck_${idx}`);
+    if (checkEl) checkEl.textContent = '✓ เลือกแล้ว';
+  }
+}
+
+function onEvaluatorChange(sel) {
+  if (!currentTeam) return;
+  const members = currentTeam === 1 ? TEAM1_MEMBERS : TEAM2_MEMBERS;
+  const idx = members.indexOf(sel.value);
+  if (idx >= 0) highlightMemberByIndex(idx, members.length);
+  else { // clear all highlights
+    document.querySelectorAll('[id^="memberItem_"]').forEach(item => item.style.background = 'var(--gray-50)');
+    document.querySelectorAll('[id^="memberCheck_"]').forEach(c => c.textContent = '');
+  }
+}
+
+
+  const sel = document.getElementById('areaSelect');
+  const areas = currentTeam === 1 ? TEAM1_AREAS : TEAM2_AREAS;
+  sel.innerHTML = '<option value="">-- เลือกพื้นที่ --</option>';
+  areas.forEach(a => {
+    const opt = document.createElement('option');
+    opt.value = a;
+    opt.textContent = a;
+    sel.appendChild(opt);
   });
 }
 
-// ===== FILE UPLOAD =====
-function handleDrag(e) {
-  e.preventDefault();
-  document.getElementById('uploadArea').classList.add('drag');
+function updateAssessInfo() {
+  const name = document.getElementById('evaluatorSelect').value || '-';
+  const date = document.getElementById('evalDate').value || '-';
+  document.getElementById('assessInfoDisplay').textContent = `ทีม ${currentTeam} | ผู้ประเมิน: ${name} | วันที่: ${date}`;
 }
-function handleDrop(e) {
-  e.preventDefault();
-  document.getElementById('uploadArea').classList.remove('drag');
-  handleFiles(e.dataTransfer.files);
+
+// ===== RENDER CRITERIA =====
+function renderCriteria() {
+  renderCat('cat1body', CAT1_CRITERIA, 'cat1', 'score-options-cat1', 8);
+  renderCat('cat2body', CAT2_CRITERIA, 'cat2', 'score-options-cat2', 5);
+  renderCat('cat3body', CAT3_CRITERIA, 'cat3', 'score-options-cat3', 5);
 }
-function handleFiles(files) {
-  Array.from(files).forEach(file => {
-    if (attachedFiles.length >= 7) {
-      alert('สามารถแนบได้สูงสุด 7 ไฟล์');
-      return;
+
+function renderCat(containerId, criteria, catKey, scoreClass, maxScore) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  criteria.forEach((c, idx) => {
+    const item = document.createElement('div');
+    item.className = 'criteria-item';
+    item.id = `${catKey}_item_${idx}`;
+
+    const bandClasses = ['band-1','band-2','band-3','band-4'];
+
+    let bandsHtml = c.bands.map((b, bi) => `
+      <div class="criteria-band ${bandClasses[bi] || 'band-3'}">
+        <div class="criteria-band-header">${b.range}</div>
+        <div class="criteria-band-desc">${b.desc}</div>
+      </div>
+    `).join('');
+
+    let scoreButtons = '';
+    for (let s = 1; s <= maxScore; s++) {
+      scoreButtons += `<button class="score-btn" data-cat="${catKey}" data-idx="${idx}" data-score="${s}" onclick="selectScore('${catKey}',${idx},${s})">${s}</button>`;
     }
-    if (file.size > 20 * 1024 * 1024) {
-      alert(`ไฟล์ "${file.name}" ขนาดใหญ่เกิน 20MB`);
-      return;
-    }
+
+    item.innerHTML = `
+      <div class="criteria-header" onclick="toggleCriteria('${catKey}_item_${idx}')">
+        <div class="criteria-num">${idx+1}</div>
+        <div class="criteria-name">${c.name}</div>
+        <div class="criteria-status" id="${catKey}_status_${idx}">ยังไม่ได้ประเมิน</div>
+        <div class="criteria-chevron">▼</div>
+      </div>
+      <div class="criteria-body">
+        <div class="criteria-grid">${bandsHtml}</div>
+        <div class="score-selector">
+          <div class="score-label">เลือกคะแนน (1-${maxScore}):</div>
+          <div class="${scoreClass}">${scoreButtons}</div>
+        </div>
+      </div>
+    `;
+    container.appendChild(item);
+  });
+}
+
+function toggleCriteria(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+
+function selectScore(catKey, idx, score) {
+  if (!scores[catKey]) scores[catKey] = {};
+  scores[catKey][idx] = score;
+
+  // Update button UI
+  const catMap = { cat1: CAT1_CRITERIA, cat2: CAT2_CRITERIA, cat3: CAT3_CRITERIA };
+  document.querySelectorAll(`[data-cat="${catKey}"][data-idx="${idx}"]`).forEach(btn => {
+    btn.classList.toggle('selected', parseInt(btn.dataset.score) === score);
+  });
+
+  // Update status & collapse
+  const statusEl = document.getElementById(`${catKey}_status_${idx}`);
+  if (statusEl) {
+    statusEl.textContent = `✓ ${score} คะแนน`;
+    statusEl.className = 'criteria-status done';
+  }
+  const itemEl = document.getElementById(`${catKey}_item_${idx}`);
+  if (itemEl) {
+    itemEl.classList.add('scored');
+    itemEl.classList.remove('open');
+  }
+
+  updateTotals();
+  saveDraft();
+}
+
+function updateTotals() {
+  const sum = (obj) => Object.values(obj).reduce((a,b)=>a+b,0);
+  const s1 = sum(scores.cat1 || {});
+  const s2 = sum(scores.cat2 || {});
+  const s3 = sum(scores.cat3 || {});
+  const total = s1 + s2 + s3;
+
+  document.getElementById('cat1total').textContent = s1;
+  document.getElementById('cat2total').textContent = s2;
+  document.getElementById('cat3total').textContent = s3;
+  document.getElementById('s1disp').textContent = s1;
+  document.getElementById('s2disp').textContent = s2;
+  document.getElementById('s3disp').textContent = s3;
+  document.getElementById('grandTotal').textContent = total;
+}
+
+// ===== IMAGE UPLOAD =====
+function handleImages(input) {
+  const files = Array.from(input.files);
+  const remaining = 7 - uploadedImages.length;
+  const toAdd = files.slice(0, remaining);
+
+  if (files.length > remaining) showToast(`สามารถแนบได้สูงสุด 7 ไฟล์ (เพิ่มได้อีก ${remaining} ไฟล์)`, 'info');
+
+  toAdd.forEach(file => {
     const reader = new FileReader();
     reader.onload = (e) => {
-      attachedFiles.push({ name: file.name, data: e.target.result, type: file.type });
-      renderFileList();
+      uploadedImages.push({ name: file.name, data: e.target.result });
+      renderImagePreview();
     };
     reader.readAsDataURL(file);
   });
-}
-function renderFileList() {
-  const list = document.getElementById('fileList');
-  list.innerHTML = '';
-  attachedFiles.forEach((f, i) => {
-    const isImg = f.type.startsWith('image/');
-    list.innerHTML += `
-    <div class="file-item">
-      ${isImg ? `<img class="file-thumb" src="${f.data}" alt="">` : `<span class="file-thumb" style="display:flex;align-items:center;justify-content:center;font-size:20px;">📄</span>`}
-      <span class="file-name">${f.name}</span>
-      <button class="file-remove" onclick="removeFile(${i})">✕</button>
-    </div>`;
-  });
-}
-function removeFile(i) {
-  attachedFiles.splice(i, 1);
-  renderFileList();
+  input.value = '';
 }
 
-// ===== VALIDATION & SAVE =====
-function saveRecord() {
-  clearAlert();
+function renderImagePreview() {
+  const preview = document.getElementById('uploadPreview');
+  preview.innerHTML = uploadedImages.map((img, i) => `
+    <div class="preview-thumb">
+      <img src="${img.data}" alt="${img.name}">
+      <button class="del" onclick="removeImage(${i})">✕</button>
+    </div>
+  `).join('');
+}
+
+function removeImage(idx) {
+  uploadedImages.splice(idx, 1);
+  renderImagePreview();
+}
+
+// ===== VALIDATION =====
+function validateForm() {
   const errors = [];
+  if (!document.getElementById('areaSelect').value) errors.push({ msg: 'กรุณาเลือกพื้นที่การประเมิน', id: 'areaSelect' });
 
-  const team = document.getElementById('selectedTeam').value;
-  if (!team) { errors.push({ msg: 'กรุณาเลือกทีมคณะกรรมการ', el: 'section-team' }); }
+  CAT1_CRITERIA.forEach((c, i) => { if (scores.cat1[i] === undefined) errors.push({ msg: `หมวด 1 ข้อ ${i+1}: ${c.name} ยังไม่ได้ประเมิน`, id: `cat1_item_${i}` }); });
+  CAT2_CRITERIA.forEach((c, i) => { if (scores.cat2[i] === undefined) errors.push({ msg: `หมวด 2 ข้อ ${i+1}: ${c.name} ยังไม่ได้ประเมิน`, id: `cat2_item_${i}` }); });
+  CAT3_CRITERIA.forEach((c, i) => { if (scores.cat3[i] === undefined) errors.push({ msg: `หมวด 3 ข้อ ${i+1}: ${c.name} ยังไม่ได้ประเมิน`, id: `cat3_item_${i}` }); });
 
-  const date = document.getElementById('evalDate').value;
-  if (!date) { errors.push({ msg: 'กรุณาระบุวันที่ประเมิน', el: 'section-info' }); }
+  return errors;
+}
 
-  const name = document.getElementById('evalName').value;
-  if (!name) { errors.push({ msg: 'กรุณาเลือกชื่อผู้ประเมิน', el: 'section-info' }); }
-
-  const area = document.getElementById('evalArea').value;
-  if (!area) { errors.push({ msg: 'กรุณาเลือกพื้นที่การตรวจ', el: 'section-info' }); }
-
-  // 5S scores
-  const ids5s = ['s5s1','s5s2','s5s3','s5s4','s5s5'];
-  const s5sNames = ['สะสาง','สะดวก','สะอาด','สุขลักษณะ','สร้างนิสัย'];
-  ids5s.forEach((id, i) => {
-    if (!document.getElementById(id).value) {
-      errors.push({ msg: `กรุณาให้คะแนน 5ส หัวข้อที่ ${i+1}: ${s5sNames[i]}`, el: 's5s-' + (i+1) });
-    }
-  });
-
-  // Safety scores
-  SAFETY_TOPICS.forEach((t, i) => {
-    if (!document.getElementById(t.id).value) {
-      errors.push({ msg: `กรุณาให้คะแนนความปลอดภัย หัวข้อที่ ${i+1}: ${t.name}`, el: t.id + '-section' });
-    }
-  });
-
-  // Innovation scores
-  INNOVATION_TOPICS.forEach((t, i) => {
-    if (!document.getElementById(t.id).value) {
-      errors.push({ msg: `กรุณาให้คะแนนนวัตกรรม หัวข้อที่ ${i+1}: ${t.name}`, el: t.id + '-section' });
-    }
-  });
+// ===== SAVE RECORD =====
+function saveRecord() {
+  updateAssessInfo();
+  const errors = validateForm();
+  const alertEl = document.getElementById('validationAlert');
 
   if (errors.length > 0) {
-    showAlert('danger', '⚠️ กรอกข้อมูลไม่ครบถ้วน:<br>' + errors.map(e => '• ' + e.msg).join('<br>'));
-    const firstEl = document.getElementById(errors[0].el);
-    if (firstEl) firstEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    alertEl.style.display = 'block';
+    alertEl.innerHTML = `<strong>กรอกข้อมูลไม่ครบถ้วน:</strong><br>${errors.map(e=>`• ${e.msg}`).join('<br>')}`;
+    // Scroll to first error
+    const firstErr = document.getElementById(errors[0].id);
+    if (firstErr) {
+      firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (firstErr.classList.contains('criteria-item')) firstErr.classList.add('open');
+    }
     return;
   }
+  alertEl.style.display = 'none';
 
-  const ids5s2 = ['s5s1','s5s2','s5s3','s5s4','s5s5'];
+  const records = getRecords();
+  const sum = (obj) => Object.values(obj).reduce((a,b)=>a+b,0);
+
   const record = {
-    id: editingId || Date.now().toString(),
-    team: parseInt(team),
-    date,
-    evaluator: name,
-    area,
-    scores5s: ids5s2.reduce((o, id) => { o[id] = parseInt(document.getElementById(id).value); return o; }, {}),
-    scoresSafety: SAFETY_TOPICS.reduce((o, t) => { o[t.id] = parseInt(document.getElementById(t.id).value); return o; }, {}),
-    scoresInnovation: INNOVATION_TOPICS.reduce((o, t) => { o[t.id] = parseInt(document.getElementById(t.id).value); return o; }, {}),
-    notes: document.getElementById('evalNotes').value,
-    files: attachedFiles.map(f => ({ name: f.name, data: f.data, type: f.type })),
-    createdAt: editingId ? (records.find(r => r.id === editingId)?.createdAt || new Date().toISOString()) : new Date().toISOString()
+    id: editingId || 'rec_' + Date.now(),
+    timestamp: new Date().toISOString(),
+    team: currentTeam,
+    evaluator: document.getElementById('evaluatorSelect').value,
+    date: document.getElementById('evalDate').value,
+    area: document.getElementById('areaSelect').value,
+    scores: JSON.parse(JSON.stringify(scores)),
+    cat1Total: sum(scores.cat1),
+    cat2Total: sum(scores.cat2),
+    cat3Total: sum(scores.cat3),
+    grandTotal: sum(scores.cat1) + sum(scores.cat2) + sum(scores.cat3),
+    note: document.getElementById('extraNote').value,
+    images: uploadedImages.map(i => ({ name: i.name, data: i.data }))
   };
 
-  record.total5s = Object.values(record.scores5s).reduce((a, b) => a + b, 0);
-  record.totalSafety = Object.values(record.scoresSafety).reduce((a, b) => a + b, 0);
-  record.totalInnovation = Object.values(record.scoresInnovation).reduce((a, b) => a + b, 0);
-  record.grandTotal = record.total5s + record.totalSafety + record.totalInnovation;
+  const idx = records.findIndex(r => r.id === record.id);
+  if (idx >= 0) records[idx] = record;
+  else records.push(record);
 
-  if (editingId) {
-    const idx = records.findIndex(r => r.id === editingId);
-    if (idx !== -1) records[idx] = record;
-    editingId = null;
-  } else {
-    records.unshift(record);
-  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+  clearDraft();
 
-  localStorage.setItem('evalRecords', JSON.stringify(records));
-  showAlert('success', '✅ บันทึกข้อมูลเรียบร้อยแล้ว!');
-  resetForm();
-  renderRecords();
-  setTimeout(() => showView('records'), 1200);
-}
-
-function resetForm() {
+  document.getElementById('recordIdDisplay').textContent = `ID: ${record.id}`;
+  showToast(editingId ? 'แก้ไขข้อมูลสำเร็จ' : 'บันทึกข้อมูลสำเร็จ', 'success');
   editingId = null;
-  document.getElementById('selectedTeam').value = '';
-  document.getElementById('team1-card').classList.remove('selected');
-  document.getElementById('team2-card').classList.remove('selected');
-  document.getElementById('evalName').innerHTML = '<option value="">-- กรุณาเลือกทีมก่อน --</option>';
-  document.getElementById('evalArea').innerHTML = '<option value="">-- กรุณาเลือกทีมก่อน --</option>';
+  renderList();
+  renderReport();
+  showPage('list');
+}
 
-  const today = new Date();
-  document.getElementById('evalDate').value = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+// ===== LOCAL STORAGE =====
+function getRecords() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch(e) { return []; }
+}
 
-  ['s5s1','s5s2','s5s3','s5s4','s5s5'].forEach(id => {
-    document.getElementById(id).value = '';
-    const cont = document.getElementById(id + '-btns');
-    if (cont) Array.from(cont.children).forEach(b => b.className = 'score-btn');
+// ===== AUTO SAVE =====
+function startAutoSave() {
+  autoSaveTimer = setInterval(saveDraft, 30000);
+}
+
+function saveDraft() {
+  if (!document.getElementById('areaSelect').value && Object.keys(scores.cat1).length === 0) return;
+  const draft = {
+    ts: new Date().toISOString(),
+    area: document.getElementById('areaSelect').value,
+    scores: JSON.parse(JSON.stringify(scores)),
+    note: document.getElementById('extraNote').value,
+    editingId
+  };
+  localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  const t = new Date();
+  document.getElementById('autosaveText').textContent = `บันทึกอัตโนมัติล่าสุด: ${t.getHours().toString().padStart(2,'0')}:${t.getMinutes().toString().padStart(2,'0')} น.`;
+}
+
+function loadDraft() {
+  try {
+    const d = localStorage.getItem(DRAFT_KEY);
+    if (!d) return;
+    const draft = JSON.parse(d);
+    scores = draft.scores || { cat1:{}, cat2:{}, cat3:{} };
+    if (draft.note) document.getElementById('extraNote').value = draft.note;
+    if (draft.editingId) editingId = draft.editingId;
+
+    // Restore score UI
+    Object.entries(scores.cat1 || {}).forEach(([i,s]) => restoreScore('cat1', i, s));
+    Object.entries(scores.cat2 || {}).forEach(([i,s]) => restoreScore('cat2', i, s));
+    Object.entries(scores.cat3 || {}).forEach(([i,s]) => restoreScore('cat3', i, s));
+    updateTotals();
+
+    const ts = new Date(draft.ts);
+    document.getElementById('autosaveText').textContent = `กู้คืนร่างล่าสุด: ${ts.getHours().toString().padStart(2,'0')}:${ts.getMinutes().toString().padStart(2,'0')} น.`;
+  } catch(e) {}
+}
+
+function restoreScore(catKey, idx, score) {
+  document.querySelectorAll(`[data-cat="${catKey}"][data-idx="${idx}"]`).forEach(btn => {
+    btn.classList.toggle('selected', parseInt(btn.dataset.score) === score);
   });
-  SAFETY_TOPICS.concat(INNOVATION_TOPICS).forEach(t => {
-    document.getElementById(t.id).value = '';
-    const cont = document.getElementById(t.id + '-btns');
-    if (cont) Array.from(cont.children).forEach(b => b.className = 'score-btn');
-  });
-  document.getElementById('evalNotes').value = '';
-  attachedFiles = [];
-  renderFileList();
+  const statusEl = document.getElementById(`${catKey}_status_${idx}`);
+  if (statusEl) { statusEl.textContent = `✓ ${score} คะแนน`; statusEl.className = 'criteria-status done'; }
+  const itemEl = document.getElementById(`${catKey}_item_${idx}`);
+  if (itemEl) itemEl.classList.add('scored');
+}
+
+function clearDraft() {
+  localStorage.removeItem(DRAFT_KEY);
+}
+
+// ===== RESET FORM =====
+function newAssessment() {
+  editingId = null;
+  scores = { cat1: {}, cat2: {}, cat3: {} };
+  uploadedImages = [];
+  document.getElementById('areaSelect').value = '';
+  document.getElementById('extraNote').value = '';
+  document.getElementById('uploadPreview').innerHTML = '';
+  document.getElementById('recordIdDisplay').textContent = '';
+  document.getElementById('validationAlert').style.display = 'none';
+  renderCriteria();
   updateTotals();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  clearDraft();
+  if (currentTeam) populateAreaDropdown();
+  showPage('assess');
+  window.scrollTo(0, 0);
 }
 
-function clearAlert() {
-  const box = document.getElementById('alertBox');
-  box.classList.add('hidden');
-  box.innerHTML = '';
-}
-function showAlert(type, msg) {
-  const box = document.getElementById('alertBox');
-  box.className = `alert alert-${type}`;
-  box.innerHTML = msg;
-  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
+// ===== RENDER LIST =====
+function renderList() {
+  const records = getRecords();
+  const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  const filtered = records.filter(r =>
+    r.area.toLowerCase().includes(search) ||
+    r.evaluator.toLowerCase().includes(search)
+  ).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-// ===== RECORDS =====
-function renderRecords(filter) {
-  const list = document.getElementById('recordsList');
-  let data = records;
+  const count = document.getElementById('listCount');
+  if (count) count.textContent = `พบ ${filtered.length} รายการ (ทั้งหมด ${records.length} รายการ)`;
 
-  const areaQ = (document.getElementById('searchArea')?.value || '').toLowerCase();
-  const evalQ = (document.getElementById('searchEvaluator')?.value || '').toLowerCase();
+  const container = document.getElementById('listContainer');
+  if (!container) return;
 
-  if (areaQ) data = data.filter(r => r.area.toLowerCase().includes(areaQ));
-  if (evalQ) data = data.filter(r => r.evaluator.toLowerCase().includes(evalQ));
-
-  if (data.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="e-icon">📋</div><p>ยังไม่มีรายการ หรือไม่พบข้อมูลที่ค้นหา</p></div>`;
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="icon">📂</div><p>ยังไม่มีรายการประเมิน<br>กดปุ่ม "ประเมินใหม่" เพื่อเริ่มต้น</p></div>`;
     return;
   }
 
-  list.innerHTML = data.map(r => `
-  <div class="record-item">
-    <div class="record-meta">
-      <span class="record-tag team">ทีม ${r.team}</span>
-      <span class="record-tag">📅 ${r.date}</span>
-      <span class="record-tag">👤 ${r.evaluator}</span>
+  container.innerHTML = filtered.map(r => `
+    <div class="record-card">
+      <div class="rc-title">📍 ${r.area}</div>
+      <div class="rc-meta">ทีม ${r.team} | ${r.evaluator} | ${formatDate(r.date)} | บันทึก: ${formatDateTime(r.timestamp)}</div>
+      <div class="rc-scores">
+        <span class="score-pill pill-blue">5ส: ${r.cat1Total}/40</span>
+        <span class="score-pill pill-yellow">ปลอดภัย: ${r.cat2Total}/40</span>
+        <span class="score-pill pill-green">นวัตกรรม: ${r.cat3Total}/20</span>
+        <span class="score-pill pill-gray">รวม: ${r.grandTotal}/100</span>
+      </div>
+      <div class="rc-actions">
+        <button class="btn btn-outline btn-sm" onclick="viewRecord('${r.id}')">👁️ ดูข้อมูล</button>
+        <button class="btn btn-warning btn-sm" onclick="editRecord('${r.id}')">✏️ แก้ไข</button>
+        <button class="btn btn-danger btn-sm" onclick="promptDelete('${r.id}')">🗑️ ลบ</button>
+      </div>
     </div>
-    <div style="font-weight:700;font-size:14px;margin-bottom:4px;">${r.area}</div>
-    <div class="record-scores">
-      <span>5ส: ${r.total5s}/40</span>
-      <span>ความปลอดภัย: ${r.totalSafety}/40</span>
-      <span>นวัตกรรม: ${r.totalInnovation}/20</span>
-      <span style="color:var(--accent2);font-size:15px;">รวม: ${r.grandTotal}/100</span>
-    </div>
-    <div class="record-actions">
-      <button class="btn btn-ghost btn-sm" onclick="viewRecord('${r.id}')">👁 ดูข้อมูล</button>
-      <button class="btn btn-primary btn-sm" onclick="editRecord('${r.id}')">✏️ แก้ไข</button>
-      <button class="btn btn-danger btn-sm" onclick="deleteRecord('${r.id}')">🗑 ลบ</button>
-    </div>
-  </div>`).join('');
+  `).join('');
 }
 
-function filterRecords() { renderRecords(); }
-
-function deleteRecord(id) {
-  if (!confirm('ต้องการลบรายการนี้ใช่หรือไม่?')) return;
-  records = records.filter(r => r.id !== id);
-  localStorage.setItem('evalRecords', JSON.stringify(records));
-  renderRecords();
-}
-
+// ===== VIEW RECORD =====
 function viewRecord(id) {
+  const records = getRecords();
   const r = records.find(x => x.id === id);
   if (!r) return;
-  const s5sNames = ['สะสาง','สะดวก','สะอาด','สุขลักษณะ','สร้างนิสัย'];
 
-  let filesHtml = '';
-  if (r.files && r.files.length > 0) {
-    filesHtml = '<div class="detail-images">';
-    r.files.forEach(f => {
-      if (f.type?.startsWith('image/')) {
-        filesHtml += `<img src="${f.data}" alt="${f.name}" onclick="window.open(this.src)">`;
-      } else {
-        filesHtml += `<div style="width:80px;height:80px;background:#f0f7ff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:24px;border:1px solid var(--border)">📄</div>`;
-      }
-    });
-    filesHtml += '</div>';
-  } else {
-    filesHtml = '<p style="font-size:13px;color:var(--text-muted)">ไม่มีไฟล์แนบ</p>';
+  const catNames = (criteria, scores, maxPer) => criteria.map((c,i) => `
+    <div class="criteria-result-row">
+      <div class="cr-name">${c.name}</div>
+      <div class="cr-score">${scores[i] || '-'}/${maxPer}</div>
+    </div>
+  `).join('');
+
+  const imgsHtml = r.images && r.images.length > 0
+    ? `<div class="upload-preview mt-8">${r.images.map(img=>`<div class="preview-thumb"><img src="${img.data}" alt="${img.name}"></div>`).join('')}</div>`
+    : '<p class="text-sm">ไม่มีรูปภาพ</p>';
+
+  document.getElementById('viewModalBody').innerHTML = `
+    <div class="view-header">
+      <h2>📍 ${r.area}</h2>
+      <div class="view-meta">
+        <div class="view-meta-item"><div class="lbl">ทีม</div><div class="val">ทีม ${r.team}</div></div>
+        <div class="view-meta-item"><div class="lbl">ผู้ประเมิน</div><div class="val">${r.evaluator}</div></div>
+        <div class="view-meta-item"><div class="lbl">วันที่</div><div class="val">${formatDate(r.date)}</div></div>
+        <div class="view-meta-item"><div class="lbl">คะแนนรวม</div><div class="val">${r.grandTotal}/100</div></div>
+      </div>
+    </div>
+
+    <div class="card" style="background:var(--cat1-bg);margin-bottom:12px">
+      <div class="card-title">📋 หมวด 1: 5ส (${r.cat1Total}/40)</div>
+      ${catNames(CAT1_CRITERIA, r.scores.cat1, 8)}
+    </div>
+
+    <div class="card" style="background:var(--cat2-bg);margin-bottom:12px">
+      <div class="card-title">🛡️ หมวด 2: ความปลอดภัย (${r.cat2Total}/40)</div>
+      ${catNames(CAT2_CRITERIA, r.scores.cat2, 5)}
+    </div>
+
+    <div class="card" style="background:var(--cat3-bg);margin-bottom:12px">
+      <div class="card-title">💡 หมวด 3: นวัตกรรม (${r.cat3Total}/20)</div>
+      ${catNames(CAT3_CRITERIA, r.scores.cat3, 5)}
+    </div>
+
+    ${r.note ? `<div class="card"><div class="card-title">📝 บันทึกเพิ่มเติม</div><p style="font-size:13px">${r.note}</p></div>` : ''}
+
+    <div class="card"><div class="card-title">📷 รูปภาพ</div>${imgsHtml}</div>
+  `;
+  document.getElementById('viewModal').classList.add('open');
+}
+
+// ===== EDIT RECORD =====
+function editRecord(id) {
+  const records = getRecords();
+  const r = records.find(x => x.id === id);
+  if (!r) return;
+
+  editingId = id;
+  currentTeam = r.team;
+  selectTeam(r.team, true);
+  // Restore evaluator in dropdown after it's populated
+  document.getElementById('evaluatorSelect').value = r.evaluator;
+  document.getElementById('evalDate').value = r.date;
+  populateAreaDropdown();
+  document.getElementById('areaSelect').value = r.area;
+  scores = JSON.parse(JSON.stringify(r.scores));
+  document.getElementById('extraNote').value = r.note || '';
+  uploadedImages = r.images ? [...r.images] : [];
+  renderImagePreview();
+  renderCriteria();
+
+  Object.entries(scores.cat1 || {}).forEach(([i,s]) => restoreScore('cat1', i, s));
+  Object.entries(scores.cat2 || {}).forEach(([i,s]) => restoreScore('cat2', i, s));
+  Object.entries(scores.cat3 || {}).forEach(([i,s]) => restoreScore('cat3', i, s));
+  updateTotals();
+  updateAssessInfo();
+
+  showPage('assess');
+  window.scrollTo(0, 0);
+  showToast('โหลดข้อมูลเพื่อแก้ไขสำเร็จ', 'info');
+}
+
+// ===== DELETE =====
+function promptDelete(id) {
+  deleteTargetId = id;
+  document.getElementById('deleteModal').classList.add('open');
+}
+
+function confirmDelete() {
+  let records = getRecords();
+  records = records.filter(r => r.id !== deleteTargetId);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+  closeModal('deleteModal');
+  renderList();
+  renderReport();
+  showToast('ลบข้อมูลสำเร็จ', 'success');
+  deleteTargetId = null;
+}
+
+// ===== REPORT =====
+function renderReport() {
+  const records = getRecords().sort((a,b) => new Date(b.timestamp)-new Date(a.timestamp));
+  const container = document.getElementById('reportContainer');
+  if (!container) return;
+
+  if (records.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="icon">📊</div><p>ยังไม่มีข้อมูลการประเมิน</p></div>`;
+    return;
   }
 
-  document.getElementById('modalTitle').textContent = `รายละเอียดการประเมิน – ${r.area}`;
-  document.getElementById('modalBody').innerHTML = `
-  <div class="detail-section">
-    <h4>ข้อมูลทั่วไป</h4>
-    <div class="detail-row"><span class="d-label">ทีม:</span><span class="d-val">ทีมที่ ${r.team}</span></div>
-    <div class="detail-row"><span class="d-label">วันที่:</span><span class="d-val">${r.date}</span></div>
-    <div class="detail-row"><span class="d-label">ผู้ประเมิน:</span><span class="d-val">${r.evaluator}</span></div>
-    <div class="detail-row"><span class="d-label">พื้นที่:</span><span class="d-val">${r.area}</span></div>
-  </div>
-  <div class="detail-section">
-    <h4>หมวดที่ 1: การปรับปรุงตามมาตรฐาน 5ส (รวม ${r.total5s}/40)</h4>
-    ${['s5s1','s5s2','s5s3','s5s4','s5s5'].map((id,i) => `
-    <div class="detail-score-item">
-      <span>${i+1}. ${s5sNames[i]}</span>
-      <span class="d-score">${r.scores5s[id]} คะแนน</span>
-    </div>`).join('')}
-  </div>
-  <div class="detail-section">
-    <h4>หมวดที่ 2: ความปลอดภัยขั้นพื้นฐาน (รวม ${r.totalSafety}/40)</h4>
-    ${SAFETY_TOPICS.map((t,i) => `
-    <div class="detail-score-item">
-      <span>${i+1}. ${t.name}</span>
-      <span class="d-score">${r.scoresSafety[t.id]} คะแนน</span>
-    </div>`).join('')}
-  </div>
-  <div class="detail-section">
-    <h4>หมวดที่ 3: นวัตกรรมและความคิดสร้างสรรค์ (รวม ${r.totalInnovation}/20)</h4>
-    ${INNOVATION_TOPICS.map((t,i) => `
-    <div class="detail-score-item">
-      <span>${i+1}. ${t.name}</span>
-      <span class="d-score">${r.scoresInnovation[t.id]} คะแนน</span>
-    </div>`).join('')}
-  </div>
-  <div class="total-summary" style="margin:0 0 16px;">
-    <h3>คะแนนรวมทั้งหมด</h3>
-    <div class="total-score">${r.grandTotal}</div>
-    <div class="total-max">จาก 100 คะแนน</div>
-  </div>
-  <div class="detail-section">
-    <h4>บันทึกเพิ่มเติม</h4>
-    <p style="font-size:13px;line-height:1.7;">${r.notes || '-'}</p>
-  </div>
-  <div class="detail-section">
-    <h4>รูปประกอบ</h4>
-    ${filesHtml}
-  </div>`;
+  container.innerHTML = records.map((r, ri) => `
+    <div class="card ${ri > 0 ? 'report-page-break' : ''}" style="margin-bottom:20px">
+      <div style="background:var(--primary);color:white;border-radius:10px;padding:16px;margin-bottom:16px">
+        <div style="font-family:var(--font-display);font-size:16px;font-weight:700">📍 ${r.area}</div>
+        <div style="font-size:12px;opacity:0.8;margin-top:4px">ทีม ${r.team} | ${r.evaluator} | ${formatDate(r.date)}</div>
+        <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+          <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:8px 16px;text-align:center">
+            <div style="font-size:20px;font-weight:800">${r.cat1Total}</div><div style="font-size:11px">5ส /40</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:8px 16px;text-align:center">
+            <div style="font-size:20px;font-weight:800">${r.cat2Total}</div><div style="font-size:11px">ปลอดภัย /40</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:8px 16px;text-align:center">
+            <div style="font-size:20px;font-weight:800">${r.cat3Total}</div><div style="font-size:11px">นวัตกรรม /20</div>
+          </div>
+          <div style="background:rgba(255,165,0,0.5);border-radius:8px;padding:8px 16px;text-align:center">
+            <div style="font-size:24px;font-weight:800">${r.grandTotal}</div><div style="font-size:11px">รวม /100</div>
+          </div>
+        </div>
+      </div>
 
-  document.getElementById('modalOverlay').classList.remove('hidden');
+      <div style="background:var(--cat1-bg);border-radius:10px;padding:14px;margin-bottom:12px">
+        <div style="font-weight:700;font-size:13px;color:#1e3a5f;margin-bottom:10px">📋 หมวด 1: การปรับปรุงตามมาตรฐาน 5ส</div>
+        ${CAT1_CRITERIA.map((c,i)=>`
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:12px">
+            <span>${c.name}</span><strong>${r.scores.cat1[i]||0}/8</strong>
+          </div>`).join('')}
+      </div>
+
+      <div style="background:var(--cat2-bg);border-radius:10px;padding:14px;margin-bottom:12px">
+        <div style="font-weight:700;font-size:13px;color:#713f12;margin-bottom:10px">🛡️ หมวด 2: ความปลอดภัยขั้นพื้นฐาน</div>
+        ${CAT2_CRITERIA.map((c,i)=>`
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:12px">
+            <span>${c.name}</span><strong>${r.scores.cat2[i]||0}/5</strong>
+          </div>`).join('')}
+      </div>
+
+      <div style="background:var(--cat3-bg);border-radius:10px;padding:14px;margin-bottom:12px">
+        <div style="font-weight:700;font-size:13px;color:#14532d;margin-bottom:10px">💡 หมวด 3: นวัตกรรมและความคิดสร้างสรรค์</div>
+        ${CAT3_CRITERIA.map((c,i)=>`
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:12px">
+            <span>${c.name}</span><strong>${r.scores.cat3[i]||0}/5</strong>
+          </div>`).join('')}
+      </div>
+
+      ${r.note ? `<div style="background:var(--gray-50);border-radius:8px;padding:12px;font-size:12px;margin-bottom:12px"><strong>📝 บันทึกเพิ่มเติม:</strong><br>${r.note}</div>` : ''}
+
+      ${r.images && r.images.length > 0 ? `
+        <div style="margin-bottom:8px;font-weight:600;font-size:12px">📷 รูปภาพ (${r.images.length} ไฟล์)</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px">
+          ${r.images.map(img=>`<img src="${img.data}" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px">`).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `).join('');
 }
 
-function editRecord(id) {
-  const r = records.find(x => x.id === id);
-  if (!r) return;
-  closeModal();
-  showView('form');
-  editingId = id;
-
-  setTimeout(() => {
-    selectTeam(r.team);
-    setTimeout(() => {
-      document.getElementById('evalDate').value = r.date;
-      document.getElementById('evalName').value = r.evaluator;
-      document.getElementById('evalArea').value = r.area;
-      document.getElementById('evalNotes').value = r.notes || '';
-
-      ['s5s1','s5s2','s5s3','s5s4','s5s5'].forEach(id => {
-        setScore(id, r.scores5s[id], 8);
-      });
-      SAFETY_TOPICS.forEach(t => setScore(t.id, r.scoresSafety[t.id], 5));
-      INNOVATION_TOPICS.forEach(t => setScore(t.id, r.scoresInnovation[t.id], 5));
-
-      attachedFiles = r.files ? [...r.files] : [];
-      renderFileList();
-    }, 100);
-  }, 100);
-}
-
-function closeModal() { document.getElementById('modalOverlay').classList.add('hidden'); }
-function closeModalIfBg(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
-
-// ===== VIEWS =====
-function showView(v) {
-  document.getElementById('view-form').classList.toggle('hidden', v !== 'form');
-  document.getElementById('view-records').classList.toggle('hidden', v !== 'records');
-  document.querySelectorAll('.nav-btn').forEach((b, i) => {
-    b.classList.toggle('active', (i === 0 && v === 'form') || (i === 1 && v === 'records'));
-  });
-  if (v === 'records') renderRecords();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ===== EXPORT EXCEL =====
+// ===== EXCEL EXPORT =====
 function exportExcel() {
-  if (records.length === 0) { alert('ไม่มีข้อมูลสำหรับส่งออก'); return; }
-  const s5sNames = ['สะสาง','สะดวก','สะอาด','สุขลักษณะ','สร้างนิสัย'];
+  const records = getRecords();
+  if (records.length === 0) { showToast('ไม่มีข้อมูลสำหรับส่งออก', 'info'); return; }
 
-  let csv = '\uFEFF'; // BOM for Thai support
-  const headers = ['ลำดับ','ทีม','วันที่','ผู้ประเมิน','พื้นที่',
-    ...s5sNames.map(n => '5ส-'+n),
-    'รวม5ส(40)',
-    ...SAFETY_TOPICS.map(t => 'ความปลอดภัย-'+t.name),
-    'รวมความปลอดภัย(40)',
-    ...INNOVATION_TOPICS.map(t => 'นวัตกรรม-'+t.name),
-    'รวมนวัตกรรม(20)',
-    'คะแนนรวม(100)',
-    'บันทึกเพิ่มเติม'
-  ];
+  let csv = '\uFEFF'; // BOM for Thai
+  const headers = ['ลำดับ','ID','ทีม','ผู้ประเมิน','วันที่','พื้นที่'];
+  CAT1_CRITERIA.forEach((c,i) => headers.push(`5ส_${i+1}`));
+  CAT2_CRITERIA.forEach((c,i) => headers.push(`ปลอดภัย_${i+1}`));
+  CAT3_CRITERIA.forEach((c,i) => headers.push(`นวัตกรรม_${i+1}`));
+  headers.push('คะแนน5ส','คะแนนปลอดภัย','คะแนนนวัตกรรม','คะแนนรวม','บันทึก');
   csv += headers.join(',') + '\n';
 
-  records.forEach((r, i) => {
+  records.forEach((r,i) => {
     const row = [
-      i+1, `ทีม ${r.team}`, r.date, r.evaluator, `"${r.area}"`,
-      ...['s5s1','s5s2','s5s3','s5s4','s5s5'].map(id => r.scores5s[id]),
-      r.total5s,
-      ...SAFETY_TOPICS.map(t => r.scoresSafety[t.id]),
-      r.totalSafety,
-      ...INNOVATION_TOPICS.map(t => r.scoresInnovation[t.id]),
-      r.totalInnovation,
-      r.grandTotal,
-      `"${(r.notes||'').replace(/"/g,'""')}"`
+      i+1, r.id, `ทีม ${r.team}`, r.evaluator, r.date,
+      `"${r.area.replace(/"/g,'""')}"`
     ];
+    CAT1_CRITERIA.forEach((_,ci) => row.push(r.scores.cat1[ci]||0));
+    CAT2_CRITERIA.forEach((_,ci) => row.push(r.scores.cat2[ci]||0));
+    CAT3_CRITERIA.forEach((_,ci) => row.push(r.scores.cat3[ci]||0));
+    row.push(r.cat1Total, r.cat2Total, r.cat3Total, r.grandTotal);
+    row.push(`"${(r.note||'').replace(/"/g,'""')}"`);
     csv += row.join(',') + '\n';
   });
 
@@ -1341,92 +1587,60 @@ function exportExcel() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `evaluation_results_${new Date().toISOString().slice(0,10)}.csv`;
+  a.download = `SmartSafety_Assessment_${new Date().toISOString().split('T')[0]}.csv`;
   a.click();
   URL.revokeObjectURL(url);
+  showToast('ส่งออกข้อมูล Excel สำเร็จ', 'success');
 }
 
-// ===== EXPORT REPORT =====
-function exportReport() {
-  if (records.length === 0) { alert('ไม่มีข้อมูลสำหรับสรุปรายงาน'); return; }
-  const s5sNames = ['สะสาง (Seiri)','สะดวก (Seiton)','สะอาด (Seiso)','สุขลักษณะ (Seiketsu)','สร้างนิสัย (Shitsuke)'];
-
-  let html = `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8">
-<title>สรุปรายงานผลการประเมิน Smart & Safety Workplace 2026</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap');
-  body { font-family: 'Sarabun', sans-serif; font-size: 14px; color: #1e293b; margin: 0; }
-  .page { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 15mm 18mm; page-break-after: always; box-sizing: border-box; }
-  h1 { font-size: 18px; color: #0f4c81; margin: 0 0 4px; }
-  h2 { font-size: 15px; color: #0f4c81; margin: 12px 0 6px; border-bottom: 2px solid #0f4c81; padding-bottom: 4px; }
-  .meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 8px 0 12px; font-size: 13px; }
-  .meta span { background: #f0f7ff; padding: 3px 10px; border-radius: 20px; }
-  table { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 12px; }
-  th { background: #0f4c81; color: #fff; padding: 5px 8px; text-align: left; }
-  td { padding: 5px 8px; border-bottom: 1px solid #e2e8f0; }
-  tr:nth-child(even) td { background: #f8fafc; }
-  .total-box { background: #0f4c81; color: #fff; border-radius: 8px; padding: 12px 16px; text-align: center; margin: 10px 0; }
-  .total-box .big { font-size: 32px; font-weight: 800; }
-  .notes-box { background: #f8fafc; border-left: 3px solid #0f4c81; padding: 8px 12px; border-radius: 4px; font-size: 13px; }
-  .images-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-  .images-row img { width: 100px; height: 100px; object-fit: cover; border-radius: 4px; border: 1px solid #e2e8f0; }
-  @media print { body { -webkit-print-color-adjust: exact; } }
-</style></head><body>`;
-
-  records.forEach((r, idx) => {
-    html += `<div class="page">
-    <h1>📊 สรุปรายงานผลการประเมิน</h1>
-    <p style="font-size:12px;color:#64748b;margin:0 0 8px;">Smart & Safety Workplace 2026 | รายการที่ ${idx+1}</p>
-    <div class="meta">
-      <span>ทีมที่ ${r.team}</span>
-      <span>📅 ${r.date}</span>
-      <span>👤 ${r.evaluator}</span>
-      <span>📍 ${r.area}</span>
-    </div>
-
-    <h2>หมวดที่ 1: การปรับปรุงตามมาตรฐาน 5ส</h2>
-    <table><thead><tr><th>หัวข้อ</th><th>คะแนนที่ได้</th><th>คะแนนเต็ม</th></tr></thead><tbody>
-    ${['s5s1','s5s2','s5s3','s5s4','s5s5'].map((id,i) => `
-    <tr><td>${s5sNames[i]}</td><td>${r.scores5s[id]}</td><td>8</td></tr>`).join('')}
-    <tr style="font-weight:700;background:#dbeafe !important"><td>รวม</td><td>${r.total5s}</td><td>40</td></tr>
-    </tbody></table>
-
-    <h2>หมวดที่ 2: ความปลอดภัยขั้นพื้นฐาน</h2>
-    <table><thead><tr><th>หัวข้อ</th><th>คะแนนที่ได้</th><th>คะแนนเต็ม</th></tr></thead><tbody>
-    ${SAFETY_TOPICS.map((t,i) => `
-    <tr><td>${i+1}. ${t.name}</td><td>${r.scoresSafety[t.id]}</td><td>5</td></tr>`).join('')}
-    <tr style="font-weight:700;background:#dbeafe !important"><td>รวม</td><td>${r.totalSafety}</td><td>40</td></tr>
-    </tbody></table>
-
-    <h2>หมวดที่ 3: นวัตกรรมและความคิดสร้างสรรค์</h2>
-    <table><thead><tr><th>หัวข้อ</th><th>คะแนนที่ได้</th><th>คะแนนเต็ม</th></tr></thead><tbody>
-    ${INNOVATION_TOPICS.map((t,i) => `
-    <tr><td>${i+1}. ${t.name}</td><td>${r.scoresInnovation[t.id]}</td><td>5</td></tr>`).join('')}
-    <tr style="font-weight:700;background:#dbeafe !important"><td>รวม</td><td>${r.totalInnovation}</td><td>20</td></tr>
-    </tbody></table>
-
-    <div class="total-box">
-      <div>คะแนนรวมทั้งหมด</div>
-      <div class="big">${r.grandTotal} <span style="font-size:18px;opacity:.8">/ 100</span></div>
-    </div>
-
-    ${r.notes ? `<h2>บันทึกเพิ่มเติม</h2><div class="notes-box">${r.notes}</div>` : ''}
-
-    ${r.files && r.files.length > 0 ? `
-    <h2>รูปประกอบ</h2>
-    <div class="images-row">
-      ${r.files.filter(f => f.type?.startsWith('image/')).map(f => `<img src="${f.data}" alt="${f.name}">`).join('')}
-    </div>` : ''}
-    </div>`;
+// ===== NAVIGATION =====
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-'+name)?.classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    if (t.textContent.includes(pageLabel(name))) t.classList.add('active');
   });
-
-  html += '</body></html>';
-
-  const w = window.open('', '_blank');
-  w.document.write(html);
-  w.document.close();
-  setTimeout(() => w.print(), 800);
+  if (name === 'assess' && currentTeam) { populateAreaDropdown(); updateAssessInfo(); }
+  if (name === 'list') renderList();
+  if (name === 'report') renderReport();
 }
+
+function pageLabel(n) { return {setup:'ตั้งค่า',assess:'ประเมิน',list:'รายการ',report:'รายงาน'}[n]||''; }
+
+// ===== MODAL =====
+function closeModal(id) { document.getElementById(id)?.classList.remove('open'); }
+
+// ===== TOAST =====
+function showToast(msg, type='info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => { toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(()=>toast.remove(),300); }, 2800);
+}
+
+// ===== UTILS =====
+function formatDate(d) {
+  if (!d) return '-';
+  const [y,m,day] = d.split('-');
+  const months = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  return `${parseInt(day)} ${months[parseInt(m)-1]} ${parseInt(y)+543}`;
+}
+
+function formatDateTime(ts) {
+  if (!ts) return '-';
+  const d = new Date(ts);
+  return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()+543} ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+});
 </script>
 </body>
 </html>
